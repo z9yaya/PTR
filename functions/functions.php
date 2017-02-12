@@ -3,7 +3,12 @@
 ///function used to connect to create a new connection object to connect to the database
 function connect()
     {
-        $conn = oci_connect('PTR', 'ptr', 'localhost/PTR');
+        $DB = 'localhost:1521/xe';
+        $DB_USER = 'ptr';
+        $DB_PASS = 'ptr';
+        $DB_CHAR = 'AL32UTF8';
+
+        $conn = oci_connect($DB_USER, $DB_PASS, $DB, $DB_CHAR);
         if (!$conn) 
         {
             $e = oci_error();
