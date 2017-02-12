@@ -3,7 +3,7 @@
 ///function used to connect to create a new connection object to connect to the database
 function connect()
     {
-        $conn = oci_connect('SYSTEM', 'Password123', '192.168.0.132:1521/PTR');
+        $conn = oci_connect('PTR', 'ptr', 'localhost/PTR');
         if (!$conn) 
         {
             $e = oci_error();
