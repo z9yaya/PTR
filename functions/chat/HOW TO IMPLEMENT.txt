@@ -1,0 +1,21 @@
+add this below before closing body tag </body>:
+<?php if (session_id() == '')
+            {
+                session_start();
+            }
+            if(isset($_SESSION['position']) && $_SESSION['position'] != 'customer')
+            {
+                echo '<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+                        <meta http-equiv="Pragma" content="no-cache" />
+                        <meta http-equiv="Expires" content="0" />
+                        <script type="text/javascript" src="../functions/chat/scriptPages.js"></script>';
+            }?>
+
+Add this above the <footer> tag:
+<?php AddChat();?>
+
+PS: Must have:
+<?php 
+include '../functions/functions.php';
+?>
+ANYWHERE BEFORE <footer>

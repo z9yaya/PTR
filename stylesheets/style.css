@@ -1,0 +1,185 @@
+@import url(messages.css);
+html
+{
+	height: 100%;
+	width: 100%;
+    min-height: 403px;
+}
+
+body
+{
+	min-height: 100%;
+	min-width: 100%;
+	margin: 0;
+    
+}
+
+.header
+{
+	font-family: Calibri;
+	font-size: 18px;
+    -webkit-user-select: none;
+    cursor: default;
+
+}
+
+.header a
+{
+	cursor: default;
+}
+
+
+.side_menu{
+	width: 48px;
+    min-height: 355px;
+	height: calc(100% - 48px);
+	top:48px;
+	display: block;
+	position: fixed;
+	background-color: #2b2b2b;
+    transition: width 0.04s linear;
+    z-index: 99;
+}
+
+@media screen and (max-height: 403px)
+{
+   
+     .side_menu
+    {
+       position: absolute;
+    }
+}
+
+.side_menu_container
+{
+    position: relative;
+    overflow-x: hidden;
+    height: 100%;
+    width: 100%;    
+}
+
+
+.header_container div
+{
+	display: inline;
+}
+
+
+.menu_line
+{
+	border-top: 1px solid #555;
+}
+
+.menu_item{
+	width: 48px;
+	height: 48px;
+	display: inline-block;
+    position: static;
+	color: white;
+	line-height: 48px;
+    text-decoration: none;
+}
+
+.side_menu_container .menu_item
+{
+    width: 200px;
+}
+.menu_item:hover{
+	background-color: #404040;
+}
+
+.lower_menu{
+	position: absolute;
+	bottom: 0;
+}
+
+.menu_extend{
+    position: relative;
+	background-color: #0063b1;
+    z-index: 1 !important;
+}
+.menu_extend:hover
+{
+	background-color: #1972b9;
+}
+.menu_extend:active
+{
+    background-color:  #3571a4;
+}
+
+.header_container{
+	position: fixed;
+	top: 0;
+	width: 100%;
+	display: block;
+	background-color: #f2f2f2;
+	height: 48px;
+    z-index:1;
+}
+
+.header_title
+{
+	margin-left: 20px;
+	line-height: 48px;
+	font-weight: 900;
+	display: inline;
+    position: absolute;
+}
+
+.side_menu.HiddenIcons
+{
+    width: 200px;
+    transition: width 0.2s ease-in-out;
+}
+
+.menu_item .icons
+{
+    width: 48px;
+    height: 48px;
+    display: inline-block;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 100;
+    line-height: 48px;
+}
+
+.menu_item .menu_svg
+{
+    float: left;
+}
+
+#click_overlay, .PageLoadingNormal
+{
+    display: block;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+.PageLoadingNormal
+{
+    //transition: all 0.3s linear;
+}
+
+.content
+{
+    position: absolute;
+    top:48px;
+    left: 48px;
+    width: calc(100% - 48px);
+    min-height: 355px;
+    height: calc(100% - 48px);
+    overflow-y: auto;
+}
+
+.PageLoadingAdd
+{
+    z-index: 2;
+    background-color: blue;
+    left: 48px;
+}
+
+.HiddenContent
+{
+    display:none;
+}
