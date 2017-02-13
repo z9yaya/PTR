@@ -10,14 +10,9 @@ if(!isset($_SESSION['empID']) || empty($_SESSION['empID']))
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="account.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+<script src="../javascript/jquery-1.9.0.min.js"></script>
 <script>$.getScript("../javascript/account.js");
-     var datefield=document.createElement("input")
-    datefield.setAttribute("type", "date")
-    if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
-        document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
-        document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n') 
-    }</script>
+</script>
 </head>
 <div class="accountContent">
     <div class="accountInfo boxContainer">
@@ -48,79 +43,77 @@ if(!isset($_SESSION['empID']) || empty($_SESSION['empID']))
                     <label for="l_name"  class="label">Last name</label>
                     <div class="errorContainer"><span class="error l_name"></span></div>
             </div>
-            <div class="containers">
-                    <input id="dob" type="date" name="date:employees:dob" class="input" required max="2005-12-31" min="1950-01-01">
-                    <label for="dob"  class="label notEmpty">Date of birth</label>
+            <div class="containers nomarg">
+                <label for="dob"  class="label notEmpty dob">Date of birth</label>
+                <div class="containers nomarg" id="dob">
+                    <div class="containers inline">
+                        <select name="dob:employees:day" class="input drop nomarg" required>
+                            <option value=''>Day</option>
+                            <option value='1'>1</option>
+                            <option value='2'>2</option>
+                            <option value='3'>3</option>
+                            <option value='4'>4</option>
+                            <option value='5'>5</option>
+                            <option value='6'>6</option>
+                            <option value='7'>7</option>
+                            <option value='8'>8</option>
+                            <option value='9'>9</option>
+                            <option value='10'>10</option>
+                            <option value='11'>11</option>
+                            <option value='12'>12</option>
+                            <option value='13'>13</option>
+                            <option value='14'>14</option>
+                            <option value='15'>15</option>
+                            <option value='16'>16</option>
+                            <option value='17'>17</option>
+                            <option value='18'>18</option>
+                            <option value='19'>19</option>
+                            <option value='20'>20</option>
+                            <option value='21'>21</option>
+                            <option value='22'>22</option>
+                            <option value='23'>23</option>
+                            <option value='24'>24</option>
+                            <option value='25'>25</option>
+                            <option value='26'>26</option>
+                            <option value='27'>27</option>
+                            <option value='28'>28</option>
+                            <option value='29'>29</option>
+                            <option value='30'>30</option>
+                            <option value='31'>31</option>
+                    </select>
                     <div class="errorContainer"><span class="error dob"></span></div>
+                </div>
+                <div class="containers inline">
+                    <select name="dob:employees:month" class="input drop nomarg" required>
+                            <option value=''>Month</option>
+                            <option value='1'>January</option>
+                            <option value='2'>February</option>
+                            <option value='3'>March</option>
+                            <option value='4'>April</option>
+                            <option value='5'>May</option>
+                            <option value='6'>June</option>
+                            <option value='7'>July</option>
+                            <option value='8'>August</option>
+                            <option value='9'>September</option>
+                            <option value='10'>October</option>
+                            <option value='11'>November</option>
+                            <option value='12'>December</option>
+                    </select>
+                    <div class="errorContainer"><span class="error dob nomarg"></span></div>
+                </div>
+                <div class="containers inline">
+                    <select name="dob:employees:year" class="input drop" required>
+                            <option value=''>Year</option>
+                                        <?php for($i = date("Y")-14; $i > 1949; $i--)
+                        {
+                            echo "<option value='".$i."'>".$i."</option>";
+                        }
+                    ?>
+                    </select><div class="errorContainer"><span class="error dob"></span></div>
+                    </div>
+                </div>
             </div>
-            <div class="containers inline">
-                <label for="dob"  class="label notEmpty">Date of birth</label>
-                    <select id="dob"name="date:employees:dob:day" class="input drop" required>
-                        <option value=''>Day</option>
-                        <option value='1'>1</option>
-                        <option value='2'>2</option>
-                        <option value='3'>3</option>
-                        <option value='4'>4</option>
-                        <option value='5'>5</option>
-                        <option value='6'>6</option>
-                        <option value='7'>7</option>
-                        <option value='8'>8</option>
-                        <option value='9'>9</option>
-                        <option value='10'>10</option>
-                        <option value='11'>11</option>
-                        <option value='12'>12</option>
-                        <option value='13'>13</option>
-                        <option value='14'>14</option>
-                        <option value='15'>15</option>
-                        <option value='16'>16</option>
-                        <option value='17'>17</option>
-                        <option value='18'>18</option>
-                        <option value='19'>19</option>
-                        <option value='20'>20</option>
-                        <option value='21'>21</option>
-                        <option value='22'>22</option>
-                        <option value='23'>23</option>
-                        <option value='24'>24</option>
-                        <option value='25'>25</option>
-                        <option value='26'>26</option>
-                        <option value='27'>27</option>
-                        <option value='28'>28</option>
-                        <option value='29'>29</option>
-                        <option value='30'>30</option>
-                        <option value='31'>31</option>
-                </select>
-                <div class="errorContainer"><span class="error dob"></span></div>
-            </div>
-            <div class="containers inline">
-                <select id="dob"name="date:employees:dob:month" class="input drop" required>
-                        <option value=''>Month</option>
-                        <option value='1'>January</option>
-                        <option value='2'>February</option>
-                        <option value='3'>March</option>
-                        <option value='4'>April</option>
-                        <option value='5'>May</option>
-                        <option value='6'>June</option>
-                        <option value='7'>July</option>
-                        <option value='8'>August</option>
-                        <option value='9'>September</option>
-                        <option value='10'>October</option>
-                        <option value='11'>November</option>
-                        <option value='12'>December</option>
-                </select>
-                <div class="errorContainer"><span class="error dob"></span></div>
-            </div>
-            <div class="containers inline">
-                <select id="dob"name="date:employees:dob:year" class="input drop" required>
-                        <option value=''>Year</option>
-                                    <?php for($i = date("Y")-14; $i > 1949; $i--)
-                    {
-                        echo "<option value='".$i."'>".$i."</option>";
-                    }
-                ?>
-                </select>
-                <div class="errorContainer"><span class="error dob"></span></div>
-            </div>
-            <div class="containers">
+            <div class="containers negativeMarg">
                     <input id="phone" type="text" name="number:employees:phone" class="text input" required maxlength="10">
                     <label for="phone"  class="label">Contact number</label>
                     <div class="errorContainer"><span class="error phone"></span></div>

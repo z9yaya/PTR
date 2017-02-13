@@ -1,4 +1,38 @@
 <?php include "../functions/functions.php";
+function addUpDate()
+{
+    $date = array();
+    foreach ($_POST as $key => $value)
+    {        
+        if ($value)
+        {
+            if ((explode(":",$key)[0]) == "dob")
+            {
+                if ((explode(":",$key)[2]) == "day")
+                {
+                    $date["day"] = $value;
+                    unset($_POST[$key]);
+                }
+                if ((explode(":",$key)[2]) == "month")
+                {
+                    $date["month"] = $value;
+                    unset($_POST[$key]);
+                }
+                if ((explode(":",$key)[2]) == "year")
+                {
+                    $date["year"] = $value;
+                    unset($_POST[$key]);
+                }
+            }
+    
+        }
+    }
+    if (count($date) == 3)
+    {
+        $_POST["date:employees:dob"] = $date;
+        return true;
+    }
+}
 function validateDate($date, $format = 'Y-m-d H:i:s')
 {
     $d = DateTime::createFromFormat($format, $date);
@@ -8,6 +42,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
     {
       session_start();
     }
+    addUpDate();
     $keys = array();
     $banking = array(array(':empID', $_SESSION["empID"]));
     $employees = array(array(':empID', $_SESSION["empID"]));
@@ -19,15 +54,15 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
         {
             if ((explode(":",$key)[0]) == "date")
             {
-                if(validateDate($value, 'Y-m-d'))
-                {
-                    $a = date_parse_from_format('Y-m-d', $value);
-                    $value = date("d-M-y",mktime(0, 0, 0, $a['month'], $a['day'], $a['year']));
-                } 
-                else 
-                {
-                    array_push($errors,explode(":",$key)[2]);
-                }
+//                if(validateDate($value, 'Y-m-d'))
+//                {
+//                    $a = date_parse_from_format('Y-m-d', $value);
+                    $value = date("d-M-y",mktime(0, 0, 0, $value['month'], $value['day'], $value['year']));
+//                } 
+//                else 
+//                {
+//                    array_push($errors,explode(":",$key)[2]);
+//                }
             }
             if ((explode(":",$key)[0]) == "number")
             {

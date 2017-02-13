@@ -127,6 +127,11 @@ input:focus
     opacity: 1;
 }
 
+.label.notEmpty.dob
+{
+    width: 70px;
+}
+
 .input.bsb
 {
     width: auto;
@@ -134,12 +139,27 @@ input:focus
 
 .input.drop
 {
-    height: 22px;
+    height: 20px;
+        -ms-box-sizing:content-box;
+    -moz-box-sizing:content-box;
+    box-sizing:content-box;
+    -webkit-box-sizing:content-box; 
+    margin: 0;
 }
 .containers.inline
 {
     display: inline-block;
     //vertical-align: top;
+}
+
+.containers.nomarg
+{
+    margin: 0;
+}
+
+.containers.negativeMarg
+{
+    margin-top: -15px;
 }
 
 .input.inline
