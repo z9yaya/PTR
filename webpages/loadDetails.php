@@ -6,7 +6,7 @@ if (session_id() == '')
 if(isset($_SESSION['email']))
 {
     if (!empty($_SESSION['email'])) {
-        $data = array("empID" => "E".str_pad($_SESSION['empID'], 7, '0', STR_PAD_LEFT),"email" => $_SESSION['email']);
+        $data = array("empID" => str_pad($_SESSION['empID'], 7, '0', STR_PAD_LEFT),"email" => $_SESSION['email']);
         echo json_encode($data);
     }
 }
