@@ -78,7 +78,7 @@ function registerUser()
                                 unset($_SESSION['empID']);
                                 unset($_SESSION['password']);
                             }
-                            $_SESSION['empID'] = GrabData('EMPLOYEES', 'ID', 'EMAIL', $email);
+                            $_SESSION['empID'] = GrabData('EMPLOYEES', 'EMPID', 'EMAIL', $email);
                             $_SESSION['email'] = $email;
                             $_SESSION['password'] = GrabData('EMPLOYEES', 'PASSWORD', 'EMAIL', $email);
                             echo "success";
