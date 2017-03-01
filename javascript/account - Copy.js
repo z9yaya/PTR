@@ -17,8 +17,8 @@ $("#email").ready(function(){
            {
         var userInfo = jQuery.parseJSON(data)
         console.log(userInfo);
-        $("#email").val(userInfo["EMAIL"]);
-        $("#empID").val(userInfo["EMPID"]);
+        $("#email").val(userInfo["email"]);
+        $("#empID").val(userInfo["empID"]);
     });
 })
 $(document).ready(function(){

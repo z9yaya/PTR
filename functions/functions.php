@@ -3,7 +3,7 @@
 ///function used to connect to create a new connection object to connect to the database
 function connect()
     {
-        $conn = oci_connect('SYSTEM', 'Password123', 'localhost:1521/PTR');
+        $conn = oci_connect('ptr', 'ptr', 'localhost:1521/xe');
 
         if (!$conn) 
         {
@@ -70,13 +70,13 @@ function registerUser()
                             }
                             else if(isset($_SESSION['email']))
                             {
-                                unset($_SESSION["email"]);
-                                unset($_SESSION['empID']);
-                                unset($_SESSION['password']);
+                                unset($_SESSION["EMAIL"]);
+                                unset($_SESSION['EMPID']);
+                                unset($_SESSION['PASSWORD']);
                             }
-                            $_SESSION['empID'] = GrabData('EMPLOYEES', 'EMPID', 'EMAIL', $email);
-                            $_SESSION['email'] = $email;
-                            $_SESSION['password'] = GrabData('EMPLOYEES', 'PASSWORD', 'EMAIL', $email);
+                            $_SESSION['EMPID'] = GrabData('EMPLOYEES', 'EMPID', 'EMAIL', $email);
+                            $_SESSION['EMAIL'] = $email;
+                            $_SESSION['PASSWORD'] = GrabData('EMPLOYEES', 'PASSWORD', 'EMAIL', $email);
                             echo "success";
                             return true;
                          }
@@ -111,15 +111,15 @@ function authenticateUser()
                           {
                               session_start();
                           }
-                          else if(isset($_SESSION['email']))
+                          else if(isset($_SESSION['EMAIL']))
                           {
-                              unset($_SESSION["email"]);
-                              unset($_SESSION['empID']);
-                              unset($_SESSION['password']);
+                              unset($_SESSION["EMAIL"]);
+                              unset($_SESSION['EMPID']);
+                              unset($_SESSION['PASSWORD']);
                           }
-                          $_SESSION['empID'] = $res['EMPID'];
-                          $_SESSION['email'] = $res['EMAIL'];
-                          $_SESSION['password'] = $res['PASSWORD'];
+                          $_SESSION['EMPID'] = $res['EMPID'];
+                          $_SESSION['EMAIL'] = $res['EMAIL'];
+                          $_SESSION['PASSWORD'] = $res['PASSWORD'];
                           echo "success";
                           return true;
                     }
@@ -162,6 +162,39 @@ function CheckExist($attribute, $table, $column, $getOrpost)
                          $input = htmlspecialchars($getOrpost[$attribute]);
                          $pdo = connect();
                          $sql= 'SELECT COUNT(' . $column . ') FROM ' . $table . ' where ' . $column . ' = :attribute';
+                         $prepare = oci_parse($pdo,$sql);
+                         oci_bind_by_name($prepare, ':attribute', $input);
+                         if(oci_execute($prepare))
+                         {                             
+                            if (oci_fetch_array($prepare, OCI_ASSOC+OCI_RETURN_NULLS)['COUNT('. $column .')'] != 0)
+                             {
+                                 return true;
+                             }
+                             else
+                             {
+                                 return false;
+                             }
+                         }
+                         else
+                         {
+                            $e = oci_error($prepare); 
+                            echo $e['message']; 
+                         }
+                    }
+                         
+                         
+                }  
+}
+
+function CheckExistExt($attribute, $table, $column, $wherecolumn)
+{
+    if (isset($attribute))
+            {
+                 if (!empty($attribute))
+                    {
+                         $input = htmlspecialchars($attribute);
+                         $pdo = connect();
+                         $sql= 'SELECT COUNT(' . $column . ') FROM ' . $table . ' where ' . $wherecolumn . ' = :attribute';
                          $prepare = oci_parse($pdo,$sql);
                          oci_bind_by_name($prepare, ':attribute', $input);
                          if(oci_execute($prepare))
@@ -229,7 +262,7 @@ function GrabMoreData($query, $bind)
                              foreach ($bind as $attribute)
                              {
                                 oci_bind_by_name($prepare, $attribute[0], $attribute[1]);
-                                 echo $attribute[0]." ".$attribute[1];
+/*                                 echo $attribute[0]." ".$attribute[1];*/
                              }
                              if(oci_execute($prepare))
                              {

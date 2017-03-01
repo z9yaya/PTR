@@ -33,19 +33,14 @@ function addUpDate()
         return true;
     }
 }
-function validateDate($date, $format = 'Y-m-d H:i:s')
-{
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) == $date;
-}
     if (session_id() == '')
     {
       session_start();
     }
     addUpDate();
     $keys = array();
-    $banking = array(array(':empID', $_SESSION["empID"]));
-    $employees = array(array(':empID', $_SESSION["empID"]));
+    $banking = array(array(':empID', $_SESSION["EMPID"]));
+    $employees = array(array(':empID', $_SESSION["EMPID"]));
     $oneOrTwo = array(0,0);
     $errors = array();
     foreach ($_POST as $key => $value)
@@ -54,15 +49,15 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
         {
             if ((explode(":",$key)[0]) == "date")
             {
-//                if(validateDate($value, 'Y-m-d'))
-//                {
-//                    $a = date_parse_from_format('Y-m-d', $value);
-                    $value = date("d-M-y",mktime(0, 0, 0, $value['month'], $value['day'], $value['year']));
-//                } 
-//                else 
-//                {
-//                    array_push($errors,explode(":",$key)[2]);
-//                }
+                if(checkdate($value['month'], $value['day'], $value['year']))
+                {
+                    $value = mktime(0, 0, 0, $value['month'], $value['day'], $value['year']);
+                }
+                else 
+                {
+                    array_push($errors,explode(":",$key)[2]);
+                    $value = "";
+                }
             }
             if ((explode(":",$key)[0]) == "number")
             {
@@ -78,8 +73,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
             }
             array_push(${explode(":",$key)[1]},array(":".explode(":",$key)[2],htmlspecialchars ($value)));
             array_push($keys, explode(":",$key)[2]);
-        }        
-
+        }
     }
     
     if (!empty($errors))
@@ -88,7 +82,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
         return false;
     }
     $queryUpdate = "UPDATE EMPLOYEES SET ";
-    if (CheckExist("empID", "BANKING", "EMPID", $_SESSION))
+    if (CheckExist("EMPID", "BANKING", "EMPID", $_SESSION))
     {
         $query = "update";
         $queryBanking = "UPDATE BANKING SET ";
@@ -96,7 +90,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
     else
     {
         $queryBanking = "INSERT INTO BANKING(EMPID,";
-        $valueInsert = "VALUES(:empID,";
+        $valueInsert = "VALUES(:EMPID,";
     }
     
     for ($i= 0; $i < count($keys); $i++)
@@ -107,10 +101,13 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
             $oneOrTwo[0]=1;
         }
 
-        else if($query == "update")
+        else if(isset($query) == "update")
         {
-            $queryBanking .= strtoupper($keys[$i])." = :".$keys[$i].",";
-            $oneOrTwo[1]=1;
+            if ($query == "update")
+            {
+                $queryBanking .= strtoupper($keys[$i])." = :".$keys[$i].",";
+                $oneOrTwo[1]=1;
+            }
         }
         else
         {
@@ -120,10 +117,13 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
         }
 
     }
-    if($query == "update")
-    {
-        $queryBanking = substr($queryBanking, 0,-1);
-        $queryBanking .= " WHERE EMPID = :empID";
+    if(isset($query) == "update")
+        {
+            if ($query == "update")
+            {
+                $queryBanking = substr($queryBanking, 0,-1);
+                $queryBanking .= " WHERE EMPID = :EMPID";
+            }
     }
     else
     {
@@ -131,7 +131,7 @@ function validateDate($date, $format = 'Y-m-d H:i:s')
         $queryBanking = substr($queryBanking, 0,-1).") ".$valueInsert;
     }
     $queryUpdate = substr($queryUpdate, 0,-1);
-    $queryUpdate .= " WHERE EMPID = :empID";
+    $queryUpdate .= " WHERE EMPID = :EMPID";
 
     if ($oneOrTwo[0]==1)
     echo (InsertData($queryUpdate,$employees));

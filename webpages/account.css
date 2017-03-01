@@ -238,6 +238,38 @@ input:focus
      -webkit-user-select: none;
 }
 
+.error.emptyForm
+{
+     margin-top: -5px;
+    font-size: 15px;
+}
+
+.error.emptyForm.invalid
+{
+    border-top: 2px solid red;
+}
+
+/*.error.emptyForm.saved
+{
+    border-top: 2px solid green;
+}
+.error.emptyForm.wait
+{
+    border-top: 2px solid grey;
+}*/
+
+.error.saved
+{
+    background-color: green;
+    
+}
+
+.error.wait
+{
+    background-color: grey;
+    
+}
+
 .error.show
 {
     height: 100%;

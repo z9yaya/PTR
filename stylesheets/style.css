@@ -80,6 +80,16 @@ body
     text-decoration: none;
 }
 
+.menu_item.menu_selection:before
+{
+    background-color: #0063b1;
+    width: 5px;
+    display: block;
+    height: 48px;
+    content: "";
+    float: left;
+    position: absolute;
+}
 .side_menu_container .menu_item
 {
     width: 200px;
@@ -106,7 +116,6 @@ body
 {
     background-color:  #3571a4;
 }
-
 .header_container{
 	position: fixed;
 	top: 0;
@@ -150,15 +159,11 @@ body
 
 #click_overlay, .PageLoadingNormal
 {
-    display: block;
+    display: none;
     position: fixed;
     height: 100%;
     width: 100%;
     z-index: -1;
-}
-.PageLoadingNormal
-{
-    //transition: all 0.3s linear;
 }
 
 .content
@@ -175,8 +180,41 @@ body
 .PageLoadingAdd
 {
     z-index: 2;
-    background-color: blue;
+    background-color: #0063b1;
+    background: linear-gradient(45deg,#5aaae8 , #4e85b1, #0063b1);
     left: 48px;
+    display: block;
+}
+
+.PageLoadingAdd .animationCircle
+{
+     animation: spin 1.2s linear infinite;
+}
+
+.PageLoadingNormal .loading
+{
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -95px;
+    top: 50%;
+    margin-top: -70px;
+}
+.PageLoadingNormal .animationCircle
+{
+    position: relative;
+    top: 35%;
+    margin: auto auto;
+    border: 3px solid rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    border-top: 3px solid rgba(255, 255, 255, 0.52);
+    width: 120px;
+    height: 120px;
+}
+
+@keyframes spin{
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 .HiddenContent

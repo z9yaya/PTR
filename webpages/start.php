@@ -3,11 +3,11 @@ if (session_id() == '')
 {
     session_start();
 }
-if(isset($_SESSION['email']))
+if(isset($_SESSION['EMAIL']))
 {
-    unset($_SESSION["email"]);
-    unset($_SESSION['position']);
-    unset($_SESSION['password']);
+    unset($_SESSION["EMAIL"]);
+    unset($_SESSION['EMPID']);
+    unset($_SESSION['PASSWORD']);
     header("Location: ../index.php");
 }
 
