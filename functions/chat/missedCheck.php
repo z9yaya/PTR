@@ -7,10 +7,11 @@ if (session_id() == '')
     {
         session_start();
     }
-    if(isset($_SESSION['email']))
+    if(isset($_SESSION['EMAIL']))
     {
-        $user = $_SESSION['email']; 
-        $lastOnline= GrabMoreData("SELECT file FROM chat WHERE user=:user AND online < lastmodified", array(array(':user', $user)));
+        $user = $_SESSION['EMAIL']; 
+        $bind = array(array(':email', $user));
+        $lastOnline= GrabAllData("SELECT CHATFILE FROM CHAT WHERE EMAIL= :email AND LASTLOG < LASTMOD",$bind );
         echo json_encode($lastOnline);
     }
 

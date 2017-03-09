@@ -6,6 +6,14 @@ if (session_id() == '')
     }
 if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
     header("Location: start.php");
+else if(isset($_SESSION['INITIAL']))
+{
+    if ($_SESSION['INITIAL'] == 1)
+    {
+       header("Location: ../index.php");
+    }
+    
+}
 ?>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -177,6 +185,7 @@ if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
                     <div class="errorContainer"><span class="error accnumber"></span></div>
             </div>
         </div>
+        <input type="hidden" name="number:employees:initialsetup" value="1">
         <input type="submit" class="submit button">
     </form>
 </div>

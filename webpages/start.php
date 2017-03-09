@@ -8,6 +8,8 @@ if(isset($_SESSION['EMAIL']))
     unset($_SESSION["EMAIL"]);
     unset($_SESSION['EMPID']);
     unset($_SESSION['PASSWORD']);
+    if (isset($_SESSION['INITIAL']))
+        unset($_SESSION['INITIAL']);
     header("Location: ../index.php");
 }
 

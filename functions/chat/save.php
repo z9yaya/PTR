@@ -8,9 +8,9 @@ if (!empty($_POST)) {
     {
         session_start();
     }
-    if(isset($_SESSION['email']))
+    if(isset($_SESSION['EMAIL']))
     {
-        $user = $_SESSION['email']; 
+        $user = $_SESSION['EMAIL']; 
     }
     $post_data = $_POST['data'];
     $post_document = $_POST['document'];
@@ -24,70 +24,28 @@ if (!empty($_POST)) {
         $lastmod = filemtime($filename);
         $timenow = time();
         $receiver = $_POST['user'];
-        try
-         {
-             $pdo = connect();
-             $query= "INSERT INTO chat(file, lastmodified, user, online)
-             VALUES(:file, :lastmod, :user, :timenow);";
-             $prepare = $pdo->prepare($query);
-             $prepare -> bindValue(':file', $post_document);
-             $prepare -> bindValue(':lastmod', $lastmod);
-             $prepare -> bindValue(':user', $user);
-             $prepare -> bindValue(':timenow', $timenow);
-             $prepare->execute();
-         }
-         catch (PDOException $e)
-         {
-             echo "There was an error, contact the system adminstrator and copy this error: " . $e -> getMessage();
-         } 
-        try
-         {
-             $pdo = connect();
-             $query= "INSERT INTO chat(file, lastmodified, user)
-             VALUES(:file, :lastmod, :user);";
-             $prepare = $pdo->prepare($query);
-             $prepare -> bindValue(':file', $post_document);
-             $prepare -> bindValue(':lastmod', $lastmod);
-             $prepare -> bindValue(':user', $receiver);
-             $prepare->execute();
-         }
-         catch (PDOException $e)
-         {
-             echo "There was an error, contact the system adminstrator and copy this error: " . $e -> getMessage();
-         } 
+        
+        $query = "INSERT INTO CHAT(CHATFILE, LASTMOD, EMAIL, LASTLOG)
+             VALUES(:chatfile, :lastmod, :email, :timenow)";
+        $bind = array(array(':chatfile', $post_document),array(':lastmod', $lastmod),array(':email', $user),array(':timenow', $timenow));
+        InsertData($query, $bind);
+        
+        $queryReceiver = "INSERT INTO CHAT(CHATFILE, LASTMOD, EMAIL)
+             VALUES(:chatfile, :lastmod, :email)";
+        $bindReceiver = array(array(':chatfile', $post_document),array(':lastmod', $lastmod),array(':email', $receiver));
+        InsertData($queryReceiver, $bindReceiver);
     }
     else
     {
         $lastmod = filemtime($filename);
         $timenow = time(); 
-        try
-        {
-            $pdo = connect();
-            $query= "UPDATE chat SET online=:time, lastmodified=:lastmod WHERE file=:file AND user=:user";
-            $prepare = $pdo->prepare($query);
-            $prepare -> bindValue(':file', $post_document);
-            $prepare -> bindValue(':user', $user);
-            $prepare -> bindValue(':time', $timenow);
-            $prepare -> bindValue(':lastmod', $lastmod);
-            $prepare->execute();
-        }
-        catch (PDOException $e)
-        {
-            echo "data:{$e -> getMessage()}\n\n";
-        }
-        try
-        {
-            $pdo = connect();
-            $query= "UPDATE chat SET lastmodified=:lastmod WHERE file=:file";
-            $prepare = $pdo->prepare($query);
-            $prepare -> bindValue(':file', $post_document);
-            $prepare -> bindValue(':lastmod', $lastmod);
-            $prepare->execute();
-        }
-        catch (PDOException $e)
-        {
-            echo "data:{$e -> getMessage()}\n\n";
-        }
+        $query = "UPDATE CHAT SET LASTLOG=:time, LASTMOD=:lastmod WHERE CHATFILE=:chatfile AND EMAIL=:email";
+        $bind = array(array(':chatfile', $post_document),array(':email', $user),array(':time', $timenow),array(':lastmod', $lastmod));
+        InsertData($query, $bind);
+        
+        $queryLast = "UPDATE CHAT SET LASTMOD=:lastmod WHERE CHATFILE=:chatfile";
+        $bindLast = array(array(':chatfile', $post_document),array(':lastmod', $lastmod));
+        InsertData($queryLast, $bindLast);
     }
      
 }

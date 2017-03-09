@@ -15,11 +15,10 @@ $(document).ready(function(){
 $("#email").ready(function(){
     $.post("loadDetails.php",function(data)
            {
-        console.log(data);
         var userInfo = jQuery.parseJSON(data)
         console.log(userInfo);
-        $("#email").val(userInfo["EMAIL"]);
-        $("#empID").val(userInfo["EMPID"]);
+        $("#email").val(userInfo["email"]);
+        $("#empID").val(userInfo["empID"]);
     });
 })
 $(document).ready(function(){
@@ -30,7 +29,7 @@ $("form").submit(function(event){
     $("input").blur();
     var $inputs = $(".input");    
     $(".show").removeClass("show");
-    $.post("updateDetails.php",$('form').serialize(),function(data){
+    $.post("webpages/updateDetails.php",$('form').serialize(),function(data){
         console.log(data);
         if (data != "successsuccess"){
             var errors= jQuery.parseJSON(data);
@@ -79,7 +78,8 @@ $("form").submit(function(event){
                 }
         }
        else{
-            window.location.replace("../index.php");
+           console.log(data);
+            //window.location.replace("../index.php");
         }
        $(".input").focus(function(){
             $input = $(this);

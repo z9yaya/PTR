@@ -24,7 +24,7 @@ if(isset($_SESSION['EMAIL']))
         }
         else
         {
-            $data = GrabData("EMPLOYEES, BANKING", "*", "EMPID", $_SESSION['EMPID']);
+            $data = GrabData("EMPLOYEES", "*", "EMPID", $_SESSION['EMPID']);
             unset($data['PASSWORD']);
             if (!empty($data["DOB"]))
             {

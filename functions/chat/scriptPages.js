@@ -167,7 +167,7 @@ function loadContacts()
                     contacts =  JSON.parse(xmlhttp.responseText);
                     for (var i=0; i< contacts.length; i++)
                         {
-                             document.getElementById(contacts[i]["position"]).innerHTML += '<div class="contact" onclick=\'openChat("'+i+'",this)\' data-myValue="'+contacts[i]["email"]+'">'+contacts[i]["name"]+'</div>';
+                             document.getElementById(contacts[i]["position"]).innerHTML += '<div class="contact" onclick=\'openChat("'+i+'",this)\' data-myValue="'+contacts[i]["EMAIL"]+'">'+contacts[i]["F_NAME"]+" "+contacts[i]["L_NAME"]+'</div>';
                         }                    
                 }
             };
@@ -197,10 +197,10 @@ function openChat(User, Contact)
                 Contacts[0].className = "contact";
                 }
 
-            user = contacts[User]['email'];
+            user = contacts[User]['EMAIL'];
             loadDoc();
             MakeCss(user, 'receiver');
-            document.getElementById("name").innerHTML = contacts[User]['name'];
+            document.getElementById("name").innerHTML = contacts[User]['F_NAME']+" "+contacts[User]['L_NAME'];
             messageBox.style.display = "inline-block";
             document.getElementById("chat_input").focus();
             Contact.className = "contact active";

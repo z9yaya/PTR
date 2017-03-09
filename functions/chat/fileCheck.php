@@ -9,26 +9,16 @@ if (session_id() == '')
 {
     session_start();
 }
-if(isset($_SESSION['email']))
+if(isset($_SESSION['EMAIL']))
 {
-    $user = $_SESSION['email']; 
+    $user = $_SESSION['EMAIL']; 
 }
 $file = $_GET['file'];
 $timeuser= time();
-try
-     {
-        $pdo = connect();
-        $query= "UPDATE chat SET online=:time WHERE file=:file AND user=:user";
-        $prepare = $pdo->prepare($query);
-        $prepare -> bindValue(':file', $file);
-        $prepare -> bindValue(':user', $user);
-        $prepare -> bindValue(':time', $timeuser);
-        $prepare->execute();
-    }
-catch (PDOException $e)
-     {
-         echo "data:{$e -> getMessage()}\n\n";
-     }
+$query = "UPDATE CHAT SET LASTLOG=:time WHERE CHATFILE=:chatfile AND EMAIL=:email";
+$bind = array(array(':chatfile', $file),array(':email', $user),array(':time', $timeuser));
+InsertData($query, $bind);
+
 $fileTime = filemtime($file);
 $time = time() - 10;
 if ($fileTime >= $time)

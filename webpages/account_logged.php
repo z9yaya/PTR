@@ -1,5 +1,10 @@
 <?php 
-include '../functions/functions.php';?>
+include '../functions/functions.php';
+if (session_id() == '')
+    {
+        session_start();
+    }
+?>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="webpages/account.css" media="none" onload="if(media!='all')media='all'">
@@ -41,7 +46,7 @@ include '../functions/functions.php';?>
                 <label for="dob"  class="label notEmpty dob">Date of birth</label>
                 <div class="containers nomarg inline" id="dob">
                     <div class="containers inline nomarg">
-                        <select name="dob:employees:day" id="day" class="input drop nomarg" required>
+                        <select name="dob:employees:day" id="day" class="input drop nomarg">
                             <option value=''>Day</option>
                             <option value='1'>1</option>
                             <option value='2'>2</option>
@@ -77,7 +82,7 @@ include '../functions/functions.php';?>
                     </select>
                 </div>
                 <div class="containers inline nomarg">
-                    <select name="dob:employees:month" id="month" class="input drop nomarg" required>
+                    <select name="dob:employees:month" id="month" class="input drop nomarg">
                             <option value=''>Month</option>
                             <option value='1'>January</option>
                             <option value='2'>February</option>
@@ -94,7 +99,7 @@ include '../functions/functions.php';?>
                     </select>
                 </div>
                 <div class="containers inline nomarg">
-                    <select name="dob:employees:year" id="year" class="input drop" required>
+                    <select name="dob:employees:year" id="year" class="input drop">
                             <option value=''>Year</option>
                                         <?php for($i = date("Y")-14; $i > 1949; $i--)
                         {

@@ -131,6 +131,7 @@ function pushChanges(exist = true, Document, user = '')
                 }
             else if (!exist)
                 {
+                    
                     var data = 'data='+ '' + "&document=" + Document  + "&user=" + user;
                      var xmlhttp = new XMLHttpRequest();
                         xmlhttp.open('POST','functions/chat/save.php', true);
@@ -173,9 +174,12 @@ function loadContacts()
             if (this.readyState == 4 && this.status == 200)
                 {
                     contacts =  JSON.parse(xmlhttp.responseText);
-                    for (var i=0; i< contacts.length; i++)
+                    console.log(Object.keys(contacts["EMAIL"]).length);
+                    console.log(contacts);
+                    for (var i=0; i <Object.keys(contacts["EMAIL"]).length; i++)
                         {
-                          document.getElementById(contacts[i]["position"]).innerHTML += '<div class="contact" onclick=\'openChat("'+i+'",this)\' data-myValue="'+contacts[i]["email"]+'">'+contacts[i]["name"]+'</div>';
+                            console.log(contacts["EMAIL"][i]);
+                          document.getElementById("contacts_bar").innerHTML += '<div class="contact" onclick=\'openChat("'+i+'",this)\' data-myValue="'+contacts["EMAIL"][i]+'">'+contacts["F_NAME"][i]+" "+contacts["L_NAME"][i]+'</div>';
                         }                    
                 }
             };
@@ -204,11 +208,10 @@ function openChat(User, Contact)
                 Contacts[0].className = "contact";
                 }
 
-            user = contacts[User]['email'];
-            user = contacts[User]['email'];
+            user = contacts['EMAIL'][User];
             loadDoc();
             MakeCss(user, 'receiver');
-            ChangeMainTitle(contacts[User]['name']);
+            ChangeMainTitle(contacts['F_NAME'][User]+" "+contacts["L_NAME"][User]);
             Contact.className = "contact active";
             contactsButton.classList.remove("unreadHid");
             Contact.classList.remove('unread');
@@ -256,8 +259,9 @@ function CheckMissed()
             if (this.readyState == 4 && this.status == 200)
                 {
                     var UserContacts= document.getElementsByClassName("contact");
+                    console.log(xmlhttp.responseText);
                     var missed =  JSON.parse(xmlhttp.responseText);
-                    if (!missed.length)
+                    if (!Object.keys(missed["CHATFILE"]).length)
                         {
                             var OutdatedNotifications = document.getElementsByClassName("unread");
                             for (var i=0; i< OutdatedNotifications.length; i++)
@@ -265,7 +269,7 @@ function CheckMissed()
                                     OutdatedNotifications[i].classList.remove("unread");
                                 }
                         }
-                    for (var i=0; i< missed.length; i++)
+                    for (var i=0; i< Object.keys(missed["CHATFILE"]).length; i++)
                         {
                             if(hideContacts.checked && !contactsButton.classList.contains("unreadHid"))
                                 {
@@ -277,7 +281,7 @@ function CheckMissed()
                                     }
                             for (var j = 0; j < UserContacts.length;j++)
                                 {
-                                    if (missed[i]["file"].includes(UserContacts[j].getAttribute('data-myValue')))
+                                    if (missed["CHATFILE"][i].includes(UserContacts[j].getAttribute('data-myValue')))
                                         {
                                             UserContacts[j].classList.add('unread');
                                         }
@@ -350,16 +354,24 @@ function MakeCss(className, actor)
 }
 
 //used to the contacts bar to reduce the screen space used by the messaging system when not in use
-function HideContactsBar()
+function HideContactsBar(show = false)
 {
-    if(!document.getElementById("hideContacts").checked)
+    if (show)
+        {
+             document.getElementById("hideContacts").checked = false;
+        }
+    else
+    {
+        if(!document.getElementById("hideContacts").checked)
         {
             document.getElementById("hideContacts").checked = true;
         }
-    else
+        else
         {
             document.getElementById("hideContacts").checked = false;
         }
+    }
+    
 }
 //used to force the enter key to submit the form instead of creating a new line
 //INPUT pressedKey: event object triggered by firing DOM object

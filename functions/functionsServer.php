@@ -3,7 +3,7 @@
 ///function used to connect to create a new connection object to connect to the database
 function connect()
     {
-        $conn = oci_connect('ptr', 'ptr', 'localhost:1521/xe');
+        $conn = oci_connect('ptr', 'ptr', 'ptrmanagement.online:1521/xe');
 
         if (!$conn) 
         {

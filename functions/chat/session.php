@@ -6,10 +6,10 @@ if (session_id() == '')
             {
                 session_start();
             }
-if(isset($_SESSION['email']))
+if(isset($_SESSION['EMAIL']))
 {
-    if (!empty($_SESSION['email'])) {
-        $data = $_SESSION['email'];
+    if (!empty($_SESSION['EMAIL'])) {
+        $data = $_SESSION['EMAIL'];
 
     }
 }

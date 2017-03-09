@@ -166,6 +166,12 @@ body
     z-index: -1;
 }
 
+#click_overlay
+{
+    display: block;
+
+}
+
 .content
 {
     position: absolute;
