@@ -82,7 +82,7 @@ $(document).ready(function() {
 function startTimer(countDownDate = new Date().getTime())
 {
     $("#timeContainer").ready(function(){
-        $("#rosterLink").addClass("active");
+        $("#rosterLink").addClass("Timeractive");
     // Update the count down every 1 second
         x = setInterval(function() {
 

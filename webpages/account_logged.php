@@ -4,6 +4,8 @@ if (session_id() == '')
     {
         session_start();
     }
+if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
+    header("Location: start.php");
 ?>
 <head>
     <script>

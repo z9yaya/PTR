@@ -8,18 +8,15 @@ if(isset($_SESSION['EMAIL']))
     session_unset();
     session_destroy();
 }
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="SHORTCUT ICON" href="images/favicon.ico">
-<link rel="icon" href="images/favicon.ico" type="image/ico">
+<link rel="SHORTCUT ICON" href="images/favico.ico">
+<link rel="icon" href="images/favico.ico" type="image/ico">
 <link rel="stylesheet" href="start.css">
-<link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.1/jquery.min.js"></script>
+<script type="text/javascript" src="../javascript/jquery-1.9.0.min.js"></script>
 </head>
 <body>
 <form class="form preload" method="POST" action="#">

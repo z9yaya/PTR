@@ -3,7 +3,7 @@
 ///function used to connect to create a new connection object to connect to the database
 function connect()
     {
-        $conn = oci_connect('ptr', 'ptr', 'localhost:1521/xe');
+        $conn = oci_connect('ptr', 'ptr', 'ptrmanagement.online:1521/xe');
 
         if (!$conn) 
         {
@@ -60,7 +60,11 @@ function registerUser()
                             }
                             else if(isset($_SESSION['email']))
                             {
-                               session_unset();
+                                unset($_SESSION["EMAIL"]);
+                                unset($_SESSION['EMPID']);
+                                unset($_SESSION['PASSWORD']);
+                                if (isset($_SESSION['INITIAL']))
+                                    unset($_SESSION['INITIAL']);
                             }
                             $_SESSION['EMPID'] = GrabData('EMPLOYEES', 'EMPID', 'EMAIL', $email)["EMPID"];
                             $_SESSION['EMAIL'] = $email;
@@ -101,7 +105,11 @@ function authenticateUser()
                           }
                           else if(isset($_SESSION['EMAIL']))
                           {
-                              session_unset();
+                              unset($_SESSION["EMAIL"]);
+                              unset($_SESSION['EMPID']);
+                              unset($_SESSION['PASSWORD']);
+                              unset($_SESSION['INITIALSETUP']);
+                              
                           }
                           $_SESSION['EMPID'] = $res['EMPID'];
                           $_SESSION['EMAIL'] = $res['EMAIL'];
@@ -319,123 +327,7 @@ function InsertData($query, $bind)
                                 echo $e['message']; 
                              }                         
 }
-//used to check if shift has been started to set the time on timer accordingly
-//Checks the SESSION for any start epoch,
-//if none then queries the database, table "CLOCK-IN" for a started shift, then resumes timer.
-//if none, gets the start time of the shift set by supervisor and does not start timer.
-function checkShift()
-{
-    if (session_id() == '')
-        {
-            session_start();
-        }
-    if(isset($_SESSION['EMPID']))
-        {
-            if (!empty($_SESSION['EMPID']))
-                {
-                    if (isset($_SESSION["SHIFTSTART"]) && !empty($_SESSION['SHIFTSTART']))
-                    {
-                        echo json_encode(array("SHIFTSTART" => $_SESSION['SHIFTSTART']));
-                        return true;
-                    }
 
-                    $table = '"CLOCK-IN"';
-                    $column = "SHIFTSTART";
-                    $attribute = $_SESSION["EMPID"];
-                    $wherecolumn = "EMPLOYEEID";
-                    $columnNew = "SHIFTID";
-                    if (CheckExistExt($attribute, $table, $column, $wherecolumn))
-                    {
-                        $query = 'SELECT SHIFTSTART, END FROM "CLOCK-IN" LEFT JOIN SHIFTS ON "CLOCK-IN".SHIFTID=SHIFTS.ID WHERE EMPLOYEEID = :EMPLOYEEID AND SHIFTEND IS NULL';
-                        $bind = array(array(":EMPLOYEEID", $attribute));
-                        $data = GrabMoreData($query, $bind);
-                        $data["SHIFTSTART"] = $data["SHIFTSTART"]*1000;
-                        $data["END"] = $data["END"]*1000;
-                        $_SESSION["SHIFTSTART"] = $data["SHIFTSTART"];
-                        $_SESSION["END"] = $data["END"];
-                        echo json_encode($data);
-                        return true;
-                    }
-                    else if (CheckExistExt($attribute, $table, $columnNew, $wherecolumn))
-                    {
-                        $query = 'SELECT SHIFTID, BEGIN, END FROM "CLOCK-IN" LEFT JOIN SHIFTS ON "CLOCK-IN".SHIFTID=SHIFTS.ID WHERE EMPLOYEEID = :EMPLOYEEID AND SHIFTEND IS NULL AND SHIFTSTART IS NULL';
-                        $bind = array(array(":EMPLOYEEID", $attribute));
-                        $data = GrabMoreData($query, $bind);
-                        if ($data["BEGIN"]- 10800 < time() && $data["END"] > time())//3 hours before shift start
-                        {
-                            $_SESSION["SHIFTID"] = $data["SHIFTID"];
-                            $_SESSION["SHIFTEND"] = $data["END"];
-                            $_SESSION["SHIFTBEGIN"] = $data["BEGIN"];
-                        }
-                        else
-                        {
-                            echo "out";
-                            return false;
-                        }
-                        echo json_encode($data);
-                        return true;
-                    }
-
-                }
-            else
-                {
-                    echo "login";
-                    return false;
-                }
-        }
-    else
-    {
-        echo "login";
-        return false;
-    }
-}
-//used to start a new shift
-//checks the session for a shift ID set in the checkShift function,
-//insert the current time in "CLOCK-IN" table in the shiftstart column which is then put into session
-function startShift()
-{
-    if (session_id() == '')
-    {
-        session_start();
-    }
-    if(isset($_SESSION['EMPID']))
-    {
-        if (!empty($_SESSION['EMPID']))
-            {
-                if (isset($_SESSION["SHIFTID"]) && !empty($_SESSION['SHIFTID']) && !isset($_SESSION["SHIFTSTART"]))
-                {
-                    $id = $_SESSION["SHIFTID"];
-                    $timenow = time();
-                    $query = 'UPDATE "CLOCK-IN" SET SHIFTSTART=:TIME WHERE SHIFTID = :ID';
-                    $bind = array(array(":TIME",$timenow),array(":ID",$id));
-                    $insert = InsertData($query, $bind);
-                    if ($insert == "success")
-                    {
-                        $_SESSION["SHIFTSTART"] = $timenow*1000;
-                        echo "success";
-                        return true;
-                    }
-                }
-                else
-                {
-                    echo "started";
-                    echo $_SESSION["SHIFTSTART"];
-                    return false;
-                }
-
-            }
-            else
-            {
-                echo "login";
-                return false;
-            }
-    }
-    else
-    {
-        echo "login";
-        return false;
-    }
-}
 ///function used to write the error message when trying to access a restricted page
 //INPUT $method: options: "login", "signup", "request", "deliveries", "tracking"
 function writeError($method)
@@ -475,7 +367,81 @@ function countResults($resultsItems)
                 $num_rows++;
             }
             return $num_rows;
+
         }
+
+///used to display the tracking information requested,
+//checks if user is logged in, and then fetches the information for the requested delivery item that can be selected using a drop down which is also generated in this function.
+function trackPackages()
+{
+    if (CheckExist('email', 'delivery', 'user', $_SESSION))
+    {
+        $ID = GrabMoreData('SELECT ID FROM delivery WHERE user = :email AND status = "In Transit"', array(array(':email', $_SESSION['email'])));
+        if(countResults($ID) > 1)
+        {
+            $IDval = $ID[0]['ID'];
+            $selected = $IDval;
+            echo "<form id='packageNumber' method='POST' action='" . htmlspecialchars($_SERVER["PHP_SELF"]) . "'>
+                    <label for='select_id' style='font-weight: bold;color: rgba(44, 70, 98, 0.55);'>DELIVERY NUMBER: </label><select id='select_id' name='ID' class='dropdown_number' onchange='(document.getElementById(\"packageNumber\").submit())'>";
+            if (!empty($_POST['ID']))
+            {
+                $selected = $_POST['ID'];
+            }
+            for ($i = 1; $i <= countResults($ID); $i++)
+            {
+                echo "<option value=" . $ID[$i - 1]['ID'];
+                if($ID[$i - 1]['ID'] == $selected)
+                {echo " selected";}
+                echo ">" . $i . "</option>";
+            }
+            echo "</select></form>";
+        }
+        else
+        {
+             $tracking = GrabMoreData('SELECT delivery_id, time, location FROM history WHERE delivery_id = (SELECT ID FROM delivery WHERE user = :email AND status = "In Transit") ORDER BY time DESC', array(array(':email', $_SESSION['email'])));
+        }
+        if (!empty($_POST['ID']))
+        {
+             $tracking = GrabMoreData('SELECT delivery_id, time, location FROM history WHERE delivery_id = :id ORDER BY time DESC', array(array(':id', $_POST['ID'])));
+        }if (empty($_POST['ID']) && !empty($IDval))
+        {
+             $tracking = GrabMoreData('SELECT delivery_id, time, location FROM history WHERE delivery_id = :id ORDER BY time DESC', array(array(':id', $IDval)));
+        }
+        if (!isset($tracking) || !$tracking)
+        {
+            echo "<br/>You do not have any packages in transit at the moment..<br/><br/><br/><input type='button' onclick='(window.location.href = \"deliveries.php\")' value='VIEW YOUR DELIVERIES' class='button'/> ";
+        }
+        else
+        {
+            echo '<div id="table_holder">
+                    <table>
+                            <thead><tr>
+                                     <th style="text-align: left;padding-left: 10px;
+	                                   padding-right: 5px;">Location</th>
+                                     <th>Time</th>
+                                     <th>Date</th>
+                                  </tr>
+                            </thead>
+                            <tbody>
+                            ';
+            foreach ($tracking as $step)
+            {
+                echo '<tr>
+                <td class="delivery_location">' . ucfirst($step['location']) . '</td>
+                ';
+                echo '<td class="delivery_time">' . date('h:i a',$step['time']) . '</td>
+                ';
+                echo '<td class="delivery_date">' . date('D j M',$step['time']) . '</td></tr>
+                ';
+            }
+            echo '</tbody></table></div>';
+        }
+    }
+    else
+        {
+            echo "<br/>You have not requested a delivery yet..<br/><br/><br/><input type='button' onclick='(window.location.href = \"request.php\")' value='REQUEST A DELIVERY' class='button'/> ";
+        }
+}
 
 ///used to send a complaint email using the website, currently uses gmail account to send emails,
 ///grabs the data from the submitted form, then picks the data to generate a basic email sent to the ///email address of your choice, in this case my personal email address
@@ -499,7 +465,7 @@ function Emailer()
                         $from_name= $name; //From name
                         $msg= htmlspecialchars($_POST['contents']); // HTML message
                         $subject="Complaint Delivery: " . $_POST['ID'];//email subject
-
+                     
                         $mail = new PHPMailer();
                         $mail->IsSMTP();
                         $mail->CharSet = 'UTF-8';
@@ -525,8 +491,54 @@ function Emailer()
                             header("Location: deliveries.php");
                         }
                  }
+}
+}
+
+///used to add the selected delivery ID to a hidden input on the complaint form.
+function WriteID()
+{
+     if (isset($_POST))
+            {
+                 if (!empty($_POST) && !empty($_POST['delivery']))
+                    {
+                        echo $_POST['delivery'];
+                    }
+
             }
 }
+
+///used to generate the dropdown menu on the log page,
+///fetches id of deliverys from database where the user is the selected driver, then puts them in a select box.
+function AddDropLog()
+{
+     if (session_id() == '')
+    {
+        session_start();
+    }
+    if (isset($_SESSION))
+            {
+                 if (!empty($_SESSION) && !empty($_SESSION['email']))
+                    {
+                        $driver = $_SESSION['email'];
+                        $ID = GrabData("delivery","ID","driver",$driver);
+                        if ($ID != false)
+                        {
+                            for ($i = 0; $i < countResults($ID); $i++)
+                            {
+                                echo "<option value=" . $ID[$i]['ID'];
+                                echo ">" . $ID[$i]['ID'] . "</option>";
+                            }
+                        }
+                        else 
+                        {
+                             echo "<option value=\"\">No deliveries assigned</option>";
+                        }
+                    
+                        
+                    }
+            }
+}
+
 //used to add the instant messaging system to a page when the required criterias are met
 function AddChat()
 {

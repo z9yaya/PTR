@@ -172,7 +172,7 @@ body
 
 @media screen and (max-width: 425px)
 {
-    #rosterLink.active
+    #rosterLink.Timeractive
     {
         animation: activeTimerLink 5s infinite;
     }   

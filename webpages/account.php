@@ -10,6 +10,7 @@ else if(isset($_SESSION['INITIAL']))
 {
     if ($_SESSION['INITIAL'] == 1)
     {
+       checkShift();
        header("Location: ../index.php#/dashboard");
     }
     

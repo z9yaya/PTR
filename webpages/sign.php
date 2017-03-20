@@ -3,7 +3,7 @@ if (!empty($_POST))
 {
     if ($_POST['method'] == 'login')
     {
-       authenticateUser(); 
+       authenticateUser();
     }
     else if ($_POST['method'] == 'signup')
     {

@@ -1,6 +1,6 @@
 <div class="containers">
     <input type="hidden" name="method" value="login">
-            <input type="text" id="username" name="ptr:login:email" onclick="removeError($(this))" class="text input" autocorrect="off" autocapitalize="off" autofocus required autocomplete="off">
+            <input type="text" id="username" name="ptr:login:email" class="text input" autocorrect="off" autocapitalize="off" autofocus required autocomplete="off">
             <label for="username" class="label username">Email</label>
             <div class="errorContainer"><span class="error username"></span></div>
         </div>
