@@ -6,6 +6,12 @@ if (session_id() == '')
     }
 ?>
 <head>
+    <script>
+        if(window.location.href.indexOf('webpages') != -1)
+        {
+            window.location.replace("../index.php#/account");
+        }
+    </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="webpages/account.css" media="none" onload="if(media!='all')media='all'">
 <script>$.getScript("javascript/account_logged.js");
@@ -24,7 +30,7 @@ if (session_id() == '')
                     <label for="empID"  class="label notEmpty">Employee ID</label>
             </div>
     </div>
-    <form class="form preload" method="POST" action="#">
+    <form class="form accountPages preload" method="POST" action="#">
         <div class="employeeDetails boxContainer">
             <div class="containers">
                     <input id="f_name" type="text" name="string:employees:f_name" class="text input">
@@ -32,9 +38,9 @@ if (session_id() == '')
                     <div class="errorContainer"><span class="error f_name"></span></div>
             </div>
             <div class="containers">
-                    <input id="m_name" type="text" name="string:employees:m_name" class="text input" value="">
+                    <input id="m_name" type="text" name="string:employees:m_name" class="text input clearable" value="">
                     <label for="m_name" class="label">Middle name</label>
-                    <div class="clearContainer"><span clearfor="M_NAME" class="Inputclear">x</span></div>
+                    <div class="clearContainer"><span clearfor="M_NAME" inputID="m_name" class="Inputclear" submitType="personalInfo" title="Clear">x</span></div>
                     <div class="errorContainer"><span class="error m_name"></span></div>
             </div>
             <div class="containers">
@@ -126,9 +132,10 @@ if (session_id() == '')
                     <div class="errorContainer"><span class="error street1"></span></div>
             </div>
             <div class="containers">
-                    <input id="street2" type="text" name="string:employees:street2" class="text input">
+                    <input id="street2" type="text" name="string:employees:street2" class="text input clearable">
                     <label for="street2"  class="label">Address line 2</label>
                     <div class="errorContainer"><span class="error street2"></span></div>
+                    <div class="clearContainer"><span clearfor="STREET2" inputID="street2" class="Inputclear" title="Clear">x</span></div>
             </div>
             <div class="containers inline">
                     <input id="suburb" type="text" name="string:employees:suburb" class="input text nomarg">

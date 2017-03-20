@@ -1,4 +1,3 @@
-
 .dashboard_containers{
 	display: inline-block;
 	background-color: white;
@@ -17,6 +16,7 @@
 	width: 175px;
 
 }
+
 .dashboardContent {
     
     max-width: 540px;
@@ -81,9 +81,10 @@
     -webkit-user-select: none;
 }
 
-
-
-
+.dashboard_containers:hover > .chartTitleContainer
+{
+    background-color: #5fa3d7;
+}
 
 @media screen and (max-width: 415px)
 {
@@ -95,14 +96,12 @@
 
 	.dashboard_containers{
 
-		width:calc(100% - 5px);
 		margin-bottom: 5px;
 		margin-left: 2.5px;
 		margin-right: 2.5px
 	}
 	.dashboard_containers.square_container{
 		
-		width: calc(50% - 5px);
         height: auto;
 	}
     
@@ -120,13 +119,6 @@
   		max-width: 1000px;
 	}
     
-    .dashboard_containers{
-        width: calc(66% - 5px);
-    }
-    .dashboard_containers.square_container{
-		width: calc(33% - 5px);
-
-	}
 }
 
 @media screen and (min-width: 705px )

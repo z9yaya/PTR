@@ -60,11 +60,7 @@ function registerUser()
                             }
                             else if(isset($_SESSION['email']))
                             {
-                                unset($_SESSION["EMAIL"]);
-                                unset($_SESSION['EMPID']);
-                                unset($_SESSION['PASSWORD']);
-                                if (isset($_SESSION['INITIAL']))
-                                    unset($_SESSION['INITIAL']);
+                               session_unset();
                             }
                             $_SESSION['EMPID'] = GrabData('EMPLOYEES', 'EMPID', 'EMAIL', $email)["EMPID"];
                             $_SESSION['EMAIL'] = $email;
@@ -105,11 +101,7 @@ function authenticateUser()
                           }
                           else if(isset($_SESSION['EMAIL']))
                           {
-                              unset($_SESSION["EMAIL"]);
-                              unset($_SESSION['EMPID']);
-                              unset($_SESSION['PASSWORD']);
-                              unset($_SESSION['INITIALSETUP']);
-                              
+                              session_unset();
                           }
                           $_SESSION['EMPID'] = $res['EMPID'];
                           $_SESSION['EMAIL'] = $res['EMAIL'];

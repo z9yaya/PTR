@@ -1,11 +1,18 @@
 $("form").submit(function(event){
     event.preventDefault();
+    $(".submit.button").addClass("displayNone");
+    $(".submit.wait").removeClass("displayNone");
     $form = $(this);
     $("input").blur();
     var $inputs = $form.find("input, select, button, textarea");    
     $(".show").removeClass("show");
     $.post("sign.php",$('form').serialize(),function(data){
-        console.log(data);
+        
+        if(data != "success")
+            {
+                $(".submit.wait").addClass("displayNone");
+                $(".submit.button").removeClass("displayNone");
+            }
         if(data == "username" )
             {
                 $("#username").addClass("invalid");

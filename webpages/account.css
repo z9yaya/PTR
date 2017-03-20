@@ -13,14 +13,10 @@ body
 {
     min-width: 264px;
     background-color: #82cafc;
-/*    background-image: url("../images/sky.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center;*/
     min-height: 100%;
 }
 
-form, .accountInfo
+.accountPages.form, .accountInfo
 {
     max-width: 700px;
     margin: 0 auto;
@@ -149,7 +145,6 @@ input:focus
 .containers.inline
 {
     display: inline-block;
-    //vertical-align: top;
 }
 
 .containers.nomarg
@@ -172,6 +167,38 @@ input:focus
 .input.nomarg
 {
     margin-top: 0;
+}
+
+.input.clearable
+{
+    width: calc(100% - 17px);
+}
+.clearContainer
+{
+    position: absolute;
+    right: 0px;
+    top: 2px;
+    background-color: white;
+    border-bottom: 2px solid black;
+}
+
+.Inputclear
+{
+    font-family: Helvetica,Arial;
+    font-size: 10pt;
+    color: #cacaca;
+    display: inline-block;
+    background-color: white;
+     -webkit-user-select: none;
+    cursor: default;
+    width: 12px;
+    padding-left: 5px;
+    
+}
+.Inputclear:hover,
+.Inputclear:focus
+{
+    color:black;
 }
 
 .accountInfo .label
@@ -225,6 +252,8 @@ input:focus
 {
     height: 17px;
 }
+
+
 .error
 {
     color: white;
@@ -248,15 +277,6 @@ input:focus
 {
     border-top: 2px solid red;
 }
-
-/*.error.emptyForm.saved
-{
-    border-top: 2px solid green;
-}
-.error.emptyForm.wait
-{
-    border-top: 2px solid grey;
-}*/
 
 .error.saved
 {

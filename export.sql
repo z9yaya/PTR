@@ -1,0 +1,476 @@
+--------------------------------------------------------
+--  File created - Monday-March-20-2017   
+--------------------------------------------------------
+--------------------------------------------------------
+--  DDL for Table STORES
+--------------------------------------------------------
+
+  CREATE TABLE "PTR"."STORES" 
+   (	"ID" NUMBER, 
+	"STREET" VARCHAR2(256 BYTE), 
+	"SUBURB" VARCHAR2(256 BYTE), 
+	"POSTCODE" NUMBER(4,0), 
+	"STATE" VARCHAR2(4 BYTE), 
+	"PHONE" NUMBER(10,0), 
+	"MANAGER" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Table SHIFTS
+--------------------------------------------------------
+
+  CREATE TABLE "PTR"."SHIFTS" 
+   (	"ID" NUMBER, 
+	"STOREID" NUMBER, 
+	"BEGIN" NUMBER(11,0), 
+	"END" NUMBER(11,0)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Table EMPLOYEES
+--------------------------------------------------------
+
+  CREATE TABLE "PTR"."EMPLOYEES" 
+   (	"EMAIL" VARCHAR2(256 BYTE), 
+	"EMPID" NUMBER, 
+	"PASSWORD" VARCHAR2(256 BYTE), 
+	"F_NAME" VARCHAR2(64 BYTE), 
+	"M_NAME" VARCHAR2(64 BYTE), 
+	"L_NAME" VARCHAR2(64 BYTE), 
+	"DOB" NUMBER(11,0), 
+	"PHONE" NUMBER(10,0), 
+	"STREET1" VARCHAR2(256 BYTE), 
+	"STREET2" VARCHAR2(256 BYTE), 
+	"SUBURB" VARCHAR2(64 BYTE), 
+	"POSTCODE" NUMBER(4,0), 
+	"STATE" VARCHAR2(64 BYTE), 
+	"INITIALSETUP" NUMBER
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Table CHAT
+--------------------------------------------------------
+
+  CREATE TABLE "PTR"."CHAT" 
+   (	"CHATFILE" VARCHAR2(256 BYTE), 
+	"LASTMOD" NUMBER(11,0), 
+	"EMAIL" VARCHAR2(256 BYTE), 
+	"LASTLOG" NUMBER(11,0) DEFAULT 1
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Table CLOCK-IN
+--------------------------------------------------------
+
+  CREATE TABLE "PTR"."CLOCK-IN" 
+   (	"SHIFTID" NUMBER, 
+	"EMPLOYEEID" NUMBER, 
+	"SHIFTSTART" NUMBER(11,0), 
+	"SHIFTEND" NUMBER(11,0), 
+	"TIMSTANT" TIMESTAMP (6) WITH TIME ZONE
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Table BANKING
+--------------------------------------------------------
+
+  CREATE TABLE "PTR"."BANKING" 
+   (	"EMPID" NUMBER, 
+	"TFN" NUMBER(10,0), 
+	"BSB" NUMBER(6,0), 
+	"ACCNUMBER" NUMBER(20,0), 
+	"BANKNAME" VARCHAR2(64 BYTE)
+   ) SEGMENT CREATION IMMEDIATE 
+  PCTFREE 10 PCTUSED 40 INITRANS 1 MAXTRANS 255 NOCOMPRESS LOGGING
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Sequence EMP_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "PTR"."EMP_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 61 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence SHIFTS_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "PTR"."SHIFTS_SEQ"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 NOORDER  NOCYCLE ;
+--------------------------------------------------------
+--  DDL for Sequence STORES_SEQ
+--------------------------------------------------------
+
+   CREATE SEQUENCE  "PTR"."STORES_SEQ"  MINVALUE 1 MAXVALUE 999999999999999999999 INCREMENT BY 1 START WITH 21 CACHE 20 ORDER  NOCYCLE ;
+REM INSERTING into PTR.STORES
+SET DEFINE OFF;
+Insert into PTR.STORES (ID,STREET,SUBURB,POSTCODE,STATE,PHONE,MANAGER) values (1,'72/91A Queen St','Brisbane City',4000,'QLD',734402000,24);
+REM INSERTING into PTR.SHIFTS
+SET DEFINE OFF;
+Insert into PTR.SHIFTS (ID,STOREID,BEGIN,END) values (1,1,1489914487,1489915487);
+REM INSERTING into PTR.EMPLOYEES
+SET DEFINE OFF;
+Insert into PTR.EMPLOYEES (EMAIL,EMPID,PASSWORD,F_NAME,M_NAME,L_NAME,DOB,PHONE,STREET1,STREET2,SUBURB,POSTCODE,STATE,INITIALSETUP) values ('ze_yaya@msn.com',23,'$2y$10$AKse2KOjZJbi1IVCN9pDFeSogTENPmp1/Dpvlf3glN0KT41bZCjmm','Yannick',null,'Mansuy',778543200,415142510,'18 Mingah Crescent',null,'Shailer Park',4128,'QLD',1);
+Insert into PTR.EMPLOYEES (EMAIL,EMPID,PASSWORD,F_NAME,M_NAME,L_NAME,DOB,PHONE,STREET1,STREET2,SUBURB,POSTCODE,STATE,INITIALSETUP) values ('ze_yaya@yahoo.fr',41,'$2y$10$/Pf5SaWt7PA7h.5ZR2htLen/LUgQvpV2bP0409vTZhENrX6omS65O',null,null,null,null,null,null,null,null,null,null,null);
+Insert into PTR.EMPLOYEES (EMAIL,EMPID,PASSWORD,F_NAME,M_NAME,L_NAME,DOB,PHONE,STREET1,STREET2,SUBURB,POSTCODE,STATE,INITIALSETUP) values ('zeyaya94@gmail.com',24,'$2y$10$Q6iWs1cmhLDkHoOKOjIfvOiXTCxwmfeItqUr1SGfKeTTIaV//wV9K',null,null,null,null,null,null,null,null,null,null,null);
+REM INSERTING into PTR.CHAT
+SET DEFINE OFF;
+Insert into PTR.CHAT (CHATFILE,LASTMOD,EMAIL,LASTLOG) values ('ze_yaya@yahoo.fr-ze_yaya@msn.com.xml',1488696191,'ze_yaya@yahoo.fr',1488696260);
+Insert into PTR.CHAT (CHATFILE,LASTMOD,EMAIL,LASTLOG) values ('ze_yaya@yahoo.fr-ze_yaya@msn.com.xml',1488696191,'ze_yaya@msn.com',1489756408);
+Insert into PTR.CHAT (CHATFILE,LASTMOD,EMAIL,LASTLOG) values ('ze_yaya@yahoo.fr-zeyaya94@gmail.com.xml',1488694249,'ze_yaya@yahoo.fr',1488694862);
+Insert into PTR.CHAT (CHATFILE,LASTMOD,EMAIL,LASTLOG) values ('ze_yaya@yahoo.fr-zeyaya94@gmail.com.xml',1488694249,'zeyaya94@gmail.com',1);
+Insert into PTR.CHAT (CHATFILE,LASTMOD,EMAIL,LASTLOG) values ('ze_yaya@msn.com-zeyaya94@gmail.com.xml',1488696173,'ze_yaya@msn.com',1489740033);
+Insert into PTR.CHAT (CHATFILE,LASTMOD,EMAIL,LASTLOG) values ('ze_yaya@msn.com-zeyaya94@gmail.com.xml',1488696173,'zeyaya94@gmail.com',1);
+REM INSERTING into PTR."CLOCK-IN"
+SET DEFINE OFF;
+Insert into PTR."CLOCK-IN" (SHIFTID,EMPLOYEEID,SHIFTSTART,SHIFTEND,TIMSTANT) values (1,23,1489914783,null,null);
+REM INSERTING into PTR.BANKING
+SET DEFINE OFF;
+Insert into PTR.BANKING (EMPID,TFN,BSB,ACCNUMBER,BANKNAME) values (23,1234567899,526844,5269344189456,'QSuper');
+--------------------------------------------------------
+--  DDL for Index BANKING_ACC
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."BANKING_ACC" ON "PTR"."BANKING" ("BSB", "ACCNUMBER") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Index BANKING_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."BANKING_PK" ON "PTR"."BANKING" ("EMPID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Index BANKING_TFN
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."BANKING_TFN" ON "PTR"."BANKING" ("TFN") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Index CHAT_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."CHAT_PK" ON "PTR"."CHAT" ("CHATFILE", "EMAIL") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Index CLOCK-IN_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."CLOCK-IN_PK" ON "PTR"."CLOCK-IN" ("SHIFTID", "EMPLOYEEID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Index EMPLOYEES_PK1
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."EMPLOYEES_PK1" ON "PTR"."EMPLOYEES" ("EMPID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Index EMPLOYEES_UK_EMAIL
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."EMPLOYEES_UK_EMAIL" ON "PTR"."EMPLOYEES" ("EMAIL") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Index SHIFTS_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."SHIFTS_PK" ON "PTR"."SHIFTS" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Index STORES_PK
+--------------------------------------------------------
+
+  CREATE UNIQUE INDEX "PTR"."STORES_PK" ON "PTR"."STORES" ("ID") 
+  PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179" ;
+--------------------------------------------------------
+--  DDL for Trigger AUTO_INC
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "PTR"."AUTO_INC" 
+BEFORE
+insert on "EMPLOYEES"
+for each row
+begin
+begin  
+   if inserting then 
+      if :NEW."EMPID" is null then 
+         select EMP_SEQ.nextval into :NEW."EMPID" from dual; 
+      end if; 
+   end if; 
+end;
+end;
+/
+ALTER TRIGGER "PTR"."AUTO_INC" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger BI_SHIFTS
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "PTR"."BI_SHIFTS" 
+  before insert on "SHIFTS"               
+  for each row  
+begin   
+  if :NEW."ID" is null then 
+    select "SHIFTS_SEQ".nextval into :NEW."ID" from dual; 
+  end if; 
+end; 
+
+/
+ALTER TRIGGER "PTR"."BI_SHIFTS" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger BI_STORES
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "PTR"."BI_STORES" 
+  before insert on "STORES"               
+  for each row  
+begin   
+  if :NEW."ID" is null then 
+    select "STORES_SEQ".nextval into :NEW."ID" from dual; 
+  end if; 
+end; 
+
+/
+ALTER TRIGGER "PTR"."BI_STORES" ENABLE;
+--------------------------------------------------------
+--  DDL for Trigger SHIFTS_AUTO
+--------------------------------------------------------
+
+  CREATE OR REPLACE TRIGGER "PTR"."SHIFTS_AUTO" 
+BEFORE
+insert on "SHIFTS"
+for each row
+begin
+begin  
+   if inserting then 
+      if :NEW."ID" is null then 
+         select SHIFTS_SEQ.nextval into :NEW."ID" from dual; 
+      end if; 
+   end if; 
+end;
+end;
+/
+ALTER TRIGGER "PTR"."SHIFTS_AUTO" ENABLE;
+--------------------------------------------------------
+--  DDL for Function CUSTOM_AUTH
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "PTR"."CUSTOM_AUTH" (p_username in VARCHAR2, p_password in VARCHAR2)
+return BOOLEAN
+is
+  l_password varchar2(4000);
+  l_stored_password varchar2(4000);
+  l_expires_on date;
+  l_count number;
+begin
+-- First, check to see if the user is in the user table
+select count(*) into l_count from demo_users where user_name = p_username;
+if l_count > 0 then
+  -- First, we fetch the stored hashed password & expire date
+  select password, expires_on into l_stored_password, l_expires_on
+   from demo_users where user_name = p_username;
+
+  -- Next, we check to see if the user's account is expired
+  -- If it is, return FALSE
+  if l_expires_on > sysdate or l_expires_on is null then
+
+    -- If the account is not expired, we have to apply the custom hash
+    -- function to the password
+    l_password := custom_hash(p_username, p_password);
+
+    -- Finally, we compare them to see if they are the same and return
+    -- either TRUE or FALSE
+    if l_password = l_stored_password then
+      return true;
+    else
+      return false;
+    end if;
+  else
+    return false;
+  end if;
+else
+  -- The username provided is not in the DEMO_USERS table
+  return false;
+end if;
+end;
+
+/
+--------------------------------------------------------
+--  DDL for Function CUSTOM_HASH
+--------------------------------------------------------
+
+  CREATE OR REPLACE FUNCTION "PTR"."CUSTOM_HASH" (p_username in varchar2, p_password in varchar2)
+return varchar2
+is
+  l_password varchar2(4000);
+  l_salt varchar2(4000) := 'PYDESKF35YSJXJNA90B8PM9OAS4TQ2';
+begin
+
+-- This function should be wrapped, as the hash algorhythm is exposed here.
+-- You can change the value of l_salt or the method of which to call the
+-- DBMS_OBFUSCATOIN toolkit, but you much reset all of your passwords
+-- if you choose to do this.
+
+l_password := utl_raw.cast_to_raw(dbms_obfuscation_toolkit.md5
+  (input_string => p_password || substr(l_salt,10,13) || p_username ||
+    substr(l_salt, 4,10)));
+return l_password;
+end;
+
+/
+--------------------------------------------------------
+--  Constraints for Table STORES
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."STORES" ADD CONSTRAINT "STORES_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+  ALTER TABLE "PTR"."STORES" MODIFY ("PHONE" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."STORES" MODIFY ("STATE" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."STORES" MODIFY ("POSTCODE" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."STORES" MODIFY ("SUBURB" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."STORES" MODIFY ("STREET" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."STORES" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table SHIFTS
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."SHIFTS" ADD CONSTRAINT "SHIFTS_PK" PRIMARY KEY ("ID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+  ALTER TABLE "PTR"."SHIFTS" MODIFY ("END" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."SHIFTS" MODIFY ("BEGIN" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."SHIFTS" MODIFY ("STOREID" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."SHIFTS" MODIFY ("ID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table EMPLOYEES
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."EMPLOYEES" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."EMPLOYEES" MODIFY ("EMPID" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."EMPLOYEES" ADD CONSTRAINT "EMPLOYEES_PK1" PRIMARY KEY ("EMPID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+  ALTER TABLE "PTR"."EMPLOYEES" ADD CONSTRAINT "EMPLOYEES_UK_EMAIL" UNIQUE ("EMAIL")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+--------------------------------------------------------
+--  Constraints for Table CHAT
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."CHAT" ADD CONSTRAINT "CHAT_PK" PRIMARY KEY ("CHATFILE", "EMAIL")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+  ALTER TABLE "PTR"."CHAT" MODIFY ("LASTLOG" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."CHAT" MODIFY ("EMAIL" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."CHAT" MODIFY ("LASTMOD" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."CHAT" MODIFY ("CHATFILE" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table CLOCK-IN
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."CLOCK-IN" ADD CONSTRAINT "CLOCK-IN_PK" PRIMARY KEY ("SHIFTID", "EMPLOYEEID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+  ALTER TABLE "PTR"."CLOCK-IN" MODIFY ("EMPLOYEEID" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."CLOCK-IN" MODIFY ("SHIFTID" NOT NULL ENABLE);
+--------------------------------------------------------
+--  Constraints for Table BANKING
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."BANKING" MODIFY ("EMPID" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."BANKING" MODIFY ("ACCNUMBER" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."BANKING" MODIFY ("TFN" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."BANKING" MODIFY ("BSB" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."BANKING" MODIFY ("BANKNAME" NOT NULL ENABLE);
+  ALTER TABLE "PTR"."BANKING" ADD CONSTRAINT "BANKING_PK" PRIMARY KEY ("EMPID")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+  ALTER TABLE "PTR"."BANKING" ADD CONSTRAINT "BANKING_ACC" UNIQUE ("BSB", "ACCNUMBER")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+  ALTER TABLE "PTR"."BANKING" ADD CONSTRAINT "BANKING_TFN" UNIQUE ("TFN")
+  USING INDEX PCTFREE 10 INITRANS 2 MAXTRANS 255 COMPUTE STATISTICS 
+  STORAGE(INITIAL 65536 NEXT 1048576 MINEXTENTS 1 MAXEXTENTS 2147483645
+  PCTINCREASE 0 FREELISTS 1 FREELIST GROUPS 1 BUFFER_POOL DEFAULT FLASH_CACHE DEFAULT CELL_FLASH_CACHE DEFAULT)
+  TABLESPACE "APEX_4782411609029179"  ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table STORES
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."STORES" ADD CONSTRAINT "STORES_FK" FOREIGN KEY ("MANAGER")
+	  REFERENCES "PTR"."EMPLOYEES" ("EMPID") ON DELETE SET NULL ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table SHIFTS
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."SHIFTS" ADD CONSTRAINT "SHIFTS_FK" FOREIGN KEY ("STOREID")
+	  REFERENCES "PTR"."STORES" ("ID") ON DELETE SET NULL ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table CLOCK-IN
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."CLOCK-IN" ADD CONSTRAINT "CLOCK-IN_EMP" FOREIGN KEY ("EMPLOYEEID")
+	  REFERENCES "PTR"."EMPLOYEES" ("EMPID") ON DELETE CASCADE ENABLE;
+  ALTER TABLE "PTR"."CLOCK-IN" ADD CONSTRAINT "CLOCK-IN_SHIFT" FOREIGN KEY ("SHIFTID")
+	  REFERENCES "PTR"."SHIFTS" ("ID") ON DELETE SET NULL ENABLE;
+--------------------------------------------------------
+--  Ref Constraints for Table BANKING
+--------------------------------------------------------
+
+  ALTER TABLE "PTR"."BANKING" ADD CONSTRAINT "BANKING_EMPLOYEES_FK1" FOREIGN KEY ("EMPID")
+	  REFERENCES "PTR"."EMPLOYEES" ("EMPID") ENABLE;

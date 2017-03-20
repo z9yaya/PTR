@@ -10,7 +10,7 @@ else if(isset($_SESSION['INITIAL']))
 {
     if ($_SESSION['INITIAL'] == 1)
     {
-       header("Location: ../index.php");
+       header("Location: ../index.php#/dashboard");
     }
     
 }
@@ -34,7 +34,7 @@ else if(isset($_SESSION['INITIAL']))
                     <label for="empID"  class="label notEmpty">Employee ID</label>
             </div>
     </div>
-    <form class="form preload" method="POST" action="#">
+    <form class="form accountPages preload" method="POST" action="#">
         <div class="employeeDetails boxContainer">
             <div class="containers">
                     <input id="f_name" type="text" name="string:employees:f_name" class="text input" required>

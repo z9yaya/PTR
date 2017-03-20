@@ -20,4 +20,5 @@
             <div class="errorContainer"><span class="error ID"></span></div>
         </div>
         <input type="submit" value="SIGN UP" class="submit button">
+        <div class="submit wait displayNone"><div class="innerButton animationCircle"></div></div>
         <div class="signup">Already have an account?<input type="checkbox" id="signupCheck" class="HiddenObject CheckBox signIn" onchange="SignInSignUp('signin.php', false)"><label for="signupCheck" class="Link">Sign In</label></div>

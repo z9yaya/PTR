@@ -9,5 +9,7 @@
             <label for="secret"  class="label secret">Password</label>
             <div class="errorContainer"><span class="error password"></span></div>
         </div>
+        
         <input type="submit" value="SIGN IN" class="submit button">
+        <div class="submit wait displayNone"><div class="innerButton animationCircle"></div></div>
         <div class="signup">Don't have an account yet?<input type="checkbox" id="signupCheck" class="HiddenObject CheckBox signIn" onchange="SignInSignUp('signup.php', true)"><label for="signupCheck" class="Link">Sign Up</label></div>

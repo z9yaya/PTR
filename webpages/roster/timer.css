@@ -1,0 +1,143 @@
+.timerContent
+{
+    width: 100%;
+    background: rgba(156, 156, 156, 0.20);
+    border-top: 2px solid rgba(205, 205, 205, 0.15);
+    height: 46px;
+    left: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-family: 'Roboto Mono', monospace;
+    color: #bebebe; 
+}
+.timerContent.SmallTimer
+{
+    width: 203px;
+    border-left: 3px solid #e4e4e4;
+    background-color: rgb(235,235,235);
+    border-top: 0;
+    float: right;
+    height: 48px;
+}
+
+.dateContainer
+{
+    margin-left: 2%;
+    font-size: 3.2vw;
+    width: 30%;
+    word-break: break-all;
+    vertical-align: middle;
+    padding-left: 20px;
+}
+
+.SmallTimer .dateContainer
+{
+    display: none;
+}
+.buttonContainer
+{
+    width: 60px;
+    height: 40px;
+    margin-right: 20px;
+    margin-left: 10px;
+}
+
+.SmallTimer .buttonContainer
+{
+    width: auto;
+    margin-left: 0px;
+}
+.timerButton
+{
+    border: none;
+    background: none;
+    background-image: url("../../images/start.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid rgb(138, 215, 93);
+    outline-width: 0;   
+    margin-left: auto;
+}
+
+.timerButton.running
+{
+    background-image: url("../../images/stop.svg");
+    animation: goingTimer infinite 1s;
+}
+
+.timerButton:hover,
+.timerButton:focus
+{
+    border-color: #4bc800;
+    animation: none;
+}
+
+.timerButton:active
+{
+    border-color: #3c8e0b;
+    animation: none;
+}
+
+.timeContainer
+{
+    width: 132px;
+    font-size: 25px;
+    margin-right: 0px;
+    transition: width 0.5s ease;
+    overflow: hidden;
+    margin-left: auto;
+    line-height: 48px;
+    height: 100%;
+    padding-left: 20px;
+}
+
+.SmallTimer .timeContainer
+{
+    font-size: 20px;
+    padding-left: 0;
+}
+.timeContainer.clearAnimation
+{
+    width: 1px;
+    padding-left: 0px;
+}
+
+
+@media screen and (min-width: 625px)
+{
+    .NormalTimer .dateContainer
+    {
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 425px)
+{
+    .SmallTimer
+    {
+        display: none;
+    }
+    .NormalTimer .dateContainer
+    {
+        display: none;
+    }
+}
+
+@keyframes goingTimer
+{
+
+    0%{border-top-color:rgb(138, 215, 93);}
+    12.5%{border-right-color:rgb(138, 215, 93);}
+    25%{border-bottom-color:rgb(138, 215, 93);}
+    37.5%{border-left-color:rgb(138, 215, 93);}
+    50%{border-top-color:#00ca6d;}
+    62.5%{border-right-color:#00ca6d;}
+    75%{border-bottom-color:#00ca6d;}
+    87.5%{border-left-color:#00ca6d;}
+}
+

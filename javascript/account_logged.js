@@ -10,18 +10,45 @@ $(document).ready(function(){
                 $(".label[for='"+$(this).attr("id")+"']").addClass("notEmpty");
                 
                 })
-//    $(".Inputclear").on("click",function()
-//    {
-//        console.log("stuff");
-//        $.post("webpages/clearDetail_logged.php",{column: this.getAttribute("clearfor")},function(data){
-//            console.log(data);
-//                    if (data != "successsuccess" && data != "success"){
-//        }
-//        else{
-//            console.log("success");
-//        }
-//    })
-//})
+    $(".Inputclear").on("click",function()
+    {
+        var inputID = this.getAttribute("inputID");
+        if ($("#"+inputID).val() != '' && $("#"+inputID).val() != null)
+            {
+            $(".error."+inputID).removeClass("invalid saved"); 
+            $(".error."+inputID).addClass("wait");
+            $(".error."+inputID).html("Updating, please wait.");
+            $(".error."+inputID).addClass("show");  
+            $.post("webpages/clearDetail_logged.php",{column: this.getAttribute("clearfor")},function(data)
+            {
+                console.log(data);
+                if (data === "0")
+                    {
+                        $(".error."+inputID).removeClass("invalid wait show");
+                        $("#"+inputID).val('');
+                        $(".label[for="+inputID+"]").removeClass('notEmpty');
+                    }
+                else if (data != "successsuccess" && data != "success")
+                {
+                    $(".error."+inputID).removeClass("wait saved"); 
+                    $(".error."+inputID).addClass("invalid");
+                    $(".error."+inputID).html("Error, please try again.");
+                    $(".error."+inputID).addClass("show");    
+                }
+                else
+                {
+                    $("#"+inputID).val('');
+                    $(".label[for="+inputID+"]").removeClass('notEmpty');
+                    $(".error."+inputID).removeClass("invalid wait");
+                    $(".error."+inputID).addClass("saved");
+                    $(".error."+inputID).html("Information Updated");
+                    $(".error."+inputID).addClass("show");
+                    
+                }
+    })
+            }
+
+})
 });
 
 $("#email").ready(function(){
@@ -121,6 +148,7 @@ $("form").submit(function(event){
                 $input = $(this);
                 $input.siblings(".errorContainer").children(".error").removeClass("show");
                 $input.removeClass("invalid");
+                $(".saved").removeClass("show");
                      });
         });
             }

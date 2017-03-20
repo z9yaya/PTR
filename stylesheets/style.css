@@ -13,7 +13,6 @@ body
 	margin: 0;
     
 }
-
 .header
 {
 	font-family: Calibri;
@@ -23,7 +22,15 @@ body
 
 }
 
-.header a
+.header .normalTimer
+{
+    position: fixed;
+    top: 48px;
+    width: calc(100% - 48px);
+    left: 48px;
+}
+
+.header .menu_item
 {
 	cursor: default;
 }
@@ -59,9 +66,15 @@ body
 }
 
 
-.header_container div
+.header_container .inlineDiv
 {
 	display: inline;
+}
+
+.header_container .smallTimer
+{
+    display: inline-block;
+    float: right;
 }
 
 
@@ -157,6 +170,15 @@ body
     float: left;
 }
 
+@media screen and (max-width: 425px)
+{
+    #rosterLink.active
+    {
+        animation: activeTimerLink 5s infinite;
+    }   
+}
+
+
 #click_overlay, .PageLoadingNormal
 {
     display: none;
@@ -169,7 +191,6 @@ body
 #click_overlay
 {
     display: block;
-
 }
 
 .content
@@ -181,6 +202,12 @@ body
     min-height: 355px;
     height: calc(100% - 48px);
     overflow-y: auto;
+}
+
+.iframe
+{
+    height: 100%;
+    width: 100%;
 }
 
 .PageLoadingAdd
@@ -218,12 +245,32 @@ body
     height: 120px;
 }
 
+.HiddenContent
+{
+    display:none !important;
+}
+
+.scrollHidden
+{
+    overflow: hidden;
+}
+
+.noDecoration
+{
+    text-decoration: none;
+    color: black;
+}
 @keyframes spin{
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
 
-.HiddenContent
+@keyframes activeTimerLink
 {
-    display:none;
+
+    0%{background-color:#004625;}
+    50%{background-color:#00753f;}
+    100%{background-color:#004625;}
 }
+
+
