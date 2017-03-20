@@ -39,7 +39,7 @@ function AutoCheck(file)
         }
     else 
         {
-            console.log("Sorry, your browser does not support instant messaging...");
+             chat.innerHTML= "Sorry, your browser does not support instant messaging...";
         }
 }
 
@@ -174,11 +174,8 @@ function loadContacts()
             if (this.readyState == 4 && this.status == 200)
                 {
                     contacts =  JSON.parse(xmlhttp.responseText);
-                    console.log(Object.keys(contacts["EMAIL"]).length);
-                    console.log(contacts);
                     for (var i=0; i <Object.keys(contacts["EMAIL"]).length; i++)
                         {
-                            console.log(contacts["EMAIL"][i]);
                           document.getElementById("contacts_bar").innerHTML += '<div class="contact" onclick=\'openChat("'+i+'",this)\' data-myValue="'+contacts["EMAIL"][i]+'">'+contacts["F_NAME"][i]+" "+contacts["L_NAME"][i]+'</div>';
                         }                    
                 }
@@ -259,7 +256,6 @@ function CheckMissed()
             if (this.readyState == 4 && this.status == 200)
                 {
                     var UserContacts= document.getElementsByClassName("contact");
-                    console.log(xmlhttp.responseText);
                     var missed =  JSON.parse(xmlhttp.responseText);
                     if (!Object.keys(missed["CHATFILE"]).length)
                         {

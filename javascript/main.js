@@ -45,16 +45,16 @@ function ChangeMainTitle(text, color = '#f2f2f2')
     $('.header_container').css('background-color', color);
 
 }
-function LoadPage(page, title, ContentDiv = "MainContent", callback = null, color = '#f2f2f2', type="load")
+function LoadPage(page, title, type="load", ContentDiv = "MainContent", callback = null, color = '#f2f2f2')
 {
     $("#loadingPageOverlay").addClass("PageLoadingAdd");
     if(type =="append")
         {
-            $("#"+ContentDiv).empty().append('<object class="iframe" data="'+$('[rel="address:' + page + '"]').attr('href')+'">');
+            $("#"+ContentDiv).empty().append('<object class="iframe" data="'+page+'">');
             $("body").addClass("scrollHidden");
             $(".content").addClass("scrollHidden");
-            callback();
-        }
+            callback;
+            }
     else if(type == "load")
         {
             $("#"+ContentDiv).load(page, callback);
@@ -69,30 +69,36 @@ $('#loadingPageOverlay').removeClass('PageLoadingAdd');},1000);
 }
 
 $("document").ready(function(){
-    $("#headerTimer").load("webpages/roster/timer.php",function(){
-        if($.address.path() == "/roster")
-            {
-                $("#timerContent").addClass("NormalTimer");
-                $("#timerContent").removeClass("SmallTimer");
-                $("#headerTimer").addClass("normalTimer");
-                $("#headerTimer").removeClass("smallTimer");
-            }
-    });
-    $.address.init(function(event) {}).change(function(event) {
-        if (event.value == "/roster")
-            {
-                $("#timerContent").addClass("NormalTimer");
-                $("#timerContent").removeClass("SmallTimer");
-                $("#headerTimer").addClass("normalTimer");
-                $("#headerTimer").removeClass("smallTimer");
-                $("#MainContent").empty().append('<object class="iframe" data="'+$('[rel="address:' + event.value + '"]').attr('href')+'">');
-            }
-        else{
-            $("#timerContent").removeClass("NormalTimer");
-            $("#timerContent").addClass("SmallTimer");
-            $("#headerTimer").removeClass("normalTimer");
-            $("#headerTimer").addClass("smallTimer");
+    $("#loadingPageOverlay").addClass("PageLoadingAdd");
+    if ($("#headerTimer"))
+        {
+            $("#headerTimer").load("webpages/timer/timer.php",function(){
+            if($.address.path() == "/roster")
+                {
+                    $("#timerContent").addClass("NormalTimer");
+                    $("#timerContent").removeClass("SmallTimer");
+                    $("#headerTimer").addClass("normalTimer");
+                    $("#headerTimer").removeClass("smallTimer");
+                }    
+            });
         }
+    $.address.init(function(event) {}).change(function(event) {
+        if ($("#headerTimer"))
+            {   
+                if (event.value == "/roster")
+                {
+                    $("#timerContent").addClass("NormalTimer");
+                    $("#timerContent").removeClass("SmallTimer");
+                    $("#headerTimer").addClass("normalTimer");
+                    $("#headerTimer").removeClass("smallTimer");
+                }
+                else{
+                    $("#timerContent").removeClass("NormalTimer");
+                    $("#timerContent").addClass("SmallTimer");
+                    $("#headerTimer").removeClass("normalTimer");
+                    $("#headerTimer").addClass("smallTimer");
+                }
+            }
         if (event.value == "/messages")
             {
                 LoadMessagesContent();
@@ -100,7 +106,7 @@ $("document").ready(function(){
             }
         else if (event.value == "/dashboard")
             {
-                LoadPage($('[rel="address:' + event.value + '"]').attr('href'),$('[rel="address:' + event.value + '"]').attr('metatitle'),"MainContent", null, "#1970b3");
+                LoadPage($('[rel="address:' + event.value + '"]').attr('href'),$('[rel="address:' + event.value + '"]').attr('metatitle'),undefined,undefined, undefined, "#478ec6");
                 ChangeMainBackground("#1b74b9");
             }
         else
@@ -109,7 +115,6 @@ $("document").ready(function(){
                 ChangeMainBackground();
             }
         SelectionIndic($('[rel="address:' + event.value + '"]'))
-        console.log(event.value);
     })
     $('.ContentWithin').click(function(){
         event.preventDefault();
@@ -125,7 +130,6 @@ $("document").ready(function(){
                 if (typeof(sourceNew) != "undefined")
                     {
                         sourceNew.close();
-
                     }
                 }
                 if (!$("#MessageContent").hasClass("HiddenContent"))
@@ -135,16 +139,14 @@ $("document").ready(function(){
                     }
                 if ($(this).attr("id") == "dashboardLink")
                 {
-                    ChangeMainBackground("#1b74b9");
-                    LoadPage($(this).attr('href'),$(this).attr('metatitle'),"MainContent",null,"#1970b3"); 
-                }
-                else if ($(this).attr("id") == "rosterLink")
-                {
-                    $("#MainContent").empty().append('<object class="iframe" data="'+$(this).attr('href')+'">');
+                    ChangeMainBackground("#1b74b9"); LoadPage($(this).attr('href'),$(this).attr('metatitle'),undefined,"MainContent",undefined,"#478ec6"); 
                 }
                 else
                 {
-                    LoadPage($(this).attr('href'),$(this).attr('metatitle'),$(this).attr('loadType'));
+                    console.log($(this).attr('href'))
+                    LoadPage($(this).attr('href'),
+                             $(this).attr('metatitle'),
+                             $(this).attr('loadType'));
                     ChangeMainBackground();
                 }
             }
@@ -152,3 +154,18 @@ $("document").ready(function(){
     });
 
 });
+
+function ExpandMenu()
+{
+    var menu = $("#MainSideMenu");
+    if (menu.hasClass("HiddenIcons"))
+        {
+            click_overlay.style.zIndex="-1";
+            menu.removeClass("HiddenIcons");
+        }
+    else
+        {
+            menu.addClass("HiddenIcons");
+            click_overlay.style.zIndex="2"
+        }
+}

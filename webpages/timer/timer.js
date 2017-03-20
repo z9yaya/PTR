@@ -6,7 +6,7 @@ if(dd<10){dd='0'+dd}
 if(mm<10){mm='0'+mm} 
 function CheckOngoing()
 {
-    $.post("webpages/roster/checkShift.php",function(data)
+    $.post("webpages/timer/checkShift.php",function(data)
            {
         if (data === "login")
             {
@@ -43,10 +43,21 @@ $(document).ready(function() {
         {
             if ($( this ).hasClass("running"))
             {
-                clearInterval(x);
-                $("#timerButtonClick").blur();
-                $("#timerButtonClick").removeClass("running");
-                $("#timerButtonClick").addClass("ready");
+                $.post("webpages/timer/StopShift.php",function(data)
+                {
+                    if (data == "success")
+                        {
+                            clearInterval(x);
+                            $("#timerButtonClick").blur();
+                            $("#timerButtonClick").removeClass("running");
+                            $("#rosterLink").removeClass("Timeractive");
+                            $("#timerButtonClick").addClass("ready");
+                        }
+                    else if(data == 'login')
+                        {
+                            window.location.replace("webpages/start.php");
+                        }
+                });
             }
             else
             {
@@ -57,14 +68,18 @@ $(document).ready(function() {
                             $("#timeContainer").removeClass("clearAnimation");
                         },1000);
                     }
-                $.post("webpages/roster/StartShift.php",function(data)
+                $.post("webpages/timer/StartShift.php",function(data)
                 {
                     console.log(data);
                     if (data == "success")
-                    {
-                        startTimer();
-                    }
-                    else
+                        {
+                            startTimer();
+                        }
+                    else if (data == 'login')
+                        {
+                            window.location.replace("webpages/start.php");                          
+                        }
+                    else if (data == "started")
                     {
                         res = shiftInfo["SHIFTSTART"];
                         startTimer(res);

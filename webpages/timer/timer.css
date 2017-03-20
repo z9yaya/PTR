@@ -1,8 +1,9 @@
+@font-face { font-family: 'Roboto Mono'; src: url('../../fonts/RobotoMono.ttf '); } 
 .timerContent
 {
     width: 100%;
-    background: rgba(156, 156, 156, 0.20);
-    border-top: 2px solid rgba(205, 205, 205, 0.15);
+    background: #ebebeb;
+    border-top: 2px solid #e7e7e7;
     height: 46px;
     left: 48px;
     display: flex;

@@ -18,7 +18,6 @@ if (session_id() == '')
         <link rel="stylesheet" href="stylesheets/style.css">
         <script type="text/javascript" src="javascript/jquery-1.9.0.min.js"></script>
         <script type="text/javascript" src="javascript/jquery.address-1.6.min.js"></script>
-        <script src="javascript/animation_menu.js"></script>
         <script type="text/javascript" src="javascript/main.js"></script>
         <noscript>JavaScript is off. Please enable to view full site.</noscript>
 	</head>
@@ -31,9 +30,9 @@ if (session_id() == '')
                 
                 <div><a href="webpages/roster/roster.php" metatitle="Roster" id="rosterLink" rel="address:/roster" loadType="append" class="menu_item ContentWithin" ><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs41"></defs><g id="g8" transform="translate(0 -54.375)" /><g id="g10" transform="translate(0 -54.375)" /><g id="g12" transform="translate(0 -54.375)" /><g id="g14" transform="translate(0 -54.375)"></g><g id="g16" transform="translate(0 -54.375)" /><g id="g18" transform="translate(0 -54.375)" /><g id="g20" transform="translate(0 -54.375)" /><g id="g22" transform="translate(0 -54.375)" /><g id="g24" transform="translate(0 -54.375)" /><g id="g26" transform="translate(0 -54.375)" /><g id="g28" transform="translate(0 -54.375)" /><g id="g30" transform="translate(0 -54.375)" /><g id="g32" transform="translate(0 -54.375)" /><g id="g34" transform="translate(0 -54.375)" /><g id="g36" transform="translate(0 -54.375)" /><circle id="path850" style="fill: none; fill-opacity: 1; stroke: #ffffff; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 1;" cx="24" cy="24" r="9.46835" /><rect id="rect868" style="fill: #ffffff; fill-opacity: 1; stroke: none; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 0; stroke-width: 0.940401;" x="23.5423" y="18.7806" width="1" height="7.67802" /><rect id="rect868-3" style="fill: #ffffff; fill-opacity: 1; stroke: none; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 0; stroke-width: 0.67504;" transform="rotate(-90)" x="-26.4577" y="19.6085" width="1" height="3.95624" /></svg>Roster</a></div>
                 
-                <div><a href="pages/TEMPLATE.php" metatitle="template" class="menu_item ContentWithin"><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs45"></defs><g id="g10" transform="matrix(0.0415327 0 0 0.0415327 13.7365 13.7365)"><g id="g8"><polygon id="polygon2" style="fill: #ffffff;" points="85.211,36.024 85.211,457.685 180.89,457.851 180.89,36.024" /><path id="path4" style="fill: #ffffff;" d="M 199.726 0 V 494.237 L 408.81 456.683 L 409.026 37.816 Z M 385.829 437.447 L 222.725 466.735 V 27.528 L 386.007 57.03 Z" /><ellipse id="ellipse6" style="fill: #ffffff;" cx="247.119" cy="247.119" rx="12.715" ry="16.545" /></g></g><g id="g12" transform="translate(0 -447.902)" /><g id="g14" transform="translate(0 -447.902)" /><g id="g16" transform="translate(0 -447.902)" /><g id="g18" transform="translate(0 -447.902)" /><g id="g20" transform="translate(0 -447.902)" /><g id="g22" transform="translate(0 -447.902)" /><g id="g24" transform="translate(0 -447.902)" /><g id="g26" transform="translate(0 -447.902)" /><g id="g28" transform="translate(0 -447.902)" /><g id="g30" transform="translate(0 -447.902)" /><g id="g32" transform="translate(0 -447.902)" /><g id="g34" transform="translate(0 -447.902)" /><g id="g36" transform="translate(0 -447.902)" /><g id="g38" transform="translate(0 -447.902)" /><g id="g40" transform="translate(0 -447.902)" /></svg>Leave</a></div>
+                <div><a href="../folio/" metatitle="Leave" loadType="append" rel="address:/leave" class="menu_item ContentWithin"><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs45"></defs><g id="g10" transform="matrix(0.0415327 0 0 0.0415327 13.7365 13.7365)"><g id="g8"><polygon id="polygon2" style="fill: #ffffff;" points="85.211,36.024 85.211,457.685 180.89,457.851 180.89,36.024" /><path id="path4" style="fill: #ffffff;" d="M 199.726 0 V 494.237 L 408.81 456.683 L 409.026 37.816 Z M 385.829 437.447 L 222.725 466.735 V 27.528 L 386.007 57.03 Z" /><ellipse id="ellipse6" style="fill: #ffffff;" cx="247.119" cy="247.119" rx="12.715" ry="16.545" /></g></g><g id="g12" transform="translate(0 -447.902)" /><g id="g14" transform="translate(0 -447.902)" /><g id="g16" transform="translate(0 -447.902)" /><g id="g18" transform="translate(0 -447.902)" /><g id="g20" transform="translate(0 -447.902)" /><g id="g22" transform="translate(0 -447.902)" /><g id="g24" transform="translate(0 -447.902)" /><g id="g26" transform="translate(0 -447.902)" /><g id="g28" transform="translate(0 -447.902)" /><g id="g30" transform="translate(0 -447.902)" /><g id="g32" transform="translate(0 -447.902)" /><g id="g34" transform="translate(0 -447.902)" /><g id="g36" transform="translate(0 -447.902)" /><g id="g38" transform="translate(0 -447.902)" /><g id="g40" transform="translate(0 -447.902)" /></svg>Leave</a></div>
                 
-                <div><a href="#" rel="address:/pay" loadType="append" class="menu_item ContentWithin"><div class="icons">$</div>Pay</a></div>
+                <div><a href="../tib/" rel="address:/pay" metatitle="Pay" loadType="append"  class="menu_item ContentWithin"><div class="icons">$</div>Pay</a></div>
                 
                 
                 <div class="lower_menu">
@@ -49,17 +48,13 @@ if (session_id() == '')
             <div id="loadingPageOverlay" class="PageLoadingNormal"><div class="loading"><div class="animationCircle"></div></div></div>
 		<div class="header_container">
 			<div class="inlineDiv"><a class="menu_item menu_extend" onclick="ExpandMenu()"><svg xmlns="http://www.w3.org/2000/svg" id="svg8" viewBox="0 0 12.7 12.7" width="48" height="48" version="1.1"><defs id="defs2"></defs><g id="layer1" style="display: inline;" transform="translate(-74.0273 -102.378)"><rect id="rect3693" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9823" y="107.415" width="5.28901" height="0.263111" /><rect id="rect3693-7" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9822" y="108.737" width="5.28901" height="0.263111" /><rect id="rect3693-7-9" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9847" y="110.06" width="5.28901" height="0.263111" /></g></svg></a></div>
-			<div class="header_title inlineDiv" id="mainPageTitle">Title</div>
-            <div class="smallTimer" id="headerTimer"></div>
+			<div class="header_title inlineDiv" id="mainPageTitle"></div>
+            <div class="smallTimer" id="<?php AddTimerCheck()?>"></div>
 		</div>
 		</div>
         <div id="MainContent" class="content">
         </div> 
-        <div id="MessageContent" class="content HiddenContent">
-                <?php AddChat();?>
-                </div>
-        <script>
-            $("#MainContent").empty().append('<object class="iframe" data="'+'../tib6/index.php'+'">');</script>
+        <div id="MessageContent" class="content HiddenContent"><?php AddChat();?></div>
        <?php if (session_id() == '')
                     {
                         session_start();

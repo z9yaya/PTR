@@ -1,7 +1,6 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="https://fonts.googleapis.com/css?family=Roboto+Mono" rel="stylesheet">
-<link rel="stylesheet" href="webpages/roster/timer.css" media="none" onload="if(media!='all')media='all'">
+<link rel="stylesheet" href="webpages/timer/timer.css" media="none" onload="if(media!='all')media='all'">
 
 </head>
 <div class="timerContent SmallTimer" id="timerContent">
@@ -10,6 +9,6 @@
     <div class="buttonContainer">
         <input type="button" id="timerButtonClick" class="timerButton ready">
     </div>
-    <script type="text/javascript" src="webpages/roster/timer.js"></script>
+    <script type="text/javascript" src="webpages/timer/timer.js"></script>
 </div>
 

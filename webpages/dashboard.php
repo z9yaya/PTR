@@ -101,15 +101,24 @@ if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
      function calcHours()
      {
          var now = new Date().getTime();
-         if (startTime != 0)
+         if (startTime == 0)
          {
-            hoursDone = 0;
+            hoursDone = 00;
+            hoursLeft = ("0"+Math.floor((ShiftEnd - ShiftStart) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)).slice(-2);
+             return true;
          }
          else
          {
             hoursDone = ("0"+Math.floor(((now - startTime) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
          }
-        hoursLeft = ("0"+Math.floor(((ShiftEnd - now) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
+         if (ShiftEnd == 0)
+         {
+            hoursLeft = 0;
+         }
+         else
+         {
+            hoursLeft = ("0"+Math.floor(((ShiftEnd - now) % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))).slice(-2);
+         }
 }
      
  $.getScript("javascript/chartBundle.js",function(){
@@ -133,7 +142,30 @@ if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
                 {
                     echo 0;
                 }?>;
-     ShiftEnd = <?php echo $_SESSION["END"];?>;
+     stopTime = <?php if(isset($_SESSION["SHIFTSTOP"]) && !empty($_SESSION["SHIFTSTOP"]))
+                {
+                    echo $_SESSION["SHIFTSTART"];
+                }
+                else
+                {
+                    echo 0;
+                }?>;
+     ShiftStart = <?php if(isset($_SESSION["SHIFTBEGIN"]) && !empty($_SESSION["SHIFTBEGIN"]))
+                { 
+                    echo $_SESSION["SHIFTBEGIN"];
+                }
+                else
+                {
+                    echo 0;
+                }?>;
+     ShiftEnd = <?php if(isset($_SESSION["SHIFTEND"]) && !empty($_SESSION["SHIFTEND"]))
+                { 
+                    echo $_SESSION["SHIFTEND"];
+                }
+                else
+                {
+                    echo 0;
+                }?>;
      calcHours();
      dashboardInterval =  setInterval(function() {
         calcHours();
