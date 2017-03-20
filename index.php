@@ -274,7 +274,7 @@ if (session_id() == '')
 //                                $('.square_container').css('height', Width);
 //                                $('.rectangle_container').css('height', Width);
 //                            }
-                    }
+//                    }
                     //$( window ).resize(ResizeSquares);
                 </script>
        <?php if (session_id() == '')
