@@ -1,30 +1,24 @@
 .preload * {
-  -webkit-transition: none !important;
-  -moz-transition: none !important;
-  -ms-transition: none !important;
-  -o-transition: none !important;
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
 }
-
-body
-{
+body {
     margin: 0;
 }
-.accountContent
-{
+.accountContent {
     min-width: 264px;
     background-color: #82cafc;
     min-height: 100%;
 }
-
-.accountPages.form, .accountInfo
-{
+.accountPages.form,
+.accountInfo {
     max-width: 700px;
     margin: 0 auto;
     overflow: hidden;
 }
-
-.accountInfo
-{
+.accountInfo {
     height: 100px;
     border-bottom: 5px solid #d4d4d4;
     background-color: #f7f7f7;
@@ -34,27 +28,20 @@ body
     max-width: 600px;
     margin: 0 auto;
 }
-
-.accountInfo .title_icon
-{
+.accountInfo .title_icon {
     position: absolute;
-    top:0px;
+    top: 0px;
 }
-
-.boxContainer
-{
+.boxContainer {
     padding-left: 50px;
     padding-right: 50px;
     background-color: white;
     margin-bottom: 5px;
     overflow: hidden;
-
 }
-
 .employeeDetails:before,
 .addressDetails:before,
-.bankingDetails:before
-{
+.bankingDetails:before {
     display: block;
     margin-bottom: 20px;
     font-size: 20px;
@@ -62,32 +49,25 @@ body
     font-family: 'Lato', sans-serif;
     margin-top: 25px;
 }
-.employeeDetails:before
-{
+.employeeDetails:before {
     content: "Personal information";
 }
-.addressDetails:before
-{
+.addressDetails:before {
     content: "Address information";
 }
-.bankingDetails:before
-{
+.bankingDetails:before {
     content: "Banking information";
 }
-.containers
-{
+.containers {
     position: relative;
     margin-bottom: 12px;
 }
-
-form .containers
-{
+form .containers {
     margin-bottom: 30px;
 }
-.input
-{
+.input {
     display: block;
-    margin-top: 14px; /*this should be label font-size + 2px*/
+    margin-top: 14px;/*this should be label font-size + 2px*/
     height: auto;
     background: none;
     text-decoration: none;
@@ -95,20 +75,17 @@ form .containers
     border-bottom: 2px solid black;
     width: 100%;
 }
-
-input:focus
-{
+input:focus {
     outline: none;
 }
-
-.input, .label, .error
-{
-    font-size: 15px; /*inputs and label font-size, should be in pixel*/
+.input,
+.label,
+.error {
+    font-size: 15px;/*inputs and label font-size, should be in pixel*/
     color: black;
     font-family: 'Lato', sans-serif;
 }
-.label
-{
+.label {
     position: absolute;
     transition: 0.1s font-size, top ease;
     top: 0px;
@@ -116,106 +93,77 @@ input:focus
     opacity: 0.8;
 }
 .input:focus + .label,
-.label.notEmpty
-{
-    font-size: 12px; /*label font-size when moved, should be half of normal size*/
-    top: -12px; /*distance to move the label, should be equal to label font-size above*/
+.label.notEmpty {
+    font-size: 12px;/*label font-size when moved, should be half of normal size*/
+    top: -12px;/*distance to move the label, should be equal to label font-size above*/
     opacity: 1;
 }
-
-.label.notEmpty.dob
-{
+.label.notEmpty.dob {
     width: 70px;
 }
-
-.input.bsb
-{
+.input.bsb {
     width: auto;
 }
-
-.input.drop
-{
+.input.drop {
     height: 20px;
-        -ms-box-sizing:content-box;
-    -moz-box-sizing:content-box;
-    box-sizing:content-box;
-    -webkit-box-sizing:content-box; 
+    -ms-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
     margin: 0;
 }
-.containers.inline
-{
+.containers.inline {
     display: inline-block;
 }
-
-.containers.nomarg
-{
+.containers.nomarg {
     margin: 0;
 }
-
-.containers.negativeMarg
-{
+.containers.negativeMarg {
     margin-top: -15px;
 }
-
-.input.inline
-{
+.input.inline {
     display: inline;
-    width:auto;
+    width: auto;
     margin-top: 3px;
 }
-
-.input.nomarg
-{
+.input.nomarg {
     margin-top: 0;
 }
-
-.input.clearable
-{
+.input.clearable {
     width: calc(100% - 17px);
 }
-.clearContainer
-{
+.clearContainer {
     position: absolute;
     right: 0px;
     top: 2px;
     background-color: white;
     border-bottom: 2px solid black;
 }
-
-.Inputclear
-{
-    font-family: Helvetica,Arial;
+.Inputclear {
+    font-family: Helvetica, Arial;
     font-size: 10pt;
     color: #cacaca;
     display: inline-block;
     background-color: white;
-     -webkit-user-select: none;
+    -webkit-user-select: none;
     cursor: default;
     width: 12px;
     padding-left: 5px;
-    
 }
 .Inputclear:hover,
-.Inputclear:focus
-{
-    color:black;
+.Inputclear:focus {
+    color: black;
 }
-
-.accountInfo .label
-{
+.accountInfo .label {
     right: 0;
     color: #a0a0a0;
 }
-
-.accountInfo .input
-{
+.accountInfo .input {
     border: 0;
     text-align: right;
     margin-top: 20px
 }
-
-.submit.button
-{
+.submit.button {
     width: 50%;
     height: 35px;
     background-color: rgba(255, 255, 255, 0.15);
@@ -231,31 +179,21 @@ input:focus
     display: block;
 }
 .submit.button:hover,
-.submit.button:focus
-{
+.submit.button:focus {
     background-color: rgba(255, 255, 255, 0.40);
 }
-.submit.button:active
-{
+.submit.button:active {
     background-color: rgba(255, 255, 255, 0.50);
 }
-
-@media screen and (max-width: 380px)
-{
-    .accountInfo .title_icon
-    {
+@media screen and (max-width: 380px) {
+    .accountInfo .title_icon {
         display: none;
     }
 }
-
-.errorContainer
-{
+.errorContainer {
     height: 17px;
 }
-
-
-.error
-{
+.error {
     color: white;
     background-color: #902a2a;
     text-align: center;
@@ -264,38 +202,24 @@ input:focus
     height: 0px;
     overflow: hidden;
     display: block;
-     -webkit-user-select: none;
+    -webkit-user-select: none;
 }
-
-.error.emptyForm
-{
-     margin-top: -5px;
+.error.emptyForm {
+    margin-top: -5px;
     font-size: 15px;
 }
-
-.error.emptyForm.invalid
-{
+.error.emptyForm.invalid {
     border-top: 2px solid red;
 }
-
-.error.saved
-{
+.error.saved {
     background-color: green;
-    
 }
-
-.error.wait
-{
+.error.wait {
     background-color: grey;
-    
 }
-
-.error.show
-{
+.error.show {
     height: 100%;
 }
-
-.input.invalid
-{
+.input.invalid {
     border-color: red;
 }

@@ -1,6 +1,8 @@
-@font-face { font-family: 'Roboto Mono'; src: url('../../fonts/RobotoMono.ttf '); } 
-.timerContent
-{
+@font-face {
+    font-family: 'Roboto Mono';
+    src: url('../../fonts/RobotoMono.ttf ');
+}
+.timerContent {
     width: 100%;
     background: #ebebeb;
     border-top: 2px solid #e7e7e7;
@@ -10,20 +12,17 @@
     align-items: center;
     justify-content: space-between;
     font-family: 'Roboto Mono', monospace;
-    color: #bebebe; 
+    color: #bebebe;
 }
-.timerContent.SmallTimer
-{
+.timerContent.SmallTimer {
     width: 203px;
     border-left: 3px solid #e4e4e4;
-    background-color: rgb(235,235,235);
+    background-color: rgb(235, 235, 235);
     border-top: 0;
     float: right;
     height: 48px;
 }
-
-.dateContainer
-{
+.dateContainer {
     margin-left: 2%;
     font-size: 3.2vw;
     width: 30%;
@@ -31,26 +30,20 @@
     vertical-align: middle;
     padding-left: 20px;
 }
-
-.SmallTimer .dateContainer
-{
+.SmallTimer .dateContainer {
     display: none;
 }
-.buttonContainer
-{
+.buttonContainer {
     width: 60px;
     height: 40px;
     margin-right: 20px;
     margin-left: 10px;
 }
-
-.SmallTimer .buttonContainer
-{
+.SmallTimer .buttonContainer {
     width: auto;
     margin-left: 0px;
 }
-.timerButton
-{
+.timerButton {
     border: none;
     background: none;
     background-image: url("../../images/start.svg");
@@ -61,31 +54,23 @@
     cursor: pointer;
     border-radius: 50%;
     border: 3px solid rgb(138, 215, 93);
-    outline-width: 0;   
+    outline-width: 0;
     margin-left: auto;
 }
-
-.timerButton.running
-{
+.timerButton.running {
     background-image: url("../../images/stop.svg");
     animation: goingTimer infinite 1s;
 }
-
 .timerButton:hover,
-.timerButton:focus
-{
+.timerButton:focus {
     border-color: #4bc800;
     animation: none;
 }
-
-.timerButton:active
-{
+.timerButton:active {
     border-color: #3c8e0b;
     animation: none;
 }
-
-.timeContainer
-{
+.timeContainer {
     width: 132px;
     font-size: 25px;
     margin-right: 0px;
@@ -96,49 +81,50 @@
     height: 100%;
     padding-left: 20px;
 }
-
-.SmallTimer .timeContainer
-{
+.SmallTimer .timeContainer {
     font-size: 20px;
     padding-left: 0;
 }
-.timeContainer.clearAnimation
-{
+.timeContainer.clearAnimation {
     width: 1px;
     padding-left: 0px;
 }
-
-
-@media screen and (min-width: 625px)
-{
-    .NormalTimer .dateContainer
-    {
+@media screen and (min-width: 625px) {
+    .NormalTimer .dateContainer {
         font-size: 20px;
     }
 }
-
-@media screen and (max-width: 425px)
-{
-    .SmallTimer
-    {
+@media screen and (max-width: 425px) {
+    .SmallTimer {
         display: none;
     }
-    .NormalTimer .dateContainer
-    {
+    .NormalTimer .dateContainer {
         display: none;
     }
 }
-
-@keyframes goingTimer
-{
-
-    0%{border-top-color:rgb(138, 215, 93);}
-    12.5%{border-right-color:rgb(138, 215, 93);}
-    25%{border-bottom-color:rgb(138, 215, 93);}
-    37.5%{border-left-color:rgb(138, 215, 93);}
-    50%{border-top-color:#00ca6d;}
-    62.5%{border-right-color:#00ca6d;}
-    75%{border-bottom-color:#00ca6d;}
-    87.5%{border-left-color:#00ca6d;}
+@keyframes goingTimer {
+    0% {
+        border-top-color: rgb(138, 215, 93);
+    }
+    12.5% {
+        border-right-color: rgb(138, 215, 93);
+    }
+    25% {
+        border-bottom-color: rgb(138, 215, 93);
+    }
+    37.5% {
+        border-left-color: rgb(138, 215, 93);
+    }
+    50% {
+        border-top-color: #00ca6d;
+    }
+    62.5% {
+        border-right-color: #00ca6d;
+    }
+    75% {
+        border-bottom-color: #00ca6d;
+    }
+    87.5% {
+        border-left-color: #00ca6d;
+    }
 }
-

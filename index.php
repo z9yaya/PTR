@@ -1,5 +1,6 @@
 <?php 
 include 'functions/functions.php';
+include 'functions/chat/AddChat.php';
 if (session_id() == '')
     {
         session_start();
@@ -15,14 +16,22 @@ if (session_id() == '')
         <link rel="SHORTCUT ICON" href="images/favico.ico">
         <link rel="icon" href="images/favico.ico" type="image/ico">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="stylesheets/style.css">
-        <script type="text/javascript" src="javascript/jquery-1.9.0.min.js"></script>
-        <script type="text/javascript" src="javascript/jquery.address-1.6.min.js"></script>
-        <script type="text/javascript" src="javascript/main.js"></script>
+        <link rel="stylesheet" href="stylesheets/style.css" async>
+        <?php if (session_id() == '')
+                    {
+                        session_start();
+                    }
+                    if(isset($_SESSION['EMAIL']))
+                    {
+        echo '<link rel="stylesheet" href="stylesheets/messages.css" async>';
+                    }?>
+        <script type="application/javascript" src="javascript/header.js"></script>
+        <script type="application/javascript">head.load("javascript/jquery-1.9.0.min.js",function(){head.load("javascript/jquery.address-1.6.min.js",function(){head.load("javascript/main.js"),head.load("javascript/eventsource.js",function(){head.load("functions/chat/script.js")})})});
+        </script>
         <noscript>JavaScript is off. Please enable to view full site.</noscript>
 	</head>
 	<body>
-		<div class="header">
+		<div class="header noClickTouch">
 		<div class="side_menu" id="MainSideMenu">
             <div class="side_menu_container">
                 <div><a href="webpages/dashboard.php" id="dashboardLink" metatitle="Dashboard" rel="address:/dashboard" class="menu_item ContentWithin"><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs39"></defs><g id="g4" transform="matrix(0.044594 0 0 0.044594 13.9995 13.9995)"><path id="path2" style="fill: #ffffff;" d="M 444.277 215.253 L 242.72 52.441 L 231.534 43.152 c -4.22 -3.506 -10.34 -3.506 -14.559 0 L 158.813 91.453 V 71.031 c 0 -6.294 -5.104 -11.397 -11.396 -11.397 h -43.449 c -6.293 0 -11.396 5.104 -11.396 11.397 v 75.233 L 4.191 218.371 c -4.875 3.979 -5.605 11.157 -1.625 16.035 c 2.254 2.764 5.531 4.193 8.836 4.193 c 2.533 0 5.082 -0.841 7.203 -2.565 l 34.477 -28.126 v 188.684 c 0 6.294 5.102 11.397 11.396 11.397 h 121.789 c 6.295 0 11.398 -5.104 11.398 -11.397 v -88.426 h 53.18 v 88.426 c 0 6.294 5.104 11.397 11.398 11.397 h 121.789 c 6.295 0 11.397 -5.104 11.397 -11.397 V 205.101 l 34.521 27.884 c 2.108 1.702 4.643 2.532 7.158 2.532 c 3.321 0 6.622 -1.447 8.87 -4.235 c 3.959 -4.898 3.195 -12.074 -1.701 -16.029 Z M 115.366 82.428 h 20.652 v 27.164 l -20.652 16.716 Z m 257.27 107.53 v 195.235 h -98.994 v -88.427 c 0 -6.294 -5.104 -11.396 -11.397 -11.396 h -75.977 c -6.295 0 -11.396 5.104 -11.396 11.396 v 88.427 H 75.877 V 189.958 l 44.309 -36.798 c 0 0 103.748 -85.009 104.41 -86.141 Z"></path></g><g id="g6" transform="translate(0 -406.464)"></g><g id="g8" transform="translate(0 -406.464)"></g><g id="g10" transform="translate(0 -406.464)"></g><g id="g12" transform="translate(0 -406.464)"></g><g id="g14" transform="translate(0 -406.464)"></g><g id="g16" transform="translate(0 -406.464)"></g><g id="g18" transform="translate(0 -406.464)"></g><g id="g20" transform="translate(0 -406.464)"></g><g id="g22" transform="translate(0 -406.464)"></g><g id="g24" transform="translate(0 -406.464)"></g><g id="g26" transform="translate(0 -406.464)"></g><g id="g28" transform="translate(0 -406.464)"></g><g id="g30" transform="translate(0 -406.464)"></g><g id="g32" transform="translate(0 -406.464)"></g><g id="g34" transform="translate(0 -406.464)"></g></svg>Home</a></div>
@@ -45,7 +54,17 @@ if (session_id() == '')
             </div>
 		</div>
         <div id=click_overlay onclick="ExpandMenu()"></div>
-            <div id="loadingPageOverlay" class="PageLoadingNormal"><div class="loading"><div class="animationCircle"></div></div></div>
+            <div id="loadingPageOverlay" class="PageLoadingNormal PageLoadingAdd"><div class="loading"><div class="animationCircle"></div></div></div>
+            <div id="timerStopPageOverlay" class="timerStopNormal">
+                <div class="popUpContainer">
+                    <div class="questionLabel">Are you sure you want to end your shift?</div>
+                    <div class="answerContainer">
+                        <div id="timerStopConfirm" class="bigRoundButtons yesConfirm" title="Yes"></div>
+                        <div id="timerStopCancel" class="bigRoundButtons noDeny" title="No"></div>
+                    </div>
+                    <div id="loadingStopTimer" class="loadingStopTimer animationCircle"></div>
+                </div>
+            </div>
 		<div class="header_container">
 			<div class="inlineDiv"><a class="menu_item menu_extend" onclick="ExpandMenu()"><svg xmlns="http://www.w3.org/2000/svg" id="svg8" viewBox="0 0 12.7 12.7" width="48" height="48" version="1.1"><defs id="defs2"></defs><g id="layer1" style="display: inline;" transform="translate(-74.0273 -102.378)"><rect id="rect3693" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9823" y="107.415" width="5.28901" height="0.263111" /><rect id="rect3693-7" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9822" y="108.737" width="5.28901" height="0.263111" /><rect id="rect3693-7-9" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9847" y="110.06" width="5.28901" height="0.263111" /></g></svg></a></div>
 			<div class="header_title inlineDiv" id="mainPageTitle"></div>
@@ -55,17 +74,5 @@ if (session_id() == '')
         <div id="MainContent" class="content">
         </div> 
         <div id="MessageContent" class="content HiddenContent"><?php AddChat();?></div>
-       <?php if (session_id() == '')
-                    {
-                        session_start();
-                    }
-                    if(isset($_SESSION['EMAIL']))
-                    {
-                        echo '<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-                                <meta http-equiv="Pragma" content="no-cache" />
-                                <meta http-equiv="Expires" content="0" />
-                                <script type="text/javascript" src="javascript/eventsource.js"></script>
-                                <script type="text/javascript" src="functions/chat/script.js"></script>';
-                    }?>
 	</body>
 </html>

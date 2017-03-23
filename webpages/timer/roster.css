@@ -1,0 +1,114 @@
+body
+{
+    margin: 0;
+}
+
+.timerContent
+{
+    width: 100%;
+    background: rgba(156, 156, 156, 0.16);
+    border: 2px solid rgba(205, 205, 205, 0.19);
+    border-left-width: 0px;
+    border-right-width: 0px;
+    height: 70px;
+    display: table;
+    text-align: center;
+    
+}
+
+.dateContainer
+{
+    margin-left: 2%;
+    font-size: 4vw;
+    font-family: monospace;
+    width: 30%;
+    color: rgba(4, 4, 4, 0.35);
+    word-break: break-all;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    padding-left: 20px;
+}
+.buttonContainer
+{
+    display: table-cell;
+    width: 60px;
+    padding-right: 20px;
+}
+.timerButton
+{
+    border: none;
+    background: none;
+    margin-top: 9px;
+    background-image: url("../../images/start.svg");
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    border-radius: 50%;
+    border: 3px solid rgb(138, 215, 93);
+    outline-width: 0;    
+}
+
+.timerButton.running
+{
+    background-image: url("../../images/stop.svg");
+    animation: goingTimer infinite 1s;
+}
+
+.timerButton:hover,
+.timerButton:focus
+{
+    border-color: #4bc800;
+    animation: none;
+}
+
+.timerButton:active
+{
+    border-color: #3c8e0b;
+    animation: none;
+}
+
+.timeContainer
+{
+    font-size: 30px;
+    font-family: monospace;
+    color: rgba(4, 4, 4, 0.35);
+    display: table-cell;
+    vertical-align: middle;
+    text-align: right;
+    padding-right: 20px;
+}
+
+
+
+@media screen and (min-width: 625px)
+{
+    .dateContainer
+    {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 425px)
+{
+    .dateContainer
+    {
+        display: none;
+    }
+}
+
+@keyframes goingTimer
+{
+
+    0%{border-top-color:rgb(138, 215, 93);}
+    12.5%{border-right-color:rgb(138, 215, 93);}
+    25%{border-bottom-color:rgb(138, 215, 93);}
+    37.5%{border-left-color:rgb(138, 215, 93);}
+    50%{border-top-color:#00ca6d;}
+    62.5%{border-right-color:#00ca6d;}
+    75%{border-bottom-color:#00ca6d;}
+    87.5%{border-left-color:#00ca6d;}
+}
+

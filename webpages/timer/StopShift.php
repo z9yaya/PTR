@@ -1,3 +1,3 @@
 <?php include "../../functions/functions.php";
-    stopShift();
+stopShift();
 ?>

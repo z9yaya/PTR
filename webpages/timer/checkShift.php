@@ -1,3 +1,3 @@
 <?php include "../../functions/functions.php";
-    checkShift();
+echo json_encode(checkShift());
 ?>
