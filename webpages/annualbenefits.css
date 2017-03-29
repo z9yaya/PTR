@@ -1,0 +1,186 @@
+
+
+
+
+
+---------------------------------------------------------------------------------
+
+.annualBody
+{
+	background-color: #89b6d9;
+}
+
+.annualbenefitsDivContainer
+{
+	margin: 0 auto;
+	max-width:800px;
+	text-align: center;
+}
+
+.benefitsContainersOutsideDiv
+{
+	display:block;
+	overflow: hidden;
+}
+
+.benefitsContainers
+{
+	height: 250px;
+    width: 250px;
+    background-color: white;
+	font-family: Helvetica;
+	border: solid #89b6d9;
+    
+    
+}
+
+.benefitsContainers.left{
+	float:left;
+}
+
+.benefitsContainers.right{
+	float:right;
+}
+
+.annualTitles
+{
+	background-color: #5d9ac9;
+	padding-top: 10px;
+    padding-bottom: 10px;
+	color: white;
+    font-weight: bold;
+	font-size: 16px;
+}
+
+.annualNumber
+{
+	font-size: 130px;
+    color: #aeb4ba;
+	line-height: 211px;
+}
+
+.requestleavebuttonContainer
+{
+	overflow: hidden;
+}
+
+.requestleavebutton
+{
+    height: 35px;
+    background-color: #5d9ac9;
+    margin-left: 24px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    border: 2px solid grey;
+    cursor: pointer;
+    font-size: 12px;
+    display: block;
+	float: left;
+    width: 200px;
+}
+.requestleavebutton:hover,
+.requestleavebutton:focus
+{
+    background-color: rgba(0,100,170,0.3);
+}
+.requestleavebutton:active
+{
+    background-color: rgba(0,100,170,0.3);
+}
+
+
+
+
+
+
+/* .requestleavebutton
+{
+    width: 180px;
+	margin-left: 0%;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: black;
+    font-weight: bold;
+	border-radius: 25px;
+    border: 2px solid white
+    cursor: pointer;
+    font-size: 12px;
+    display: block;
+}  
+
+
+.sickdays {
+	text-align: center;
+	height: 300px;
+	width: 400px;
+	background: white; 
+    border: 3px solid blue; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px #DDD inset; 
+    color: #666; 
+    outline: none; 
+
+}
+
+.sickdaystitle {	
+	font-size: 30;   
+    text-transform: uppercase;
+    color: black;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+  
+.sickdaynumber {
+	margin-top: 50%;	
+	margin-left: 150%;
+    background: white; 
+    border: 1px solid #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px #DDD inset; 
+    color: #666; 
+    outline: none; 
+    height:120px; 
+    width: 120px; 
+	text-align: center;
+	font-size: 50px;
+   }
+   
+   
+.holidays {
+	text-align:center;
+	border: solid;
+	height: 300px;
+	width: 400px;
+	background: white; 
+    border: 3px solid blue; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px #DDD inset; 
+    color: #666; 
+    outline: none; 
+	
+}
+
+.holidaystitle {
+	font-size: 30;
+    text-transform: uppercase;
+    color: black;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.holidaynumber { 
+	margin-top: 80%;
+	margin-left: 100%;
+    background: white; 
+    border: 1px solid #DDD; 
+    border-radius: 5px; 
+    box-shadow: 0 0 5px #DDD inset; 
+    color: #666; 
+    outline: none; 
+    height:120px; 
+    width: 120px; 
+	text-align: center;
+	font-size: 50px;
+   } */
