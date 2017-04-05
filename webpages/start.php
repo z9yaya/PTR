@@ -13,10 +13,11 @@ if(isset($_SESSION['EMAIL']))
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#4b92d0">
 <link rel="SHORTCUT ICON" href="../images/favico.ico">
-<link rel="icon" href="../images/favico.ico" type="image/ico">
+<link rel="icon" href="../images/favicon.png" type="image/png">
 <link rel="stylesheet" href="start.css">
-<script type= "application/javascript" src="../javascript/jquery-1.9.0.min.js"></script>
+<script type= "application/javascript" src="../javascript/jquery-3.2.0.min.js"></script>
 </head>
 <body>
 <form class="form preload" method="POST" action="#">

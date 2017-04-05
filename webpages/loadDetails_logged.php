@@ -20,6 +20,7 @@ if(isset($_SESSION['EMAIL']))
             }
             unset($data['PASSWORD']);
             $data['EMPID'] = "E".str_pad($data['EMPID'], 7, '0', STR_PAD_LEFT);
+            $data['PHONE'] = str_pad($data['PHONE'], 10, '0', STR_PAD_LEFT);
             echo json_encode($data);
         }
         else
@@ -34,6 +35,7 @@ if(isset($_SESSION['EMAIL']))
                 unset($data["DOB"]);
             }
             $data['EMPID'] = "E".str_pad($data['EMPID'], 7, '0', STR_PAD_LEFT);
+            $data['PHONE'] = str_pad($data['PHONE'], 10, '0', STR_PAD_LEFT);
             echo json_encode($data);
         }
         

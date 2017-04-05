@@ -83,29 +83,7 @@ $(document).ready(function() {
     $(".dateContainer").html(dd + '/' + mm + '/' + yyyy);
     $("#timerButtonClick").on("click", function() {
         if ($(this).hasClass("running")) {
-            $("#timerStopPageOverlay").addClass("timerStopQuestion");
-            setTimeout(function() {
-                $(".popUpContainer").addClass("showPopUp");
-                $("#timerStopConfirm").on("click", function() {
-                    
-                    $(".answerContainer").addClass('noClickTouch');
-                    
-                    setTimeout(function() {
-                        $(".answerContainer").addClass("HiddenContent");
-                    }, 1000);
-                    $(".answerContainer").addClass("remove");
-                    $('.loadingStopTimer').addClass('animationCirle');
-                    $(".questionLabel").html("Saving shift, please wait...");
-                    StopTimerOnButton();
-                    $("#headerTimer").addClass("timerStopped");
-                });
-                $("#timerStopCancel").on("click", function() {
-                    $("#timerStopPageOverlay > .popUpContainer").removeClass("showPopUp");
-                    setTimeout(function() {
-                        $("#timerStopPageOverlay").removeClass("timerStopQuestion");
-                    }, 500);
-                });
-            }, 1);
+            showPopUp(undefined,undefined,StopTimerOnButton);
         } else {
             if ($("#timeContainer").html() != "00:00:00") {
                 $("#timeContainer").addClass("clearAnimation");
@@ -130,10 +108,8 @@ function startTimer(countDownDate = new Date().getTime()) {
 
             // Get todays date and time
             var now = new Date().getTime();
-
             // Find the distance between now an the count down date
             var distance = now - countDownDate;
-
             // Time calculations for days, hours, minutes and seconds
             var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));

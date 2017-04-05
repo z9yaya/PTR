@@ -6,8 +6,7 @@ if (session_id() == '') {
     session_start();
 }
 if (!empty($_SESSION['EMAIL'])) {
-    $user = $_SESSION['EMAIL'];
-    $bind = array(array(':email',$user));
+    $bind = array(array(':email',$_SESSION['EMAIL']));
     $lastOnline = GrabAllData("SELECT CHATFILE FROM CHAT WHERE EMAIL= :email AND LASTLOG < LASTMOD", $bind);
     echo json_encode($lastOnline);
 }

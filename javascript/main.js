@@ -10,6 +10,32 @@ function ExpandMenu() {
     }
 }
 
+function showPopUp(question = "Are you sure you want to end your shift?", loadingText = "Saving shift, please wait...",callback = null)
+{
+    $(".questionLabel").html(question);
+    $("#timerStopPageOverlay").addClass("timerStopQuestion");
+setTimeout(function() {
+    $(".popUpContainer").addClass("showPopUp");
+    $("#timerStopConfirm").on("click", function() {
+        $(".answerContainer").addClass('noClickTouch');
+        setTimeout(function() {
+            $(".answerContainer").addClass("HiddenContent");
+        }, 1000);
+        $(".answerContainer").addClass("remove");
+        $(".questionLabel").html(loadingText);
+        $('.loadingStopTimer').addClass('animationCirle');
+        if (callback !== null)
+        callback();
+    });
+    $("#timerStopCancel").on("click", function() {
+        $("#timerStopPageOverlay > .popUpContainer").removeClass("showPopUp");
+        setTimeout(function() {
+            $("#timerStopPageOverlay").removeClass("timerStopQuestion");
+        }, 500);
+    });
+}, 1);
+}
+
 function SelectionIndic($a) {
     $(".menu_selection").removeClass("menu_selection");
     $a.addClass("menu_selection");
@@ -46,11 +72,13 @@ function ChangeMainTitle(text, color = '#f2f2f2') {
         }
     }
     $('.header_container').css('background-color', color);
+    $("#chromeColor").attr("content", color);
 
 }
 
 function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callback = null, color = '#f2f2f2') {
     $("#loadingPageOverlay").addClass("PageLoadingAdd");
+    $("#"+ ContentDiv).removeClass("HiddenContent");
     if (type == "append") {
         $("#" + ContentDiv).empty().append('<object class="iframe" data="' + page + '">');
         $("body").addClass("scrollHidden");
@@ -58,7 +86,10 @@ function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callba
         callback;
     } else if (type == "load") {
         $("#" + ContentDiv).load(page, callback);
+        $("body").removeClass("scrollHidden");
+        $(".content").removeClass("scrollHidden");
     }
+    $("#MessageContent").addClass("HiddenContent");
     ChangeMainTitle(title, color);
     if (document.getElementById("MainSideMenu").classList.contains("HiddenIcons")) {
         ExpandMenu();
@@ -67,22 +98,11 @@ function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callba
         $('#loadingPageOverlay').removeClass('PageLoadingAdd');
     }, 1000);
 }
-//////NON FUNCTION//////
-//$(document).ready(function() {
-    $("#loadingPageOverlay").addClass("PageLoadingAdd");
+
+function LoadPageOnURL(LoadURL)
+{
     if ($("#headerTimer")) {
-        $("#headerTimer").load("webpages/timer/timer.php", function() {
-            if ($.address.path() == "/roster") {
-                $("#timerContent").addClass("NormalTimer");
-                $("#timerContent").removeClass("SmallTimer");
-                $("#headerTimer").addClass("normalTimer");
-                $("#headerTimer").removeClass("smallTimer");
-            }
-        });
-    }
-    $.address.init(function(event) {}).change(function(event) {
-        if ($("#headerTimer")) {
-            if (event.value == "/roster") {
+            if (LoadURL == "/roster") {
                 $("#timerContent").addClass("NormalTimer");
                 $("#timerContent").removeClass("SmallTimer");
                 $("#headerTimer").addClass("normalTimer");
@@ -94,23 +114,47 @@ function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callba
                 $("#headerTimer").addClass("smallTimer");
             }
         }
-        if (event.value == "/messages") {
+        if (LoadURL == "/messages") {
             LoadMessagesContent();
             ChangeMainTitle("Messages");
-        } else if (event.value == "/dashboard") {
-            LoadPage($('[rel="address:' + event.value + '"]').attr('href'), $('[rel="address:' + event.value + '"]').attr('metatitle'), undefined, undefined, undefined, "#478ec6");
+        } else if (LoadURL == "/dashboard") {
+            LoadPage($('[rel="address:' + LoadURL + '"]').attr('location'), $('[rel="address:' + LoadURL + '"]').attr('metatitle'), undefined, undefined, undefined, "#478ec6");
             ChangeMainBackground("#1b74b9");
         } else {
-            LoadPage($('[rel="address:' + event.value + '"]').attr('href'), $('[rel="address:' + event.value + '"]').attr('metatitle'), $('[rel="address:' + event.value + '"]').attr('loadType'));
+            LoadPage($('[rel="address:' + LoadURL + '"]').attr('location'), $('[rel="address:' + LoadURL + '"]').attr('metatitle'), $('[rel="address:' + LoadURL + '"]').attr('loadType'));
             ChangeMainBackground();
         }
-        SelectionIndic($('[rel="address:' + event.value + '"]'))
+        SelectionIndic($('[rel="address:' + LoadURL + '"]')); 
+}
+//////NON FUNCTION//////
+////Used to load a page when clicked on a link (used in Dashboard)
+window.addEventListener('popstate', function(event) {
+       LoadPageOnURL(window.location.hash.slice(1));
+}, false);
+
+    $("#loadingPageOverlay").addClass("PageLoadingAdd");
+    if ($("#headerTimer")) {
+        $("#headerTimer").load("webpages/timer/timer.php", function() {
+            if ($.address.path() == "/roster") {
+                $("#timerContent").addClass("NormalTimer");
+                $("#timerContent").removeClass("SmallTimer");
+                $("#headerTimer").addClass("normalTimer");
+                $("#headerTimer").removeClass("smallTimer");
+            }
+        });
+    }
+
+    
+$(window).on('load', function(event){
+        LoadURL = window.location.hash.slice(1);
+        LoadPageOnURL(LoadURL);
     });
-    $('.ContentWithin').click(function() {
+    $('.ContentWithin').click(function(event) {
         event.preventDefault();
         if ($(this).attr("id") == "messagesLink") {
-            $("#MessageContent").classList.remove("HiddenContent");
+            $("#MessageContent").removeClass("HiddenContent");
             ChangeMainTitle("Messages");
+            SelectionIndic($(this));
         } else {
             if (!!window.EventSource) {
                 if (typeof(sourceNew) != "undefined") {
@@ -122,16 +166,55 @@ function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callba
                 $("#MessageContent").addClass("HiddenContent");
             }
             if ($(this).attr("id") == "dashboardLink") {
+                LoadPage($(this).attr('location'),
+                    $(this).attr('metatitle'),
+                    $(this).attr('loadType'),
+                    undefined, 
+                    undefined, 
+                    "#478ec6");
                 ChangeMainBackground("#1b74b9");
-                LoadPage($(this).attr('href'), $(this).attr('metatitle'), undefined, "MainContent", undefined, "#478ec6");
-            } else {
-                LoadPage($(this).attr('href'),
+                SelectionIndic($(this));
+            }
+            else if ($(this).attr("id") == "logOutLink") {
+                showPopUp("Are you sure you want to sign out?","Signing you out, please wait...",function(){
+                    window.location.replace("webpages/start.php");
+                })
+            }
+            else {
+                LoadPage($(this).attr('location'),
                     $(this).attr('metatitle'),
                     $(this).attr('loadType'));
                 ChangeMainBackground();
+                SelectionIndic($(this));
             }
         }
-
+        history.pushState(null, "PTR - "+$(this).attr('metatitle'), $(this).attr('href')); 
     });
 
+//var startDragAtBorder = false;
+//$(document).on('touchstart', function(e) {
+//   var xPos = e.originalEvent.touches[0].pageX;
+//
+//   if(xPos < 5) { // this can also be xPos == 0; whatever works for you
+//    startDragAtBorder = true;   
+//   }
+//   else{
+//    startDragAtBorder = false;
+//   }
+//});
+//var resim = document.getElementsByClassName('side_menu_container');
+//console.log(resim);
+//var hAmmer =new Hammer.Manager(resim,{
+//	recognizers: [
+//		// RecognizerClass, [options], [recognizeWith, ...], [requireFailure, ...]
+//		[Hammer.swipe,{ direction: Hammer.DIRECTION_RIGTH }],
+//	]
+//});
+//    
+//hAmmer.on('swipe', function(e){
+//  if(startDragAtBorder && e.gesture.direction == 'right'){
+//    // check that the drag event started at the edge and that the direction is to the right
+//    ExpandMenu();
+//  }
+//});
 //});

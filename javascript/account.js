@@ -23,7 +23,6 @@ $("#email").ready(function(){
     });
 })
 $(document).ready(function(){
-    
 $("form").submit(function(event){
     event.preventDefault();
     $form = $(this);
@@ -79,7 +78,7 @@ $("form").submit(function(event){
                 }
         }
        else{
-            window.location.replace("../index.php");
+            window.location.replace("../index.php#/dashboard");
         }
        $(".input").focus(function(){
             $input = $(this);

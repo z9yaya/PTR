@@ -1,0 +1,240 @@
+body
+{
+    margin: 0 auto;
+    background-color: #bfbfbf;
+}
+
+.holidayContent
+{
+    margin: 0 auto;
+    min-width: 300px;
+    max-width: 400px;
+    overflow: hidden;
+    background-color: white;
+    min-height: 400px;
+}
+
+.accountInfo {
+    height: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+    overflow: hidden;
+    border-bottom: 5px solid #d4d4d4;
+    padding-top: 9px;
+    max-width: 600px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+.accountInfo .leftContainer{
+    float: left;
+    text-align: left;
+    width: 40%;
+}
+
+.accountInfo .rightContainer
+{
+    float: right;
+    width: 60%;
+}
+
+.accountInfo .containers {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.accountInfo .label{
+    right: 0;
+    color: #a0a0a0;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    top: -12px;
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+}
+
+.accountInfo .input {
+    border: 0;
+    text-align: right;
+    margin-top: 20px;
+    display: block;
+    height: auto;
+    background: none;
+    text-decoration: none;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    color: black;
+}
+
+.leftContainer .label
+{
+    left: 0;
+}
+.leftContainer .input
+{
+    text-align: left;
+}
+
+.Title
+{
+    display: block;
+    margin-bottom: 25px;
+    font-size: 20px;
+    color: #c2c2c2;
+    font-family: 'Lato', sans-serif;
+    margin-top: 15px;
+    pointer-events: none;
+    margin-left: 10px;
+}
+
+.holidayRequestForm .containers {
+    position: relative;
+    margin-bottom: 12px;
+    margin-left: 15px;
+    margin-right: 15px;
+    width: 150px;
+}
+
+.holidayRequestForm .containers.Left {
+    float: left;
+    margin-right: 0;
+     width: calc(45% - 15px);
+}
+.holidayRequestForm .containers.Right {
+    float: right;
+    margin-left: 0;
+    width: calc(45% - 15px);
+}
+
+.holidayRequestForm .input {
+    display: block;
+    //margin-top: 14px;/*this should be label font-size + 2px*/
+    height: auto;
+    background: none;
+    text-decoration: none;
+    border: 0;
+    border-bottom: 2px solid black;
+    width: 100%;
+    transition: 0.1s border-bottom-color linear;
+}
+.holidayRequestForm .input:focus {
+    outline: none;
+}
+.holidayRequestForm .input,
+.holidayRequestForm .label{
+    font-size: 15px;/*inputs and label font-size, should be in pixel*/
+    color: black;
+    font-family: 'Lato', sans-serif;
+}
+.holidayRequestForm .label {
+    position: absolute;
+    transition: 0.1s font-size, top ease;
+    top: 0px;
+    pointer-events: none;
+    opacity: 0.8;
+}
+/*
+.holidayRequestForm .input:focus + .label,
+.holidayRequestForm .input:active + .label,
+
+*/
+.holidayRequestForm .input:valid + .label,
+.holidayRequestForm .label.notEmpty
+{
+    font-size: 12px;
+    top: -12px;
+    opacity: 1;
+}
+
+.holidayRequestForm .input.Focused
+{
+    border-bottom-color: #8cb8dc;
+}
+   
+.reasonbox { 
+    background: white; 
+    outline: none; 
+    border: none;
+    width: 100%;
+    resize: none;
+    margin-top: 10px;
+    border-top: 2px solid #f7f7f7;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    font-family: inherit;
+    transition: 0.1s border-top-color linear;
+    height: 150px
+   }
+.reasonbox:focus,
+.reasonbox:active
+{
+    border-top-color: #8cb8dc;
+}
+   
+.toSeperator
+{
+    background-image: url(../../images/to.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+    display: inline-block;
+    height:35px;
+    float: left;
+    width: 9%;
+}
+
+.submit_button
+{
+    margin: 0 auto;
+    width: 100px;
+    height: 35px;
+    background-color: rgba(255, 255, 255, 0.15);
+    color: black;
+    font-weight: bold;
+	border-radius: 25px;
+    border: 2px solid white
+    cursor: pointer;
+    font-size: 12px;
+    display: block;
+}  
+.submit_button
+{
+    width: 50%;
+    height: 35px;
+    background-color:white;
+    margin: 0 auto;
+    margin-top: 12px;
+    color: black;
+    font-weight: bold;
+    border-radius: 25px;
+    border: 2px solid #d9d9d9;
+    cursor: pointer;
+    font-size: 12px;
+    display: block;
+    transition: 0.1s background-color linear, 0.1s color linear;
+}
+.submit_button:hover,
+.submit_button:active,
+.submit_button:focus {
+    background-color: #95d2fd;
+    color: white;
+}
+
+
+.holidayRequestForm {
+	margin: 0 auto;     
+	background: white;
+    font-family: 'Lato', sans-serif;
+    outline: none;
+}
+
+
+@media screen and (max-width: 425px) and (min-height: 384px) {
+    body {
+        background-color: white;
+    }
+    
+}

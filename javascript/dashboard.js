@@ -72,6 +72,7 @@ function ResizeSquares() {
 
 function initialiseDash() {
     $(".chartNumber").html(hoursDone);
+    $(".holidayNumber").html(holidaysLeft);
     var config = {
         type: 'doughnut',
         data: {
@@ -128,12 +129,14 @@ function initialiseDash() {
 ///////NON FUNCTIONS//////
 $("document").ready(function() {
     ResizeSquares();
-    $.post("webpages/checkShifts.php", function(data) {
+    $.post("webpages/getInfoDashboard.php", function(data) {
+        console.log(data);
         shifts = jQuery.parseJSON(data);
         startTime = shifts['startTime'];
         ShiftEnd = shifts['ShiftEnd'];
         stopTime = shifts['stopTime'];
         ShiftStart = shifts['ShiftStart'];
+        holidaysLeft = shifts['holidaysLeft'];
         calcHours();
         initialiseDash();
     });

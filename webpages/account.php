@@ -4,7 +4,7 @@ if (session_id() == '')
     {
         session_start();
     }
-if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
+if(empty($_SESSION['EMPID']))
     header("Location: start.php");
 else if(isset($_SESSION['INITIAL']))
 {
@@ -19,7 +19,7 @@ else if(isset($_SESSION['INITIAL']))
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="account.css">
-<script src="../javascript/jquery-1.9.0.min.js"></script>
+<script src="../javascript/jquery-3.2.0.min.js"></script>
 <script>$.getScript("../javascript/account.js");
 </script>
 </head>

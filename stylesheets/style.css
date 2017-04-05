@@ -26,7 +26,6 @@ body {
 }
 .side_menu {
     width: 48px;
-    min-height: 355px;
     height: calc(100% - 48px);
     top: 48px;
     display: block;
@@ -34,12 +33,10 @@ body {
     background-color: #2b2b2b;
     transition: width 0.04s linear;
     z-index: 99;
+    overflow-x: hidden;
+    
 }
-@media screen and (max-height: 403px) {
-    .side_menu {
-        position: absolute;
-    }
-}
+
 .side_menu_container {
     position: relative;
     overflow-x: hidden;
@@ -67,10 +64,16 @@ body {
 .menu_line {
     border-top: 1px solid #555;
 }
+
+.menu_itemLink_container
+{
+    height: 48px;
+    overflow: hidden;
+}
+
 .menu_item {
     width: 48px;
     height: 48px;
-    display: inline-block;
     position: static;
     color: white;
     line-height: 48px;
@@ -85,8 +88,12 @@ body {
     float: left;
     position: absolute;
 }
+#messagesLink.menu_selection:before {
+    top:0px;
+}
 .side_menu_container .menu_item {
     width: 200px;
+    display: inline-flex;
 }
 .menu_item:hover {
     background-color: #404040;
@@ -135,7 +142,13 @@ body {
     font-weight: 100;
     line-height: 48px;
 }
+/*
 .menu_item .menu_svg {
+    float: left;
+}
+*/
+.menu_extend
+{
     float: left;
 }
 @media screen and (max-width: 425px) {
@@ -291,6 +304,22 @@ body {
     background-image: url(../images/yes.png);
     background-position: center;
     background-repeat: no-repeat;
+}
+
+@media screen and (max-height: 464px) {
+    .side_menu {
+        overflow-y: hidden;
+        min-height: 0;
+    }
+    .side_menu_container
+    {
+        overflow-y: scroll;
+        padding-right: 15px;
+    }
+    .lower_menu {
+    position: static;
+    bottom: 0;
+}
 }
 .HiddenContent {
     display: none !important;

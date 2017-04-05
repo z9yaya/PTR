@@ -24,7 +24,7 @@
     margin: auto;
     margin-top: 5px;
 }
-.chartTitleContainer
+.SquareTitleContainer
 {
     text-align: center;
     font-family: helvetica;
@@ -38,7 +38,7 @@
     
 }
 
-.chartTitle
+.SquareTitle
 {
     display: table-cell;
     width: 100%;
@@ -47,7 +47,7 @@
     
 }
 
-.canvasContainer
+.DashboardContentContainer
 {
     height: 75%;
     width: 75%;
@@ -69,7 +69,7 @@
     text-align: center;
 }
 
-.chartNumber
+.SquareNumber
 {
     display: table-cell;
     font-size: 15vw;
@@ -81,7 +81,7 @@
     -webkit-user-select: none;
 }
 
-.dashboard_containers:hover > .chartTitleContainer
+.dashboard_containers:hover > .SquareTitleContainer
 {
     background-color: #5fa3d7;
 }
@@ -105,7 +105,7 @@
         height: auto;
 	}
     
-    .chartTitle
+    .SquareTitle
     {
         font-size: 4vw
     
@@ -123,7 +123,7 @@
 
 @media screen and (min-width: 705px )
 {
-    .chartNumber
+    .SquareNumber
     {
         font-size: 85px;
     }

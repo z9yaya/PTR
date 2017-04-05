@@ -18,18 +18,26 @@ if(empty($_SESSION['EMPID']))
 </head>
 <div class="dashboardContent">
 <div class="dashboard_containers rectangle_container"></div>
-<a class="noDecoration" href="index.php#/roster"><div class="dashboard_containers square_container" href="index.php#/roster">
-    <div class="chartTitleContainer">
-        <div class="chartTitle">Hours Today</div>
+<a class="noDecoration ContentWithin" href="#/roster"><div class="dashboard_containers square_container" >
+    <div class="SquareTitleContainer">
+        <div class="SquareTitle">Hours Today</div>
     </div>
-    <div class="canvasContainer">
+    <div class="DashboardContentContainer">
         <canvas id="chart-area" class="dashboardCanvas" />
         <div class="NumberContainer">
-            <div class="chartNumber"></div>
+            <div class="chartNumber SquareNumber"></div>
         </div>
     </div>
     </div></a>
-<div class="dashboard_containers square_container"></div>
+<a class="noDecoration" href="#/leave"><div class="dashboard_containers square_container">
+    <div class="SquareTitleContainer">
+        <div class="SquareTitle">Holidays Left</div>
+    </div>
+    <div class="DashboardContentContainer"><div class="NumberContainer">
+        <div class="holidayNumber SquareNumber"></div>
+    </div></div>
+    
+</div></a>
 <div class="dashboard_containers square_container"></div>
 <div class="dashboard_containers square_container"></div>
 </div>

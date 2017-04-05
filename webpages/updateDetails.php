@@ -1,4 +1,4 @@
-<?php include "../functions/functions.php";
+<?php include "../functions/userFunctions.php";
 function addUpDate()
 {
     $date = array();

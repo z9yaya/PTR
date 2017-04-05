@@ -22,10 +22,10 @@ body {
     height: 100px;
     border-bottom: 5px solid #d4d4d4;
     background-color: #f7f7f7;
-    padding-left: 12px;
-    padding-right: 12px;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
     padding-top: 9px;
-    max-width: 600px;
+    max-width: 660px;
     margin: 0 auto;
 }
 .accountInfo .title_icon {
@@ -130,21 +130,21 @@ input:focus {
     margin-top: 0;
 }
 .input.clearable {
-    width: calc(100% - 17px);
+    //width: calc(100% - 17px);
 }
 .clearContainer {
     position: absolute;
     right: 0px;
-    top: 2px;
+    top: 1px;
     background-color: white;
-    border-bottom: 2px solid black;
+    //border-bottom: 2px solid black;
 }
 .Inputclear {
     font-family: Helvetica, Arial;
     font-size: 10pt;
     color: #cacaca;
     display: inline-block;
-    background-color: white;
+    //background-color: white;
     -webkit-user-select: none;
     cursor: default;
     width: 12px;
@@ -185,10 +185,16 @@ input:focus {
 .submit.button:active {
     background-color: rgba(255, 255, 255, 0.50);
 }
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 425px) {
     .accountInfo .title_icon {
         display: none;
     }
+    .boxContainer:not(.accountInfo)
+    {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+    
 }
 .errorContainer {
     height: 17px;
