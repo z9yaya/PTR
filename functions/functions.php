@@ -1,4 +1,5 @@
-<?php include 'tools.php'; include 'emailer.php';
+<?php include 'tools.php'; 
+include 'emailer.php';
 //functions.php by Yannick Mansuy
 ///function used to connect to create a new connection object to connect to the database
 date_default_timezone_set('Australia/Brisbane');
@@ -226,18 +227,6 @@ function AddTimerCheck()
             {
                 $now = time()*1000;
                 if(!empty($_SESSION['SHIFTSTART']) || $_SESSION["SHIFTBEGIN"] - 10800000 < $now //up to 3 hours before
-                   && $_SESSION["SHIFTEND"] > $now )
-                {
-                    echo 'headerTimer';
-                }
-                else
-                {
-                    echo 'headerNoTimer';
-                }
-            }
-            else
-            {
-                echo 'headerNoTimer';
-            }
+                   && $_SESSION["SHIFTEND"] > $now ){echo 'headerTimer';}else{echo 'headerNoTimer';}}else{echo 'headerNoTimer';}
 }
 ?>
