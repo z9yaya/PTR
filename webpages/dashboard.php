@@ -14,6 +14,7 @@ if(empty($_SESSION['EMPID']))
             window.location.replace("../index.php#/dashboard");
         }
     </script>
+    <link rel="stylesheet" href="../stylesheets/normalize.css" media="none" onload="if(media!='all')media='all'">
     <link rel="stylesheet" href="webpages/dashboard.css" media="none" onload="if(media!='all')media='all'">
 </head>
 <div class="dashboardContent">

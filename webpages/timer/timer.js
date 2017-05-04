@@ -91,7 +91,7 @@ $(document).ready(function() {
                     $("#timeContainer").removeClass("clearAnimation");
                 }, 1000);
             }
-            StartTimerOnButton()
+            StartTimerOnButton();
             $("#timerButtonClick").blur();
             $("#timerButtonClick").addClass("running");
             $("#timerButtonClick").removeClass("ready");

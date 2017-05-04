@@ -1,0 +1,1 @@
+C:\xampp\php\php.exe -f Z:\WEB\cgit\functions\holidaysGet.php

@@ -14,7 +14,7 @@ window.chartColors = {
     purple: 'rgb(153, 102, 255)',
     grey: 'rgb(231,233,237)',
     darkblue: 'rgb(40, 129, 189)'
-}
+};
 //////
 function calcHours() {
     var now = new Date().getTime();

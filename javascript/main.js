@@ -56,7 +56,7 @@ function LoadMessagesContent() {
         if ($("#MainSideMenu").hasClass("HiddenIcons")) {
             ExpandMenu();
         }
-    })
+    });
     setTimeout(function() {
         $('#loadingPageOverlay').removeClass('PageLoadingAdd');
     }, 1000);
@@ -80,7 +80,8 @@ function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callba
     $("#loadingPageOverlay").addClass("PageLoadingAdd");
     $("#"+ ContentDiv).removeClass("HiddenContent");
     if (type == "append") {
-        $("#" + ContentDiv).empty().append('<object class="iframe" data="' + page + '">');
+        $("#" + ContentDiv).empty().append('<iframe class="iframe" src="' + page + '">');
+        //$("#" + ContentDiv).empty().append('<object class="iframe" data="' + page + '">');
         $("body").addClass("scrollHidden");
         $(".content").addClass("scrollHidden");
         callback;
@@ -96,7 +97,7 @@ function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callba
     }
     setTimeout(function() {
         $('#loadingPageOverlay').removeClass('PageLoadingAdd');
-    }, 1000);
+    }, 500);
 }
 
 function LoadPageOnURL(LoadURL)

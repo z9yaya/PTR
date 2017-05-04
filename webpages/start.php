@@ -16,6 +16,7 @@ if(isset($_SESSION['EMAIL']))
 <meta name="theme-color" content="#4b92d0">
 <link rel="SHORTCUT ICON" href="../images/favico.ico">
 <link rel="icon" href="../images/favicon.png" type="image/png">
+<link rel="stylesheet" href="../stylesheets/normalize.css">
 <link rel="stylesheet" href="start.css">
 <script type= "application/javascript" src="../javascript/jquery-3.2.0.min.js"></script>
 </head>

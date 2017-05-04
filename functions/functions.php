@@ -1,5 +1,4 @@
-<?php include 'tools.php'; 
-include 'emailer.php';
+<?php include 'tools.php';
 //functions.php by Yannick Mansuy
 ///function used to connect to create a new connection object to connect to the database
 date_default_timezone_set('Australia/Brisbane');

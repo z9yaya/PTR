@@ -43,6 +43,8 @@ body {
     background-color: white;
     margin-bottom: 5px;
     overflow: hidden;
+    overflow-x: auto;
+    min-height: 250px;
 }
 .employees:before
 {
@@ -147,6 +149,7 @@ form .containers {
     background-repeat: no-repeat;
     background-position: 95%;
     background-size: 15px 15px;
+    max-width:168px;
 }
 
 .searchBox:active,
@@ -165,6 +168,11 @@ form .containers {
     height: 17px;
     margin-right: calc(100% - 359px);
     background-image: url(../images/plus.svg);
+}
+
+.createNew *
+{
+    user-select: none; 
 }
 
 .createNew:hover
@@ -218,14 +226,13 @@ form .containers {
 @media screen and (max-width:522px)
 {
     .createNew
-{
-    width: 0px;
-    padding-right: 0;
-    padding-left: 30px;
-    background-position: center;
-    overflow: hidden;
-    display: inline-block;
-    margin-right: 0px;
+    {
+        width: 0px;
+        padding-right: 0;
+        padding-left: 30px;
+        background-position: center;
+        overflow: hidden;
+        display: inline-block;
+        margin-right: 0px;
+    }
 }
-}
-

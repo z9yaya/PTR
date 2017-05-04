@@ -13,10 +13,12 @@ if (session_id() == '')
 	<head>
         <title>PTR</title>
         <meta charset="utf-8">
-        <link rel="SHORTCUT ICON" href="images/favico.ico">
-        <meta id="chromeColor" name="theme-color" content="#0063b1">
-        <link rel="icon" href="images/favicon.png" type="image/ico">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta id="chromeColor" name="theme-color" content="#0063b1">
+        <link rel="SHORTCUT ICON" href="images/favico.ico">
+        <link rel="icon" href="images/favicon.png" type="image/ico">
+        <link rel="stylesheet" href="stylesheets/normalize.css" media="none" onload="if(media!='all')media='all'">
         <link rel="stylesheet" href="stylesheets/style.css" async>
         <?php if (session_id() == '')
                     {
@@ -32,6 +34,13 @@ if (session_id() == '')
                 /*head.load("javascript/hammer.min.js"); */head.load("javascript/main.js"),head.load("javascript/eventsource.js",function(){head.load("functions/chat/script.js")})});
         </script>
         <noscript>JavaScript is off. Please enable to view full site.</noscript>
+        <link rel="manifest" href="manifest.json">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <meta name="apple-mobile-web-app-title" content="Weather PWA">
+        <link rel="apple-touch-icon" href="images/favicon.png">
+        <meta name="msapplication-TileImage" content="images/favicon.png">
+        <meta name="msapplication-TileColor" content="#0063b1">
 	</head>
 	<body>
 		<div class="header noClickTouch">
@@ -45,7 +54,9 @@ if (session_id() == '')
                 <div class="menu_itemLink_container"><a href="#/leave" location="webpages/leave/annualbenefits.php" metatitle="Leave" loadType="append" rel="address:/leave" class="menu_item ContentWithin"><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs45"></defs><g id="g10" transform="matrix(0.0415327 0 0 0.0415327 13.7365 13.7365)"><g id="g8"><polygon id="polygon2" style="fill: #ffffff;" points="85.211,36.024 85.211,457.685 180.89,457.851 180.89,36.024" /><path id="path4" style="fill: #ffffff;" d="M 199.726 0 V 494.237 L 408.81 456.683 L 409.026 37.816 Z M 385.829 437.447 L 222.725 466.735 V 27.528 L 386.007 57.03 Z" /><ellipse id="ellipse6" style="fill: #ffffff;" cx="247.119" cy="247.119" rx="12.715" ry="16.545" /></g></g><g id="g12" transform="translate(0 -447.902)" /><g id="g14" transform="translate(0 -447.902)" /><g id="g16" transform="translate(0 -447.902)" /><g id="g18" transform="translate(0 -447.902)" /><g id="g20" transform="translate(0 -447.902)" /><g id="g22" transform="translate(0 -447.902)" /><g id="g24" transform="translate(0 -447.902)" /><g id="g26" transform="translate(0 -447.902)" /><g id="g28" transform="translate(0 -447.902)" /><g id="g30" transform="translate(0 -447.902)" /><g id="g32" transform="translate(0 -447.902)" /><g id="g34" transform="translate(0 -447.902)" /><g id="g36" transform="translate(0 -447.902)" /><g id="g38" transform="translate(0 -447.902)" /><g id="g40" transform="translate(0 -447.902)" /></svg>Leave</a></div>
                 
                 <div class="menu_itemLink_container"><a location="../tib/" rel="address:/pay" metatitle="Pay" loadType="append" href="#/pay"  class="menu_item ContentWithin"><div class="icons">$</div>Pay</a></div>
-                <?php if($_SESSION['TYPE']=='CEO')
+                <?php
+                if(!empty($_SESSION['EMPID'])) {
+                    if($_SESSION['TYPE']=='CEO' || $_SESSION['TYPE'] == 'MANAGER')
                     {
                         echo '<div class="menu_itemLink_container"><a href="#/employees" location="webpages/employees.php" metatitle="Employees" loadType="append" rel="address:/employees" class="menu_item ContentWithin"><svg class="menu_svg"
    xml:space="preserve"
@@ -114,6 +125,7 @@ if (session_id() == '')
      transform="translate(0,-380.97501)"
      id="g5125" /></svg>Employees</a></div>';
                     }
+                }
                 ?>
                  
                 

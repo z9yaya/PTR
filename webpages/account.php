@@ -6,18 +6,22 @@ if (session_id() == '')
     }
 if(empty($_SESSION['EMPID']))
     header("Location: start.php");
-else if(isset($_SESSION['INITIAL']))
+else if(isset($_SESSION['INITIALSETUP']))
 {
-    if ($_SESSION['INITIAL'] == 1)
+    if ($_SESSION['INITIALSETUP'] == 1)
     {
        checkShift();
        header("Location: ../index.php#/dashboard");
+    } elseif ($_SESSION['INITIALSETUP'] == 3) {
+        header("Location: start.php");
+        return false;
     }
     
 }
 ?>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../stylesheets/normalize.css">
 <link rel="stylesheet" href="account.css">
 <script src="../javascript/jquery-3.2.0.min.js"></script>
 <script>$.getScript("../javascript/account.js");

@@ -133,10 +133,15 @@ function addUpDate()
     $queryUpdate = substr($queryUpdate, 0,-1);
     $queryUpdate .= " WHERE EMPID = :EMPID";
 
-    if ($oneOrTwo[0]==1)
-    echo (InsertData($queryUpdate,$employees));
-    if($oneOrTwo[1]==1)
-    echo (InsertData($queryBanking,$banking));  
+    if ($oneOrTwo[0]==1) {
+        $employeesQueryRes = InsertData($queryUpdate,$employees);
+        echo $employeesQueryRes;
+    }
+    if($oneOrTwo[1]==1) {
+        $bankingsQueryRes = InsertData($queryBanking,$banking);  
+        echo $bankingsQueryRes;  
+    }
+    
            
 
 ?>

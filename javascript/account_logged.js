@@ -9,7 +9,7 @@ $(document).ready(function(){
                 else
                 $(".label[for='"+$(this).attr("id")+"']").addClass("notEmpty");
                 
-                })
+                });
     $(".Inputclear").on("click",function()
     {
         var inputID = this.getAttribute("inputID");
@@ -54,7 +54,7 @@ $(document).ready(function(){
 $("#email").ready(function(){
     $.post("webpages/loadDetails_logged.php",function(data)
            {
-        userInfo = jQuery.parseJSON(data)
+        userInfo = jQuery.parseJSON(data);
         console.log(userInfo);
         $("#empID").val(userInfo["EMPID"]);
         var keys = Object.keys(userInfo);
@@ -67,7 +67,7 @@ $("#email").ready(function(){
             
         }
     });
-})
+});
 $(document).ready(function(){
 $("form").submit(function(event){
         event.preventDefault();
@@ -85,8 +85,8 @@ $("form").submit(function(event){
             {
                 $values++;
             }
-        };
-        if ($values != 0)
+        }
+    if ($values != 0)
             {
                 $(".show").removeClass("show");
                 $.post("webpages/updateDetails.php",$('form').serialize(),function(data){

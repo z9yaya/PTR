@@ -1,4 +1,7 @@
-
+@font-face {
+    font-family: OpenSans;
+    src: url('../fonts/OpenSans-Regular.ttf')
+}
 html {
     height: 100%;
     width: 100%;
@@ -10,8 +13,8 @@ body {
     margin: 0;
 }
 .header {
-    font-family: Calibri;
-    font-size: 18px;
+    font-family: OpenSans, Calibri;
+    //font-size: 18px;
     cursor: default;
 }
 .header .normalTimer {
@@ -141,6 +144,7 @@ body {
     font-size: 25px;
     font-weight: 100;
     line-height: 48px;
+    font-family: serif;
 }
 /*
 .menu_item .menu_svg {
@@ -180,6 +184,7 @@ body {
 .iframe {
     height: 100%;
     width: 100%;
+    border: 0;
 }
 #timerStopPageNormal {
     opacity: 0;
@@ -219,6 +224,7 @@ body {
     transition: opacity 1s linear;
     overflow: hidden;
     opacity: 1;
+    height: 150px;
 }
 .popUpContainer .answerContainer.remove {
     opacity: 0;

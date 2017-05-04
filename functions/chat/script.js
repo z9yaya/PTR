@@ -52,7 +52,7 @@ function loadDoc(creator = email, receiver = user, serverSent = false)
     {
         if (creator!='' && receiver !='')
             {
-            saveLocation = "functions/chat/"
+            saveLocation = "functions/chat/";
             var file = creator+"-"+receiver+".xml";
             if (!UrlExists(saveLocation + file))
                 {
@@ -116,7 +116,7 @@ function pushChanges(exist = true, Document, user = '')
                         {
                         var d = new Date();
                         var currentTime = d.getTime();
-                        var timestamp = new Date(currentTime)
+                        var timestamp = new Date(currentTime);
                         var time = timestamp.toLocaleTimeString() + " " + timestamp.getDate()+"/"+(timestamp.getMonth() + 1)+"/"+timestamp.getFullYear();
                         var formated_input = '<message><div class="container"><div class="' + email + '" title="'+time+'">' + input + '</div></div></message>';
                         var data = 'data='+ formated_input + "&document=" + Document;
@@ -339,7 +339,7 @@ function MakeCss(className, actor)
             { $(document).ready(function() 
                     {
                         $('#loadingPageOverlay').removeClass('PageLoadingAdd');
-                    })
+                    });
             var style = document.createElement('style');
             style.type = 'text/css';
             style.id = 'you';

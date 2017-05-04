@@ -1,0 +1,28 @@
+static function encrypt($s) {
+    $keyHex = getenv('APP_KEY');
+    if (!$keyHex) {
+      Yii::error ("Could not retrieve environment variable APP_KEY");
+      return null;
+    }
+    $key = pack('H*', $keyHex); 
+    $iv = mcrypt_create_iv(256/8); // 256 bit / 8 bit/byte = 32
+    $cipherText = mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $key, $s, 'cbc', $iv);
+    $cipherText64 = base64_encode($iv.$cipherText);
+    return $cipherText64;
+  }
+
+  static function decrypt($s) {
+    $keyHex = getenv('APP_KEY');
+    if (!$keyHex) {
+      Yii::error ("Could not retrieve environment variable APP_KEY");
+      return null;
+    }
+    $key = pack('H*', $keyHex);
+    $cipher = base64_decode($s); 
+    $iv = substr($cipher, 0, 256/8);
+    $cipher = substr($cipher, 256/8); // strip off IV from front
+    $text = mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $key, $cipher, "cbc", $iv);
+    $text = rtrim($text, "\0"); // mcrypt leaves null padding on the text
+    return $text;
+  }
+They currently get the key from an environment variable, so you will have to modify them to get the key from the user. I assume you will want to have the user type in the password each & every time they access their bank details. You don't have to use public/private encryption. That is only good for small values, but bank account numbers are probably small enough. The key should be a 64 character hex string, or a 32 byte key, or a 256 bit key. It has to be securely random though. If you let the user supply a password and turn it into a key with a password-based-key-derivation-function (PBKDF), then someone could brute force attack the database.

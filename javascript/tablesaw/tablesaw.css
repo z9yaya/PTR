@@ -1,4 +1,4 @@
-/*! Tablesaw - v3.0.1-beta.13 - 2017-03-21
+/*! Tablesaw - v3.0.1-beta.19 - 2017-04-21
 * https://github.com/filamentgroup/tablesaw
 * Copyright (c) 2017 Filament Group; Licensed MIT */
 
@@ -13,11 +13,6 @@
 
 .tablesaw * {
   box-sizing: border-box;
-}
-
-.tablesaw th,
-.tablesaw td {
-  padding: .5em .7em;
 }
 
 .tablesaw-btn {
@@ -234,11 +229,15 @@ a.tablesaw-btn {
   clear: both;
 }
 
-.tablesaw-toolbar {
+.tablesaw-bar * {
+  box-sizing: border-box;
+}
+
+.tablesaw-bar-section {
   float: left;
 }
 
-.tablesaw-toolbar label {
+.tablesaw-bar-section label {
   font-size: .875em;
   padding: .5em 0;
   clear: both;
@@ -261,7 +260,7 @@ a.tablesaw-btn {
 
 /* TODO */
 
-.tablesaw-bar .tablesaw-toolbar .tablesaw-btn {
+.tablesaw-bar .tablesaw-bar-section .tablesaw-btn {
   margin-left: .4em;
   margin-top: 0;
   text-transform: uppercase;
@@ -272,25 +271,25 @@ a.tablesaw-btn {
   padding-left: .3em;
 }
 
-.tablesaw-bar .tablesaw-toolbar .btn-select {
+.tablesaw-bar .tablesaw-bar-section .btn-select {
   min-width: 0;
 }
 
-.tablesaw-bar .tablesaw-toolbar .btn-select:after {
+.tablesaw-bar .tablesaw-bar-section .btn-select:after {
   padding-top: .9em;
 }
 
-.tablesaw-bar .tablesaw-toolbar select {
+.tablesaw-bar .tablesaw-bar-section select {
   color: #888;
   text-transform: none;
   background: transparent;
 }
 
-.tablesaw-toolbar ~ table {
+.tablesaw-bar-section ~ table {
   clear: both;
 }
 
-.tablesaw-toolbar .a11y-sm {
+.tablesaw-bar-section .a11y-sm {
   clip: rect(0 0 0 0);
   height: 1px;
   overflow: hidden;
@@ -299,7 +298,7 @@ a.tablesaw-btn {
 }
 
 @media (min-width: 24em) {
-  .tablesaw-toolbar .a11y-sm {
+  .tablesaw-bar-section .a11y-sm {
     clip: none;
     height: auto;
     width: auto;
@@ -310,6 +309,7 @@ a.tablesaw-btn {
 
 .tablesaw th,
 .tablesaw td {
+  padding: .5em .7em;
   text-align: left;
   vertical-align: middle;
 }
@@ -378,10 +378,9 @@ a.tablesaw-btn {
 
   .tablesaw-stack td .tablesaw-cell-label,
   .tablesaw-stack th .tablesaw-cell-label {
-    display: block;
+    display: inline-block;
     padding: 0 .6em 0 0;
     width: 30%;
-    display: inline-block;
   }
 
   /* For grouped headers, have a different style to visually separate the levels by classing the first label in each col group */
@@ -437,8 +436,16 @@ a.tablesaw-btn {
   }
 
   .tablesaw-cell-content {
-    max-width: 67%;
     display: inline-block;
+    max-width: 67%;
+  }
+
+  .tablesaw-stack .tablesaw-stack-block .tablesaw-cell-label,
+  .tablesaw-stack .tablesaw-stack-block .tablesaw-cell-content {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    padding: 0;
   }
 
   .tablesaw-stack td:empty,
@@ -483,6 +490,20 @@ a.tablesaw-btn {
   .tablesaw-swipe td.tablesaw-cell-hidden {
     display: none;
   }
+}
+
+.tablesaw-overflow {
+  position: relative;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  /* More in skin.css */
+}
+
+.tablesaw-overflow > .tablesaw {
+  margin-top: 2px;
+  /* sortable focus rings are clipped */
 }
 
 /* Used for a11y text on button: "Columns" */

@@ -1,0 +1,840 @@
+.preload * {
+    -webkit-transition: none !important;
+    -moz-transition: none !important;
+    -ms-transition: none !important;
+    -o-transition: none !important;
+}
+
+body {
+    margin: 0;
+    font-family: 'Lato', sans-serif;
+    font-size: 13.3px;
+}
+.newEmpContent {
+    min-width: 264px;
+    background-color: white;
+    min-height: 100%;
+}
+.newEmpForm {
+    max-width: 700px;
+    margin: 0 auto;
+    overflow: hidden;
+    //min-height: 100%;
+}
+
+.newEmpForm:before
+{
+    content: "Create new employee";
+}
+
+.newEmpForm.view:before
+{
+    content: "View employee";
+}
+.newEmpForm.edit:before
+{
+    content: "Edit employee";
+}
+
+.containers.radio
+{
+    justify-content: center;
+    display: flex;
+    margin-top: 20px;
+    border-top: 2px solid #c2c2c2;
+    border-bottom: 2px solid #c2c2c2;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    margin-bottom: 30px;
+}
+.containers.radio.type
+{
+   margin-bottom: 0;
+}
+
+.containers.radio:after,
+.containers.radio.type:after
+{
+    content: "Account type";
+    position: absolute;
+    top: -10px;
+    font-size: 13.3px;
+    background-color: white;
+    padding-left: 3px;
+    padding-right: 3px;
+    color: #6f6f6f;
+}
+.containers.radio.type:after
+{
+    content: "Employment type";
+}
+
+.containers.float
+{
+    overflow: hidden;
+    width: 203px;
+    margin: 0 auto;
+    height: 0px;
+    transition: height 0.2s ease-in;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.containers.float.Show
+{
+    height: 41px;
+}
+
+.containers.empend.widthZero
+{
+    height: 0;
+    overflow: hidden;
+}
+.containers.width0zero {
+    width: 0;
+    overflow: hidden;
+}
+
+.containers.storeCheckbox {
+        height: 39px;
+}
+
+.containers#StoreCheckCont {
+    position: absolute;
+}
+
+.Radiocontainers,
+.combinedRadiocontainers
+{
+    height: 40px;
+    border-radius: 0.25em;
+    width: 100px;
+    background-color: #e4e0e0;
+    align-content: center;
+    margin: 5px;
+    justify-content: center;
+    display: grid;
+    border: 1px solid #cccccc;
+    background-color: #f7f7f7;
+    font-size: 13.3px;
+    transition: border-color linear 0.1s, background-color linear 0.1s, color linear 0.1s;
+    color: #696969;
+    cursor: pointer;
+}
+
+.Radiocontainers.noClick,
+.combinedRadiocontainers.noClick
+{
+    cursor: default;
+}
+.employeeType.radio,
+.accountType.radio,
+.salary.radio
+{
+    cursor: pointer;
+    height: 40px;
+    width: 100px;
+    text-align: center;
+    text-align: -webkit-center;
+    text-align: -o-center;
+    line-height: 40px;
+    user-select: none;
+}
+.noClick .radio
+{
+    cursor: default;
+}
+.hiddenRadio
+{
+    opacity: 0;
+    position: absolute;
+}
+
+.combinedRadiocontainers
+{
+    border-radius: 0 0.25em 0.25em 0;
+    display: inline-grid;
+    padding: 0;
+    margin: 0;
+    border-top: none;
+}
+
+.combinedRadiocontainers.Left
+{
+    float: left;
+    border-radius: 0 0 0 0.25em;
+    border-right: none;
+}
+.combinedRadiocontainers.Right
+{
+    float: right;
+    border-radius: 0 0 0.25em 0;
+}
+
+.hiddenRadio:focus + .employeeType.radio,
+.hiddenRadio:focus + .accountType.radio,
+.hiddenRadio:focus + .salary.radio
+{
+    color: black;
+}
+
+.Radiocontainers:not(.noClick):hover,
+.combinedRadiocontainers:not(.noClick):hover,
+.checked
+{
+    background-color: #e4e4e4;
+    border-color: #b1b1b1;
+    color: black;
+}
+.Radiocontainers:not(.noClick):focus,
+.Radiocontainers:not(.noClick):active,
+.combinedRadiocontainers:not(.noClick):focus,
+.combinedRadiocontainers:not(.noClick):active
+{
+    background-color: white;
+    border-color: #b1b1b1;
+    color: black;
+}
+
+.accountInfo {
+    height: 100px;
+    border-bottom: 5px solid #d4d4d4;
+    background-color: #f7f7f7;
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+    padding-top: 9px;
+    max-width: 660px;
+    margin: 0 auto;
+}
+.accountInfo .title_icon {
+    position: absolute;
+    top: 0px;
+}
+
+.accountInfo .label {
+    right: 0;
+    color: #a0a0a0;
+}
+.accountInfo .input {
+    border: 0;
+    text-align: right;
+    text-align: -webkit-right;
+    margin-top: 20px
+}
+
+.leftContainer
+{
+    float: left;
+    width: 35%;
+}
+
+.leftContainer .input,
+.leftContainer .label
+{
+    text-align: left;
+    text-align: -webkit-left;
+    left:0;
+}
+
+.rightContainer
+{
+    float: right;
+    width: 65%;
+}
+.boxContainer {
+    padding-left: 50px;
+    padding-right: 50px;
+    background-color: white;
+    overflow: hidden;
+}
+.employeeDetails:before,
+.addressDetails:before,
+.newEmpForm:before,
+.bankingDetails:before {
+    display: block;
+    margin-bottom: 20px;
+    font-size: 20px;
+    color: #c2c2c2;
+    font-family: 'Lato', sans-serif;
+    margin-top: 25px;
+}
+.employeeDetails:before {
+    content: "Personal information";
+}
+.addressDetails:before {
+    content: "Address information";
+}
+.bankingDetails:before {
+    content: "Banking information";
+}
+.containers {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.input {
+    display: block;
+    margin-top: 14px;/*this should be label font-size + 2px*/
+    height: auto;
+    background: none;
+    text-decoration: none;
+    border: 0;
+    border-bottom: 2px solid black;
+    width: 100%;
+}
+input:focus {
+    outline: none;
+}
+.input,
+.label,
+.error {
+    font-size: 15px;/*inputs and label font-size, should be in pixel*/
+    color: black;
+    font-family: 'Lato', sans-serif;
+}
+.label {
+    position: absolute;
+    transition: 0.1s font-size, top ease;
+    top: 0px;
+    pointer-events: none;
+    opacity: 0.8;
+}
+.input:focus + .label,
+.label.notEmpty {
+    font-size: 12px;/*label font-size when moved, should be half of normal size*/
+    top: -12px;/*distance to move the label, should be equal to label font-size above*/
+    opacity: 1;
+}
+
+.input.drop {
+    height: 20px;
+    -ms-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    margin: 0;
+}
+.containers.inline {
+    display: inline-block;
+}
+.containers.nomarg {
+    margin: 0;
+}
+.containers.negativeMarg {
+    margin-top: -15px;
+}
+.containers.inline.left {
+    width: calc(100% - 120px);
+    transition: 0.2s width ease;
+}
+.containers.inline.full {
+    width: 100%;
+}
+.input.inline {
+    display: inline;
+    width: auto;
+    margin-top: 3px;
+}
+.input.nomarg {
+    margin-top: 0;
+}
+.input.Money,
+.label.Money
+{
+    padding-left: 9px;
+}
+.containers.Money:before
+{
+    content: "$";
+    position: absolute;
+    left: 0;
+    top: 2px;
+}
+
+.Checkbox {
+    width: auto;
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+    height: 17px;
+    background-color: #f7f7f7;
+    padding: 0 5px;
+    border: 1px solid #cccccc;
+    overflow: hidden;
+}
+.Checkbox .label{
+    position: static;
+    pointer-events: auto;
+    user-select: none;
+    color: #696969;
+}
+
+.Checkbox .input {
+    display: inline;
+    width: auto;
+    margin: 0 5px;
+}
+.Checkbox .input,
+.Checkbox .label {
+    height: 13px;
+}
+
+.input.active
+{
+    color: green;
+}
+.input.inactive
+{
+    color: red;
+}
+
+.smallMenu
+{
+    float: right;
+    margin-top: -47px;
+    z-index: 1;
+    position: relative;
+}
+.smallMenu:focus
+{
+    outline: none;
+}
+
+
+.Menu3dots
+{
+    background-image: url('../images/menuNormal.svg');
+    display: block;
+    width: 30px;
+    height: 30px;
+    background-repeat: no-repeat;
+    background-size: 20px 20px;
+    background-position: center;
+    transition: 0.2s background-image linear;
+    float: right;
+}
+.Menu3dots:hover
+{
+    background-image: url(../images/menu.svg);
+    
+}
+.Menu3dots:focus
+{
+     outline: none;
+     background-image: url(../images/menu.svg);
+}
+
+.Menu3dots.Cancel
+{
+     outline: none;
+     background-image: url(../images/noclear.png);
+    transition: background-color 0.4s ease;
+    border-radius: 25px
+}
+.Menu3dots.Cancel:hover,
+.Menu3dots.Cancel:focus
+{
+    background-color: #e4e4e4;
+    background-image: url(../images/no.png);
+}
+
+.smallOptionsCont
+{
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    margin-top: 3px;
+    box-shadow: 0px 1px 10px #888888;
+    background-color: white;
+    z-index: 1;
+    position: absolute;
+    height: 0;
+    width: 0;
+    overflow: hidden;
+    transition: 0.2s height ease, 0.2s width ease;
+    right: 0;
+}
+
+.smallOptionsCont.expand
+{
+    width: 151.50px;
+    height: 148.50px;
+    overflow: visible;
+}
+
+.smallOptions
+{
+    height: 50px;
+    box-sizing: border-box;
+    user-select: none;
+    height: 0;
+    overflow:hidden; 
+    transition: 0.2s height ease, 0.3s padding ease;
+}
+.smallOptions.expand
+{
+    height: 50px;
+    padding: 15px;
+}
+
+.smallOptionsLinks
+{
+    text-decoration: none;
+    color: black;
+}
+.clearContainer {
+    position: absolute;
+    right: 0px;
+    top: 1px;
+    background-color: white;
+    //border-bottom: 2px solid black;
+}
+.Inputclear {
+    font-family: Helvetica, Arial;
+    font-size: 10pt;
+    color: #cacaca;
+    display: inline-block;
+    //background-color: white;
+    -webkit-user-select: none;
+    cursor: default;
+    width: 12px;
+    padding-left: 5px;
+}
+.Inputclear:hover,
+.Inputclear:focus {
+    color: black;
+}
+
+.submit.button,
+.submit.wait
+{
+    width: 50%;
+    height: 35px;
+    background-color:white;
+    margin: 0 auto;
+    margin-top: 12px;
+    color: black;
+    font-weight: bold;
+    border-radius: 25px;
+    border: 2px solid #d9d9d9;
+    cursor: pointer;
+    font-size: 12px;
+    display: block;
+    transition: 0.1s background-color linear, 0.1s color linear, 0.1s border-color linear, 0.3s width ease, 1s opacity ease;
+}
+.submit.success {
+    background-color: #3db13d;
+    color: white;
+    border-color: #639863;
+}
+.submit.wait {
+    cursor: default;
+    height: 35px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    width: 179px;
+    box-sizing: border-box;
+    background-color: #95d2fd;
+}
+.innerButton.animationCircle {
+    position: relative;
+    top: 2px;
+    margin: auto auto;
+    border: 3px solid #f4fafd;
+    border-radius: 50%;
+    border-top: 3px solid #76a6c8;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.submit.button:hover,
+.submit.button:active,
+.submit.button:focus {
+    background-color: #95d2fd;
+    color: white;
+}
+.submit.success:hover,
+.submit.success:active,
+.submit.success:focus {
+    background-color: #3db13d;
+    color: white;
+}
+
+.submit.tick
+{
+    width: 35px;
+    background-image: url(../images/yes.png);
+    background-color: green;
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: default;
+}
+.submit.tick:hover,
+.submit.tick:active,
+.submit.tick:focus
+{
+    background-color: green;
+}
+
+.submit.Animate
+{
+    opacity: 0
+}
+
+.fullPageOverlay, /*Question page overlay*/
+.PageLoadingNormal /*On open Loading Screen*/
+{
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: 99;
+}
+.fullPageOverlay.show /*Question page overlay visible*/
+{
+    display: block;
+}
+
+.PageLoadingAdd /*On open Loading Screen visible*/
+{
+    z-index: 2;
+    background-color: #0063b1;
+    background: linear-gradient(45deg, #5aaae8, #4e85b1, #0063b1);
+    display: block;
+}
+
+.PageLoadingNormal .loading /*On open Loading Screen animation Container*/
+{
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -70px;
+    top: 50%;
+    margin-top: -70px;
+}
+.PageLoadingNormal .animationCircle /*On open Loading Screen animation less*/
+{
+    position: relative;
+    top: 35%;
+    margin: auto auto;
+    border: 3px solid rgba(0, 0, 0, 0.08);
+    border-radius: 50%;
+    border-top: 3px solid rgba(255, 255, 255, 0.52);
+    width: 120px;
+    height: 120px;
+}
+.PageLoadingAdd .animationCircle /*On open Loading Screen add animation*/
+{
+    animation: spin 1.2s linear infinite;
+}
+
+.loadingStopTimer {
+    display: block;
+    border-radius: 90px;
+    border: 3px solid #e4e4e4;
+    border-top: 3px solid #3476a2;
+    transition: opacity 1s linear, border-color 1s ease, border-radius 0.2s ease, background-color 1s ease, width 0.2s ease, height 0.2s ease;
+    margin: 0 auto;
+    opacity: 0;
+    height: 90px;
+    width: 90px;
+}
+
+.timerStopNormal {
+    display: none;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+}
+
+#timerStopPageNormal {
+    opacity: 0;
+    transition: opacity 5s linear;
+}
+.timerStopQuestion {
+    z-index: 99;
+    display: block;
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.46);
+}
+.popUpContainer {
+    background-color: white;
+    display: block;
+    min-height: 180px;
+    width: 100%;
+    height: 0px;
+    border-bottom: 5px solid #b5b5b5;
+    margin: auto;
+    text-align: center;
+    font-weight: bold;
+    margin-top: -100%;
+    transition: 1s margin-top ease-out;
+    overflow: hidden;
+}
+.popUpContainer.showPopUp {
+    margin-top: 0;
+}
+.popUpContainer .questionLabel {
+    margin: 0 auto;
+    text-align: center;
+    display: inline-block;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    min-height: 15px;
+}
+.popUpContainer .answerContainer {
+    transition: opacity 1s linear;
+    overflow: hidden;
+    opacity: 1;
+}
+.popUpContainer .answerContainer.remove {
+    opacity: 0;
+}
+.popUpContainer .answerContainer .bigRoundButtons {
+    height: 90px;
+    width: 90px;
+    border-radius: 90px;
+    display: inline-block;
+    margin: 0 20px 50px 20px;
+    border: 3px solid #3476a2;
+    transition: background-color 0.13s ease-in, background-image 0.13s ease-in;
+    background-color: rgba(255, 255, 255, 0.18);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.popUpContainer .answerContainer .bigRoundButtons.yesConfirm {
+    background-image: url("../images/yesclear.png");
+}
+.popUpContainer .answerContainer .bigRoundButtons.noDeny {
+    background-image: url("../images/noclear.png");
+}
+.popUpContainer .answerContainer .bigRoundButtons.noDeny:hover,
+.popUpContainer .answerContainer .bigRoundButtons.noDeny:focus {
+    background-image: url("../images/no.png");
+}
+.popUpContainer .answerContainer .bigRoundButtons.yesConfirm:hover,
+.popUpContainer .answerContainer .bigRoundButtons.yesConfirm:focus {
+    background-image: url("../images/yes.png");
+}
+.popUpContainer .answerContainer .bigRoundButtons:hover,
+.popUpContainer .answerContainer .bigRoundButtons:focus {
+    background-color: #3d88bb;
+}
+
+#loadingStopTimer.animationCircle {
+    opacity: 1;
+    animation: spin 1.2s ease infinite;
+}
+#loadingStopTimer.SavingDone {
+    opacity: 1;
+    animation: none;
+    border-color: #3476a2;
+    background-color: #3d88bb;
+    background-image: url(../images/yes.png);
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+#loadingStopTimer.showMessage
+{
+    animation: none;
+    border-radius: 0px;
+    border-width: 0px;
+    //border: 5px solid #3db13d;
+    border-left: 0px;
+    border-right: 0px;
+    margin: 0 auto;
+    background-color: rgba(69, 152, 69, 0.98);
+    color: white;
+    width: 100%;
+    font-size: 20pt;
+    box-sizing: border-box;
+    padding: 32px 0px;
+}
+
+#loadingStopTimer.showNotice
+{
+    animation: none;
+    border-radius: 0px;
+    border-width: 0px;
+    border-left: 0px;
+    border-right: 0px;
+    margin: 0 auto;
+    width: 100%;
+    font-size: 17px;
+    box-sizing: border-box;
+    padding-top: 20px;
+    color: black;
+}
+
+.otherLinks
+{
+    padding: 4px;
+    margin: 8px;
+    display: inline-block;
+    box-sizing: border-box;
+    color: #868686;
+}
+.otherLinks:hover,
+.otherLinks:focus
+{
+    color: black;
+}
+
+@media screen and (max-width: 425px) {
+    .boxContainer:not(.accountInfo)
+    {
+        padding-left: 13px;
+        padding-right: 13px;
+    }
+    
+}
+.errorContainer {
+    height: 17px;
+}
+.error {
+    color: white;
+    background-color: #902a2a;
+    text-align: center;
+    text-align: -webkit-center;
+    font-size: 12px;
+    transition: height 0.2s ease;
+    height: 0px;
+    overflow: hidden;
+    display: block;
+    -webkit-user-select: none;
+}
+.error.emptyForm {
+    margin-top: -5px;
+    font-size: 15px;
+}
+.error.emptyForm.invalid {
+    border-top: 2px solid red;
+}
+.error.saved {
+    background-color: green;
+}
+.error.wait {
+    background-color: grey;
+}
+.error.show {
+    height: 100%;
+}
+.input.invalid {
+    border-color: red;
+}
+.displayNone {
+    display: none !important;
+}
+.noClick{
+    user-select: none;
+}
