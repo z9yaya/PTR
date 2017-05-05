@@ -35,7 +35,7 @@ function Emailer($toEmail, $message, $Mailsubject, $fromEmail, $fromName, $sendi
     if ($fromName == null) {
         $fromName = "PTR Management";
     }
-    $apiKey = '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';
+    $apiKey = 'API KEY';
     $sg = new SendGrid($apiKey);
     $data = ['personalizations' =>
              [['to' =>
