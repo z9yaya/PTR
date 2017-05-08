@@ -15,6 +15,7 @@ if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
         }
     </script>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="../stylesheets/normalize.css" media="none" onload="if(media!='all')media='all'">
 <link rel="stylesheet" href="webpages/account.css" media="none" onload="if(media!='all')media='all'">
 <script>$.getScript("javascript/account_logged.js");
 </script>

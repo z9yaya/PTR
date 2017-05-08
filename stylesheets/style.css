@@ -1,4 +1,7 @@
-
+@font-face {
+    font-family: OpenSans;
+    src: url('../fonts/OpenSans-Regular.ttf')
+}
 html {
     height: 100%;
     width: 100%;
@@ -10,8 +13,8 @@ body {
     margin: 0;
 }
 .header {
-    font-family: Calibri;
-    font-size: 18px;
+    font-family: OpenSans, Calibri;
+    //font-size: 18px;
     cursor: default;
 }
 .header .normalTimer {
@@ -131,7 +134,7 @@ body {
 }
 .side_menu.HiddenIcons {
     width: 200px;
-    transition: width 0.2s ease-in-out;
+    transition: width 0.1s ease-in-out;
 }
 .menu_item .icons {
     width: 48px;
@@ -141,6 +144,7 @@ body {
     font-size: 25px;
     font-weight: 100;
     line-height: 48px;
+    font-family: serif;
 }
 /*
 .menu_item .menu_svg {
@@ -168,18 +172,27 @@ body {
 #click_overlay {
     display: block;
 }
+.smallOverlay {
+    display: none;
+}
 .content {
     position: absolute;
     top: 48px;
     left: 48px;
     width: calc(100% - 48px);
-    min-height: 355px;
+    //min-height: 355px;
     height: calc(100% - 48px);
     overflow-y: auto;
+}
+
+.content.timer {
+    top: 96px;
+    height: calc(100% - 96px);
 }
 .iframe {
     height: 100%;
     width: 100%;
+    border: 0;
 }
 #timerStopPageNormal {
     opacity: 0;
@@ -219,6 +232,7 @@ body {
     transition: opacity 1s linear;
     overflow: hidden;
     opacity: 1;
+    height: 150px;
 }
 .popUpContainer .answerContainer.remove {
     opacity: 0;
@@ -320,6 +334,33 @@ body {
     position: static;
     bottom: 0;
 }
+}
+
+@media screen and (max-width: 360px) {
+    .side_menu {
+        width: 0px;
+    }
+    .content {
+        width: 100%;
+        left: 0;
+    }
+    .PageLoadingAdd {
+        left: 0;
+    }
+    .PageLoadingNormal .loading {
+    left: 50%;
+    margin-left: -60px;
+    top: 50%;
+    margin-top: -70px;
+    }
+    .smallOverlay {
+        display: block;
+        width: 15px;
+        height: 100%;
+        position: absolute;
+        left: 0;
+        z-index: 1;
+    }
 }
 .HiddenContent {
     display: none !important;

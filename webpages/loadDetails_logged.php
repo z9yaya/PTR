@@ -31,7 +31,7 @@ if(isset($_SESSION['EMAIL']))
             {
                 $data["day"] = date( "j",$data["DOB"]);
                 $data["month"] = date("n",$data["DOB"]);
-                $date["year"] = date("o", $date["DOB"]);
+                $data["year"] = date("o", $data["DOB"]);
                 unset($data["DOB"]);
             }
             $data['EMPID'] = "E".str_pad($data['EMPID'], 7, '0', STR_PAD_LEFT);

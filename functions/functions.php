@@ -1,5 +1,4 @@
-<?php include 'tools.php'; 
-include 'emailer.php';
+<?php include 'tools.php';
 //functions.php by Yannick Mansuy
 ///function used to connect to create a new connection object to connect to the database
 date_default_timezone_set('Australia/Brisbane');
@@ -228,5 +227,94 @@ function AddTimerCheck()
                 $now = time()*1000;
                 if(!empty($_SESSION['SHIFTSTART']) || $_SESSION["SHIFTBEGIN"] - 10800000 < $now //up to 3 hours before
                    && $_SESSION["SHIFTEND"] > $now ){echo 'headerTimer';}else{echo 'headerNoTimer';}}else{echo 'headerNoTimer';}
+}
+
+function DecodeThis($string)
+{
+    $res =  base64_decode(str_pad(strtr($string, '-_', '+/'), strlen($string) % 4, '=', STR_PAD_RIGHT)); 
+    $res = explode ("." , $res);
+    return $res;
+}
+
+function createRoster(array $SHIFTS) {
+    $shiftArr = array_unique($SHIFTS["EMPID"]);
+    $days = array(
+        'monday' => array(),
+        'tuesday' => array(),
+        'wednesday' => array(),
+        'thursday' => array(),
+        'friday' => array(),
+        'saturday' => array(),
+        'sunday' => array(),
+    );
+    foreach($SHIFTS['BEGIN'] as $key => $value ) {
+        switch (date('N',$value)) {
+            case 1:
+                $days['monday'][$SHIFTS['EMPID'][$key]] = array('BEGIN' => $value, 'END' => $SHIFTS['END'][$key]);
+                break;
+            case 2:
+                $days['tuesday'][$SHIFTS['EMPID'][$key]] = array('BEGIN' => $value, 'END' => $SHIFTS['END'][$key]);
+                break;
+            case 3:
+                $days['wednesday'][$SHIFTS['EMPID'][$key]] = array('BEGIN' => $value, 'END' => $SHIFTS['END'][$key]);
+                break;
+            case 4:
+                $days['thursday'][$SHIFTS['EMPID'][$key]] = array('BEGIN' => $value, 'END' => $SHIFTS['END'][$key]);
+                break;
+            case 5:
+                $days['friday'][$SHIFTS['EMPID'][$key]] = array('BEGIN' => $value, 'END' => $SHIFTS['END'][$key]);
+                break;
+            case 6:
+                $days['saturday'][$SHIFTS['EMPID'][$key]] = array('BEGIN' => $value, 'END' => $SHIFTS['END'][$key]);
+                break;
+            case 7:
+                $days['sunday'][$SHIFTS['EMPID'][$key]] = array('BEGIN' => $value, 'END' => $SHIFTS['END'][$key]);
+                break;
+        }
+    }
+    return array($shiftArr,$days);
+}
+
+function showRoster($SHIFTS, $shiftArr, $days, $dayOfWeek, $type = 'store') {
+    $format = 'H:i';
+    if ($type == 'store') {
+         echo '<table class="mainTable tablesaw tablesaw-stack" data-tablesaw-mode="stack" data-tablesaw-hide-empty>
+        <thead class="tablehead">
+            <tr class="tableHeaderRow">
+                <th scope="col" class="tableHeaders" data-tablesaw-priority="persist">Name</th>';
+        $shifts = array("Name", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"); 
+        for($i=1;$i<=7;$i++){
+            switch ($i) {
+                case $dayOfWeek:
+                     echo '<th scope="col" class="tableHeaders" data-tablesaw-priority="persist">'.$shifts[$i].'</th>';
+                    break;
+                case $dayOfWeek+1:
+                    echo '<th scope="col" class="tableHeaders" data-tablesaw-priority="1">'.$shifts[$i].'</th>';
+                    break;
+                case $dayOfWeek+2:
+                    echo '<th scope="col" class="tableHeaders" data-tablesaw-priority="1">'.$shifts[$i].'</th>';
+                    break;
+                default:
+                    echo '<th scope="col" class="tableHeaders" data-tablesaw-priority="1">'.$shifts[$i].'</th>';
+            }
+        };
+        echo '</tr></thead><tbody>';
+        for($j=0;$j<count($shiftArr);$j++)
+        {
+            $shiftEmp = $shiftArr[$j];
+            echo '<tr class="tableRow"><td class="tableCell">'.$SHIFTS["F_NAME"][$j].' '.$SHIFTS["L_NAME"][$j].'</td>';
+            foreach($days as $key => $value ) {
+
+                if (!empty($value[$shiftEmp])) {
+                echo "<td class='tableCell'>Start: ".date($format, $value[$shiftEmp]['BEGIN'])."<span class='shiftEnd'>End: ".date($format, $value[$shiftEmp]['END'])."</td>";
+                } else {
+                    echo "<td class='tableCell'></td>";
+                }
+
+            }
+             echo "</tr>";
+        }
+        echo '</tbody></table>';
+    }
 }
 ?>

@@ -10,18 +10,18 @@ $(document).ready(function(){
                 $(".label[for='"+$(this).attr("id")+"']").addClass("notEmpty");
                 
                 })
-})
+});
 
 $("#email").ready(function(){
     $.post("loadDetails.php",function(data)
            {
         console.log(data);
-        var userInfo = jQuery.parseJSON(data)
+        var userInfo = jQuery.parseJSON(data);
         console.log(userInfo);
         $("#email").val(userInfo["EMAIL"]);
         $("#empID").val(userInfo["EMPID"]);
     });
-})
+});
 $(document).ready(function(){
 $("form").submit(function(event){
     event.preventDefault();
@@ -29,6 +29,7 @@ $("form").submit(function(event){
     $("input").blur();
     var $inputs = $(".input");    
     $(".show").removeClass("show");
+    $(".invalid").removeClass("invalid");
     $.post("updateDetails.php",$('form').serialize(),function(data){
         console.log(data);
         if (data != "successsuccess"){
@@ -78,8 +79,10 @@ $("form").submit(function(event){
                 }
         }
        else{
-            window.location.replace("../index.php#/dashboard");
-        }
+           $.post("updateSession.php",function(){
+                window.location.replace("../index.php#/dashboard");
+            })
+       }
        $(".input").focus(function(){
             $input = $(this);
             $input.siblings(".errorContainer").children(".error").removeClass("show");

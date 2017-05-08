@@ -14,16 +14,12 @@ $holidaysleft = GrabMoreData("SELECT LEAVE FROM ACCUMULATION WHERE EMPID = :EMPI
 <link href="holidayrequest.css" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
 <script type="application/javascript" src="../../javascript/header.js"></script>
 <script type="application/javascript">head.load("../../javascript/modernizr-inputs.js",function(){
-    if (!Modernizr.touchevents || !Modernizr.inputtypes.date) {
-        console.log(Modernizr.touch);
-        console.log(Modernizr.inputtypes.date);
+    if (Modernizr.pointerevents || !Modernizr.inputtypes.date) {
         head.load("../../javascript/jquery-3.2.0.min.js");
         head.load("../../javascript/jquery-ui-1.12.1/jquery-ui.min.css");
         head.load("../../javascript/jquery-ui-1.12.1/jquery-ui.min.js",function(){
             head.load("holidayrequest.js");});
-    };
-    }
-)</script>
+    };});</script>
 </head>
 <body>
 	<div class="holidayContent">

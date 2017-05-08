@@ -8,14 +8,30 @@ if(isset($_SESSION['EMAIL']))
     session_unset();
     session_destroy();
 }
+$signup = false;
+if (!empty($_GET['sid'])) {
+    $res =  DecodeThis($_GET['sid']);
+    if(count($res) == 2)
+    {
+       $sdate = intval($res[1]);
+        if (!empty($sdate) && is_int($sdate) && $sdate < time()) {
+            $sid = $res[0];
+            if (!empty($sid) && $sid[0] === 'E') {
+            $signup = true;
+            }
+        } 
+    } 
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#4b92d0">
+<title>PTR - Start</title>
 <link rel="SHORTCUT ICON" href="../images/favico.ico">
 <link rel="icon" href="../images/favicon.png" type="image/png">
+<link rel="stylesheet" href="../stylesheets/normalize.css">
 <link rel="stylesheet" href="start.css">
 <script type= "application/javascript" src="../javascript/jquery-3.2.0.min.js"></script>
 </head>
@@ -284,9 +300,18 @@ MUI3QTJENzk2NTk2NTU2OTba/CzoAAAAAElFTkSuQmCC" />
 </form>
 
 <script>
-    $(".OutsideContainer").eq(0).load("signin.php", function(){
+    <?php 
+if ($signup) {
+        echo '$(".OutsideContainer").eq(0).load("signup.php", function(){
+        document.getElementsByTagName("form")[0].classList.remove("preload");
+        $("#empID").val("'.$sid.'")
+        $("form").addClass("signup");
+        });';
+} else {
+    echo '$(".OutsideContainer").eq(0).load("signin.php", function(){
     document.getElementsByTagName("form")[0].classList.remove("preload");
-    });    
+    $("form").addClass("signin");
+    });';}?>
     function SignInSignUp(page, formLayout)
         {
             $(".OutsideContainer").addClass("HideTransition");

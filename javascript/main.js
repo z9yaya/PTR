@@ -1,14 +1,19 @@
 /*This file and the following functions have been written by Yannick Mansuy*/
-function ExpandMenu() {
-    var menu = $("#MainSideMenu");
-    if (menu.hasClass("HiddenIcons")) {
-        click_overlay.style.zIndex = "-1";
-        menu.removeClass("HiddenIcons");
+
+function showMenu(type = 1) {
+    if (type === 1) {
+        urlLocation = window.location.href;
+        ViewingMenu = true;
+        $("#MainSideMenu").addClass("HiddenIcons");
+        click_overlay.style.zIndex = "2";
     } else {
-        menu.addClass("HiddenIcons");
-        click_overlay.style.zIndex = "2"
+        delete urlLocation;
+        ViewingMenu = false;
+        click_overlay.style.zIndex = "-1";
+        $("#MainSideMenu").removeClass("HiddenIcons");
     }
 }
+
 
 function showPopUp(question = "Are you sure you want to end your shift?", loadingText = "Saving shift, please wait...",callback = null)
 {
@@ -35,6 +40,60 @@ setTimeout(function() {
     });
 }, 1);
 }
+/* Function used to add a message in the middle of the window
+message: string, text to show in place of the possible answers
+messageTitle: string, used to show text in place of question
+Class: string, default: 'showMessage', the css class to use for the message*/
+function AddMessagePopUp(message, messageTitle, Class = 'showMessage')
+{
+    if (!$(".popUpContainer").hasClass("showPopUp"))
+        {
+            $("#loadingStopTimer").removeClass("showMessage");
+            $("#timerStopPageOverlay").addClass("timerStopQuestion");
+             setTimeout(function() {
+                $(".popUpContainer").addClass("showPopUp");
+                $('.answerContainer').addClass("displayNone");
+                   $('.loadingStopTimer').addClass('animationCircle');
+            }, 1);
+        }
+        $("#loadingStopTimer").addClass(Class);
+        $("#loadingStopTimer").html(message);
+            setTimeout(function(){
+        $(".questionLabel").html(messageTitle);
+        $(".popUpContainer .otherLinks").removeClass("displayNone");
+        },200);
+        $(".popUpContainer .otherLinks").on("click",function(event){
+            event.preventDefault(event);
+            window.onbeforeunload = null;
+            hidePopUp(doneText = '', type='hide');
+        })
+}
+
+/* Function used to hide the popup question window
+doneText: string, text to show in place of the question when hiding the window
+type: string, default '', 'hide' to use this function to hide the popup box and not display animations*/
+function hidePopUp(doneText = "Done!", type = '')
+{
+    if (type == 'hide')
+        {
+            $("#timerStopPageOverlay > .popUpContainer").removeClass("showPopUp");
+            setTimeout(function() {
+                $("#timerStopPageOverlay").removeClass("timerStopQuestion");
+            }, 1000);
+        }
+    else{
+        $(".questionLabel").html(doneText);
+        $('.loadingStopTimer').addClass('SavingDone');
+        $('.loadingStopTimer').removeClass('animationCirle');
+        setTimeout(function() {
+            $("#timerStopPageOverlay > .popUpContainer").removeClass("showPopUp");
+            setTimeout(function() {
+                $("#timerStopPageOverlay").removeClass("timerStopQuestion");
+            }, 1000);
+        }, 3000);
+    }
+
+}
 
 function SelectionIndic($a) {
     $(".menu_selection").removeClass("menu_selection");
@@ -54,12 +113,12 @@ function LoadMessagesContent() {
             $("#messagesLink").removeClass("unreadHid");
         HideContactsBar(true);
         if ($("#MainSideMenu").hasClass("HiddenIcons")) {
-            ExpandMenu();
+            showMenu(0);
         }
-    })
+    });
     setTimeout(function() {
         $('#loadingPageOverlay').removeClass('PageLoadingAdd');
-    }, 1000);
+    }, 100);
 }
 
 function ChangeMainTitle(text, color = '#f2f2f2') {
@@ -80,7 +139,8 @@ function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callba
     $("#loadingPageOverlay").addClass("PageLoadingAdd");
     $("#"+ ContentDiv).removeClass("HiddenContent");
     if (type == "append") {
-        $("#" + ContentDiv).empty().append('<object class="iframe" data="' + page + '">');
+        $("#" + ContentDiv).empty().append('<iframe class="iframe" src="' + page + '">');
+        //$("#" + ContentDiv).empty().append('<object class="iframe" data="' + page + '">');
         $("body").addClass("scrollHidden");
         $(".content").addClass("scrollHidden");
         callback;
@@ -92,11 +152,11 @@ function LoadPage(page, title, type = "load", ContentDiv = "MainContent", callba
     $("#MessageContent").addClass("HiddenContent");
     ChangeMainTitle(title, color);
     if (document.getElementById("MainSideMenu").classList.contains("HiddenIcons")) {
-        ExpandMenu();
+        showMenu(0);
     }
     setTimeout(function() {
         $('#loadingPageOverlay').removeClass('PageLoadingAdd');
-    }, 1000);
+    }, 500);
 }
 
 function LoadPageOnURL(LoadURL)
@@ -126,16 +186,27 @@ function LoadPageOnURL(LoadURL)
         }
         SelectionIndic($('[rel="address:' + LoadURL + '"]')); 
 }
+
+function checkRoster() {
+    
+}
 //////NON FUNCTION//////
 ////Used to load a page when clicked on a link (used in Dashboard)
 window.addEventListener('popstate', function(event) {
-       LoadPageOnURL(window.location.hash.slice(1));
+    if (event.currentTarget.ViewingMenu) {
+        history.pushState(null, null, event.currentTarget.urlLocation);
+        showMenu(0);        
+    } else {
+        LoadPageOnURL(window.location.hash.slice(1));
+    }       
 }, false);
 
     $("#loadingPageOverlay").addClass("PageLoadingAdd");
     if ($("#headerTimer")) {
         $("#headerTimer").load("webpages/timer/timer.php", function() {
-            if ($.address.path() == "/roster") {
+            console.log(window.location.hash.slice(1));
+            if (window.location.hash.slice(1) == "/roster") {
+                $(".content").addClass("timer");
                 $("#timerContent").addClass("NormalTimer");
                 $("#timerContent").removeClass("SmallTimer");
                 $("#headerTimer").addClass("normalTimer");
@@ -148,9 +219,14 @@ window.addEventListener('popstate', function(event) {
 $(window).on('load', function(event){
         LoadURL = window.location.hash.slice(1);
         LoadPageOnURL(LoadURL);
+        document.title = "PTR - "+$('[rel="address:' + LoadURL + '"]').attr('metatitle');
     });
     $('.ContentWithin').click(function(event) {
         event.preventDefault();
+        ViewingMenu = false;
+        delete urlLocation;
+        history.pushState(null, "PTR - "+$(this).attr('metatitle'), $(this).attr('href')); 
+        document.title = "PTR - "+$(this).attr('metatitle'); 
         if ($(this).attr("id") == "messagesLink") {
             $("#MessageContent").removeClass("HiddenContent");
             ChangeMainTitle("Messages");
@@ -188,33 +264,40 @@ $(window).on('load', function(event){
                 SelectionIndic($(this));
             }
         }
-        history.pushState(null, "PTR - "+$(this).attr('metatitle'), $(this).attr('href')); 
+        if ($(this).attr("id") == "rosterLink" && $("#headerTimer").html() != undefined) {
+                $(".content").addClass("timer");
+                $("#timerContent").addClass("NormalTimer");
+                $("#timerContent").removeClass("SmallTimer");
+                $("#headerTimer").addClass("normalTimer");
+                $("#headerTimer").removeClass("smallTimer");
+            } else {
+                $(".content").removeClass("timer");
+                $("#timerContent").removeClass("NormalTimer");
+                $("#timerContent").addClass("SmallTimer");
+                $("#headerTimer").removeClass("normalTimer");
+                $("#headerTimer").addClass("smallTimer");
+        }
     });
 
-//var startDragAtBorder = false;
-//$(document).on('touchstart', function(e) {
-//   var xPos = e.originalEvent.touches[0].pageX;
-//
-//   if(xPos < 5) { // this can also be xPos == 0; whatever works for you
-//    startDragAtBorder = true;   
-//   }
-//   else{
-//    startDragAtBorder = false;
-//   }
-//});
-//var resim = document.getElementsByClassName('side_menu_container');
-//console.log(resim);
-//var hAmmer =new Hammer.Manager(resim,{
-//	recognizers: [
-//		// RecognizerClass, [options], [recognizeWith, ...], [requireFailure, ...]
-//		[Hammer.swipe,{ direction: Hammer.DIRECTION_RIGTH }],
-//	]
-//});
-//    
-//hAmmer.on('swipe', function(e){
-//  if(startDragAtBorder && e.gesture.direction == 'right'){
-//    // check that the drag event started at the edge and that the direction is to the right
-//    ExpandMenu();
-//  }
-//});
-//});
+$(document).ready(function() {
+    var resim = document.getElementsByClassName('side_menu_container')[0];
+    var clickOverlay = document.getElementById("click_overlay");
+    var touchGrab = document.getElementById("touchGrab");
+    var hAmmer = new Hammer(resim, {inputClass: Hammer.TouchInput, passive: true});
+    var clickHammer = new Hammer(clickOverlay, {inputClass: Hammer.TouchInput, passive: true});
+    var bodyHammer = new Hammer(touchGrab, {inputClass: Hammer.TouchInput, passive: true});
+
+    hAmmer.on('swiperight', function(e){
+        showMenu();
+    });
+    hAmmer.on('swipeleft', function(e){
+         showMenu(0);
+    });
+    clickHammer.on('swipeleft', function(e){
+         showMenu(0);
+    });
+    bodyHammer.on('swiperight', function(e){
+        showMenu();
+    });
+})
+

@@ -7,7 +7,7 @@ html {
     height: 100%;
 }
 body {
-    background-image: url("../images/sky.jpg");
+    background-image: url("../images/sky.webp");
     background-repeat: no-repeat;
     background-size: cover;
     background-position: bottom;
@@ -30,6 +30,7 @@ body {
     margin-bottom: 12px;
 }
 .input {
+    border-radius: 0;
     display: block;
     margin-top: 14px;/*this should be label font-size + 2px*/
     height: auto;
@@ -56,14 +57,15 @@ input:focus {
     pointer-events: none;
     opacity: 0.8;
 }
-.input:valid + .label {
+.input:valid + .label,
+.input:focus + .label {
     font-size: 12px;/*label font-size when moved, should be half of normal size*/
     top: -12px;/*distance to move the label, should be equal to label font-size above*/
     opacity: 1;
 }
 .form {
     background-color: rgba(111, 111, 111, 0.2);
-    background-image: url("../images/skyM.jpg");
+    background-image: url("../images/skyM.webp");
     background-position: 50% 85%;
     height: 600px;
     width: 320px;
