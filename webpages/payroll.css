@@ -1,0 +1,528 @@
+.preload * {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -ms-transition: none !important;
+  -o-transition: none !important;
+}
+
+.annualBody
+{
+	background-color: #89b6d9;
+    margin: 0 auto;
+    min-width: 264px;
+    max-width: 1200px;
+}
+
+.accountInfo {
+    height: 100px;
+    padding-left: 20px;
+    padding-right: 20px;
+    background-color: white;
+    overflow: hidden;
+    border-bottom: 5px solid #d4d4d4;
+    padding-top: 9px;
+    max-width: 660px;
+    margin: 0 auto;
+    margin-bottom: 5px;
+}
+.accountInfo .title_icon {
+    position: absolute;
+    top: 0px;
+}
+
+.accountInfo .containers {
+    position: relative;
+    margin-bottom: 12px;
+}
+
+.accountInfo .label{
+    right: 0;
+    color: #a0a0a0;
+    font-family: 'Lato', sans-serif;
+    font-size: 12px;
+    top: -12px;
+    opacity: 1;
+    pointer-events: none;
+    position: absolute;
+}
+
+.accountInfo .input {
+    border: 0;
+    text-align: right;
+    margin-top: 20px;
+    display: block;
+    height: auto;
+    background: none;
+    text-decoration: none;
+    width: 100%;
+    font-family: 'Lato', sans-serif;
+    font-size: 15px;
+    color: black;
+}
+
+
+.payrollDivContainer
+{
+	padding-top: 20px;
+	margin: 0 auto;
+    width: 100%;
+	max-width:700px;
+	min-height:400px;
+	text-align: center;
+	background-color: white;
+}	
+
+@media screen and (max-width: 425px)
+{
+.accountInfo .title_icon {
+    display: none;
+}
+}
+
+.heading1
+{
+	font-weight: bold;
+	font-size: 25px;
+	padding-bottom: 15px;
+	font-family: sans-serif;
+}
+
+.heading2
+{
+	font-weight: bold;
+	font-size: 20px;
+	padding-bottom: 15px;
+	font-family: sans-serif;
+}
+    
+.sendbuttonContainer
+{
+	background-color: black;
+    
+}
+    
+.sendbutton
+{
+    height: 35px;
+    width: 100px;
+    background-color: #5d9ac9;
+    margin-top: 40px;
+    margin-bottom: 15px;
+    margin-left: 300px;
+    color: white;
+    font-weight: bold;
+    border-radius: 25px;
+    border: 2px solid grey;
+    cursor: pointer;
+    font-size: 12px;
+    display: block;
+    float:left;
+}
+.sendbutton:hover,
+.sendbutton:focus
+{
+    background-color: rgba(0,100,170,0.3);
+}
+.sendbutton:active
+{
+    background-color: rgba(0,100,170,0.3);
+}
+
+.empidtext
+{
+
+	width: 30px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	padding-left: 10px;
+	padding-right: 0px;
+	float: left;
+	font-family: sans-serif;
+	background-color: #F5F5F5;
+
+}
+
+.empid
+{
+	width: 30px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	padding-left: 0px;
+	padding-right: 0px;	
+	float: left;
+	background-color: #F5F5F5;	
+}
+
+.employeetfn
+{
+	width: 50px;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	margin-left: 70px;
+	float: left;
+	font-family: sans-serif;
+	background-color: #F5F5F5;
+}
+
+.tfn
+{
+	width: 70px;
+	float: left;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	padding-left: 0px;
+	padding-right: 0px;
+	background-color: #F5F5F5;
+}
+
+.employeebox
+{
+	border-style: solid black;
+	max-width: 700px;
+	height: 50px;
+	margin-top: 20px;
+	background-color: #F5F5F5;
+}
+
+.employeetext
+{
+	width: 100px;
+	float: left;
+	padding-top: 16px;
+	padding-bottom: 16px;
+	padding-left: 10px;
+	padding-right: 10px;
+	margin-left: 10px;
+	font-family: sans-serif;
+	background-color: #F5F5F5;
+}
+.formCont {
+    position: relative;
+    margin: 0 auto;
+    display: inline;
+}
+
+.editOverlay {
+    display: block;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: hsla(0, 0%, 100%, 0.4);
+    z-index: 1;
+    position: absolute;
+}
+/*inputs*/
+.containers {
+    position: relative;
+    margin-bottom: 12px;
+}
+.input {
+    display: block;
+    margin-top: 14px;/*this should be label font-size + 2px*/
+    height: auto;
+    background: none;
+    text-decoration: none;
+    border: 0;
+    border-bottom: 2px solid black;
+    width: 100%;
+}
+input:focus {
+    outline: none;
+}
+.input,
+.label,
+.error {
+    font-size: 15px;/*inputs and label font-size, should be in pixel*/
+    color: black;
+    font-family: 'Lato', sans-serif;
+}
+.label {
+    position: absolute;
+    transition: 0.1s font-size, top ease;
+    top: 0px;
+    pointer-events: none;
+    opacity: 0.8;
+}
+.input:focus + .label,
+.label.notEmpty {
+    font-size: 12px;/*label font-size when moved, should be half of normal size*/
+    top: -12px;/*distance to move the label, should be equal to label font-size above*/
+    opacity: 1;
+}
+
+.input.drop {
+    height: 20px;
+    -ms-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-box-sizing: content-box;
+    margin: 0;
+}
+.containers.inline {
+    display: inline-block;
+}
+
+.containers.nomarg {
+    margin: 0;
+}
+.containers.negativeMarg {
+    margin-top: -15px;
+}
+.containers.inline.left {
+    width: calc(100% - 120px);
+    transition: 0.2s width ease;
+}
+.containers.inline.full {
+    width: 100%;
+}
+.input.inline,
+.containers.inline .input{
+    display: inline;
+    width: auto;
+    margin-top: 3px;
+}
+.input.nomarg,
+.containers.inline .input{
+    margin-top: 0;
+}
+.containers.Money .input,
+.containers.Money .label,
+.input.Money,
+.label.Money
+{
+    padding-left: 9px;
+}
+.containers.Money:before
+{
+    content: "$";
+    position: absolute;
+    left: 0;
+    //top: 2px;
+}
+
+.errorContainer {
+    height: 17px;
+}
+.error {
+    color: white;
+    background-color: #902a2a;
+    text-align: center;
+    text-align: -webkit-center;
+    font-size: 12px;
+    transition: height 0.2s ease;
+    height: 0px;
+    overflow: hidden;
+    display: block;
+    -webkit-user-select: none;
+}
+.error.emptyForm {
+    margin-top: -5px;
+    font-size: 15px;
+}
+.error.emptyForm.invalid {
+    border-top: 2px solid red;
+}
+.error.saved {
+    background-color: green;
+}
+.error.wait {
+    background-color: grey;
+}
+.error.show {
+    height: 100%;
+}
+.input.invalid {
+    border-color: red;
+}
+.displayNone {
+    display: none !important;
+}
+.noClick{
+    user-select: none;
+}
+
+.alignLeft {
+    text-align: left !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/*Save Button */
+.submit.button,
+.submit.wait
+{
+    max-width: 200px;
+    width: 50%;
+    height: 35px;
+    background-color:white;
+    margin: 0 auto;
+    margin-top: 12px;
+    color: black;
+    font-weight: bold;
+    border-radius: 25px;
+    border: 2px solid #d9d9d9;
+    cursor: pointer;
+    font-size: 12px;
+    display: block;
+    transition: 0.1s background-color linear, 0.1s color linear, 0.1s border-color linear, 0.3s width ease, 1s opacity ease;
+}
+.submit.success {
+    background-color: #3db13d;
+    color: white;
+    border-color: #639863;
+}
+.submit.wait {
+    cursor: default;
+    height: 35px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    //width: 200px;
+    box-sizing: border-box;
+    background-color: #95d2fd;
+}
+.innerButton.animationCircle {
+    position: relative;
+    top: 2px;
+    margin: auto auto;
+    border: 3px solid #f4fafd;
+    border-radius: 50%;
+    border-top: 3px solid #76a6c8;
+    width: 20px;
+    height: 20px;
+    animation: spin 1s infinite;
+}
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+.submit.button:hover,
+.submit.button:active,
+.submit.button:focus {
+    background-color: #95d2fd;
+    color: white;
+}
+.submit.success:hover,
+.submit.success:active,
+.submit.success:focus,
+.submit.blue{
+    background-color: #3db13d;
+    color: white;
+}
+
+.submit.tick
+{
+    width: 35px;
+    background-image: url(../images/yes.png);
+    background-color: green;
+    background-size: 22px;
+    background-repeat: no-repeat;
+    background-position: center;
+    cursor: default;
+}
+.submit.tick:hover,
+.submit.tick:active,
+.submit.tick:focus
+{
+    background-color: green;
+}
+
+.submit.Animate
+{
+    opacity: 0
+}
+
+/* Style The Dropdown Button */
+.selectemployees {
+    background-color: #5d9ac9;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+}
+
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+    position: relative;
+    display: inline-block;
+	float:left;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content option {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-content option:hover {background-color: #f1f1f1}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Change the background color of the dropdown button when the dropdown content is shown */
+.dropdown:hover .selectemployees {
+    background-color: #3e8e41;
+}
+    
+.payrolltable
+{
+	padding-top: 30px;
+	background-color: #F5F5F5;
+    position: relative;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+table, th, td {
+   border: 1px solid #5d9ac9;
+   border-collapse: collapse;
+   text-align: center;
+   
+}
+
+th {
+	background-color: #5d9ac9;
+	color: white;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+td {
+	color: grey;
+	background-color: white;
+	padding-top: 2px;
+	padding-bottom: 2px;	
+}
+
+table {
+	min-width: 200px;
+	width: 700px;	
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 40px;
+	font-family: Helvetica;
+}

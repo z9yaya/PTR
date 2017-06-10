@@ -10,6 +10,13 @@ body {
     font-family: 'Lato', sans-serif;
     font-size: 13.3px;
 }
+
+body * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+}
+
+
 .newEmpContent {
     min-width: 264px;
     background-color: white;
@@ -46,6 +53,8 @@ body {
     padding-top: 7px;
     padding-bottom: 7px;
     margin-bottom: 30px;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
 }
 .containers.radio.type
 {
@@ -63,6 +72,8 @@ body {
     padding-left: 3px;
     padding-right: 3px;
     color: #6f6f6f;
+    left: 50%;
+    transform: translateX(-50%);
 }
 .containers.radio.type:after
 {
@@ -78,6 +89,8 @@ body {
     transition: height 0.2s ease-in;
     margin-bottom: 20px;
     cursor: pointer;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
 }
 .containers.float.Show
 {
@@ -119,6 +132,9 @@ body {
     transition: border-color linear 0.1s, background-color linear 0.1s, color linear 0.1s;
     color: #696969;
     cursor: pointer;
+    text-align: center;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
 }
 
 .Radiocontainers.noClick,
@@ -220,6 +236,10 @@ body {
     text-align: -webkit-right;
     margin-top: 20px
 }
+.accountInfo #emailCard,
+.accountInfo #empID{
+    user-select: all !important;
+}
 
 .leftContainer
 {
@@ -278,6 +298,7 @@ body {
     background: none;
     text-decoration: none;
     border: 0;
+    border-radius: 0;
     border-bottom: 2px solid black;
     width: 100%;
 }
@@ -400,7 +421,8 @@ input:focus {
 }
 
 
-.Menu3dots
+.Menu3dots,
+.Cancel
 {
     background-image: url('../images/menuNormal.svg');
     display: block;
@@ -423,15 +445,15 @@ input:focus {
      background-image: url(../images/menu.svg);
 }
 
-.Menu3dots.Cancel
+.Cancel
 {
      outline: none;
      background-image: url(../images/noclear.png);
     transition: background-color 0.4s ease;
     border-radius: 25px
 }
-.Menu3dots.Cancel:hover,
-.Menu3dots.Cancel:focus
+.Cancel:hover,
+.Cancel:focus
 {
     background-color: #e4e4e4;
     background-image: url(../images/no.png);
@@ -616,9 +638,9 @@ input:focus {
     display: block;
     position: absolute;
     left: 50%;
-    margin-left: -70px;
+    margin-left: -61px;
     top: 50%;
-    margin-top: -70px;
+    margin-top: -61px;
 }
 .PageLoadingNormal .animationCircle /*On open Loading Screen animation less*/
 {
@@ -759,6 +781,7 @@ input:focus {
     font-size: 20pt;
     box-sizing: border-box;
     padding: 32px 0px;
+    user-select: all !important;
 }
 
 #loadingStopTimer.showNotice
@@ -774,6 +797,7 @@ input:focus {
     box-sizing: border-box;
     padding-top: 20px;
     color: black;
+    user-select: all !important;
 }
 
 .otherLinks

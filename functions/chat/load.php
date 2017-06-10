@@ -7,7 +7,7 @@ if (session_id() == '') {
 }
 if (isset($_SESSION['EMAIL'])) {
     if (!empty($_SESSION['EMAIL'])) {
-        $query   = "SELECT EMAIL, F_NAME, L_NAME FROM EMPLOYEES WHERE EMAIL != :email";
+        $query   = "SELECT EMAIL, F_NAME, L_NAME FROM EMPLOYEES WHERE EMAIL != :email AND INITIALSETUP != 3 AND INITIALSETUP IS NOT NULL";
         $bind    = array(
             array(
                 ':email',

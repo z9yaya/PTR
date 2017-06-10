@@ -11,7 +11,7 @@ else if(isset($_SESSION['INITIALSETUP']))
     if ($_SESSION['INITIALSETUP'] == 1)
     {
        checkShift();
-       header("Location: ../index.php#/dashboard");
+       header("Location: ../#/dashboard");
     } elseif ($_SESSION['INITIALSETUP'] == 3) {
         header("Location: start.php");
         return false;
@@ -20,7 +20,13 @@ else if(isset($_SESSION['INITIALSETUP']))
 }
 ?>
 <head>
+<meta charset="utf-8">
+<title>PTR - Account</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta id="chromeColor" name="theme-color" content="#0063b1">
+<link rel="SHORTCUT ICON" href="images/favico.ico">
+<link rel="icon" href="images/favicon.png" type="image/ico">
 <link rel="stylesheet" href="../stylesheets/normalize.css">
 <link rel="stylesheet" href="account.css">
 <script src="../javascript/jquery-3.2.0.min.js"></script>
@@ -127,8 +133,8 @@ else if(isset($_SESSION['INITIALSETUP']))
                 
             </div>
             <div class="containers negativeMarg">
-                    <input id="phone" type="text" name="number:employees:phone" class="text input" required maxlength="10">
-                    <label for="phone"  class="label">Contact number</label>
+                    <input id="phone" type="text" name="number:employees:phone" class="text input" required maxlength="10" minlength='10'>
+                    <label for="phone" class="label">Contact number</label>
                     <div class="errorContainer"><span class="error phone"></span></div>
             </div>
         </div>
@@ -180,7 +186,7 @@ else if(isset($_SESSION['INITIALSETUP']))
                     <div class="errorContainer"><span class="error bankname"></span></div>
             </div><br/>
             <div class="containers inline">
-                    <input id="bsb" type="text" name="number:banking:bsb" class="text input bsb nomarg" required minlenght="6" size="6" maxlength="6">
+                    <input id="bsb" type="text" name="number:banking:bsb" class="text input bsb nomarg" required minlength="6" size="6" maxlength="6">
                     <label for="bsb"  class="label">BSB</label>
                     <div class="errorContainer"><span class="error bsb"></span></div>
             </div>

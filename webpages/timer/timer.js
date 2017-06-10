@@ -14,18 +14,18 @@ function CheckOngoing() {
         if (data === "login") {
             window.location.replace("webpages/start.php");
         } else if (data != '') {
-            console.log(data);
+            //console.log(data);
             shiftInfo = jQuery.parseJSON(data);
-            //                if (shiftInfo["SHIFTID"])
-            //                    {
-            //                        
-            //                    }
+            console.log(shiftInfo);
+           Sdat =  ("0" + new Date(shiftInfo["BEGIN"]).getHours()).slice(-2)+":"+("0" + new Date(shiftInfo["BEGIN"]).getMinutes()).slice(-2);
+            Edat = ("0" + new Date(shiftInfo["END"]).getHours()).slice(-2)+":"+("0" + new Date(shiftInfo["END"]).getMinutes()).slice(-2);
+            $(".dateContainer").html(Sdat+" - "+Edat);
             if (shiftInfo["SHIFTSTART"]) {
                 res = shiftInfo["SHIFTSTART"];
                 startTimer(res);
                 $("#timerButtonClick").addClass("running");
             }
-            console.log(shiftInfo);
+            //console.log(shiftInfo);
         } else {
             return false;
         }
@@ -67,8 +67,10 @@ function StopTimerOnButton() {
             $("#rosterLink").removeClass("Timeractive");
             $("#timerButtonClick").addClass("ready");
             $("#headerTimer").addClass("timerStopped");
+            $(".content").removeClass("timer");
             setTimeout(function() {
                 $("#headerTimer").empty();
+                $("#headerTimer").attr("id", "headerNoTimer");
             }, 600);
         } else if (data == 'login') {
             window.location.replace("webpages/start.php");

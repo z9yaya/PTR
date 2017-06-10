@@ -6,15 +6,18 @@ if (session_id() == '')
     }
 if(empty($_SESSION['EMPID']) || $_SESSION['TYPE'] != "CEO" && $_SESSION['TYPE'] != "MANAGER")
     header("Location: start.php");
+header("Content-Security-Policy: frame-ancestors 'self'");
+if (empty(getallheaders()['Referer'])) {
+    header("Location: ../index.php");
+} 
 ?>
 <!doctype html>
 <html lang="en" class="employeesHTML">
 <head>
     <script>
-//        if(window.location.href.indexOf('webpages') != -1)
-//        {
-//            //window.location.replace("../index.php#/employees");
-//        }
+        if(top==self){
+            window.location.href = "../404.html";
+        }
     </script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -30,7 +33,8 @@ if(empty($_SESSION['EMPID']) || $_SESSION['TYPE'] != "CEO" && $_SESSION['TYPE'] 
 <div class="employeesContent preload">
         <div class="employees boxContainer">
             <a href="#" class="createNew input">Create new</a>
-            <input type="text" id="SearchEmp" class="searchBox input" placeholder="Search employees">
+            <a href="#" class="showTerm input">Show terminated</a>
+            <input type="search" id="SearchEmp" class="searchBox input" placeholder="Search employees">
             <table class="mainTable tablesaw" data-tablesaw-mode="columntoggle" data-tablesaw-sortable >
                 <thead class="tableHead">
                     <tr>
@@ -39,11 +43,15 @@ if(empty($_SESSION['EMPID']) || $_SESSION['TYPE'] != "CEO" && $_SESSION['TYPE'] 
                         </th>
                         <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="persist">Name
                         </th>
+                        <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="1">Email
+                        </th>
                         <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="2">Position
                         </th>
                         <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="3">Employment Type
                         </th>
                         <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-sortable-numeric data-tablesaw-priority="4">Rate $
+                        </th>
+                        <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="4">Store
                         </th>
                         <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="0">Start Date
                         </th>
@@ -54,11 +62,11 @@ if(empty($_SESSION['EMPID']) || $_SESSION['TYPE'] != "CEO" && $_SESSION['TYPE'] 
                 <tbody id="TableSearchTbody">
                     <?php 
                     if ($_SESSION['TYPE'] === 'MANAGER') {
-                         $query = 'SELECT EMPLOYEES.EMPID, F_NAME, L_NAME, POSITION, RATE, EMPLOYMENT.TYPE, EMPSTART, EMPEND, EMPTYPE FROM EMPLOYEES LEFT JOIN EMPLOYMENT ON EMPLOYEES.EMPID = EMPLOYMENT.EMPID WHERE EMPLOYEES.TYPE = :TYPE OR EMPLOYEES.TYPE = :TYPE2 ORDER BY EMPLOYEES.EMPID';
+                         $query = 'SELECT EMPLOYEES.EMPID, EMAIL, F_NAME, L_NAME, POSITION, RATE, EMPLOYMENT.TYPE, EMPSTART, EMPEND, EMPTYPE, STORE FROM EMPLOYEES LEFT JOIN EMPLOYMENT ON EMPLOYEES.EMPID = EMPLOYMENT.EMPID WHERE EMPLOYEES.TYPE = :TYPE OR EMPLOYEES.TYPE = :TYPE2 ORDER BY EMPLOYEES.EMPID';
                         $bind = array(array(":TYPE", 'EMPLOYEE'),array(":TYPE2", 'PAYROLL'));
                     }
                     elseif ($_SESSION['TYPE'] === 'CEO') {
-                        $query = 'SELECT EMPLOYEES.EMPID, F_NAME, L_NAME, POSITION, RATE, EMPLOYMENT.TYPE, EMPSTART, EMPEND, EMPTYPE FROM EMPLOYEES LEFT JOIN EMPLOYMENT ON EMPLOYEES.EMPID = EMPLOYMENT.EMPID WHERE EMPLOYEES.TYPE != :TYPE ORDER BY EMPLOYEES.EMPID';
+                        $query = 'SELECT EMPLOYEES.EMPID, EMAIL, F_NAME, L_NAME, POSITION, RATE, EMPLOYMENT.TYPE, EMPSTART, EMPEND, EMPTYPE, STORE FROM EMPLOYEES LEFT JOIN EMPLOYMENT ON EMPLOYEES.EMPID = EMPLOYMENT.EMPID WHERE EMPLOYEES.TYPE != :TYPE ORDER BY EMPLOYEES.EMPID';
                         $bind = array(array(":TYPE", $_SESSION['TYPE']));
                     }
                      $employees = GrabAllData($query, $bind);
@@ -77,8 +85,10 @@ if(empty($_SESSION['EMPID']) || $_SESSION['TYPE'] != "CEO" && $_SESSION['TYPE'] 
                            $type = ucwords(strtolower($employees['EMPTYPE'][$i]));
                             echo '<tr class="tableRow">
                             <td><a href="#" class="TableLink">'."E".str_pad($employees['EMPID'][$i], 7, '0', STR_PAD_LEFT).'
-                            </a></td>
+                            <form action="editEmp.php" method="post"><input type="hidden" name="eeid" value="'.$employees['EMPID'][$i].'"></form></a></td>
                             <td>'.$employees['F_NAME'][$i].' '.$employees['L_NAME'][$i].'
+                            </td>
+                            <td>'.$employees['EMAIL'][$i].'
                             </td>
                             <td>'.$employees['POSITION'][$i].'
                             </td>
@@ -86,6 +96,8 @@ if(empty($_SESSION['EMPID']) || $_SESSION['TYPE'] != "CEO" && $_SESSION['TYPE'] 
                             </td>
                             <td>'.sprintf("%.2f", $employees['RATE'][$i]).$typePay.'
                             </td>
+                            <td><a href="#" class="TableLinkStores">'.$employees['STORE'][$i].'
+                            <form action="editStore.php" method="post"><input type="hidden" name="esid" value="'.$employees['STORE'][$i].'"></form></a></td>
                             <td>';
                             if (!empty($employees['EMPSTART'][$i]))
                                 {

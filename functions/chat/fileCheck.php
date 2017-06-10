@@ -15,7 +15,7 @@ if(isset($_SESSION['EMAIL']))
 }
 $file = $_GET['file'];
 $timeuser= time();
-$query = "UPDATE CHAT SET LASTLOG=:time WHERE CHATFILE=:chatfile AND EMAIL=:email";
+$query = "UPDATE CHAT SET LASTLOG=:time WHERE CHATFILE = :chatfile AND EMAIL = :email";
 $bind = array(array(':chatfile', $file),array(':email', $user),array(':time', $timeuser));
 InsertData($query, $bind);
 

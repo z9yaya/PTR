@@ -7,24 +7,31 @@
 //        $(".employees.boxContainer").addClass("OverFlowX");
 //    }
 //}
-function HideInactive()
+function HideInactive(type = 0)
 {
-    $("table tr").each(function (index) {
-        if (!index) return;
-        $(this).find("td").each(function () {
-            console.log(this);
-            var id = ''
-            var not_found = (id.indexOf('') == -1);
-            $(this).closest('tr').toggle(!not_found);
-            return not_found;
-        });
-    });
+    if (type == 0) {
+            $("table tr").each(function () {
+                Td = $($(this).find("td")[8]);
+                var id = Td.html();
+                var not_found = (id == '');
+                Td.closest('tr').toggle(not_found);
+            });
+        $(".showTerm").html("Show terminated");
+        $(".showTerm").removeClass("show");
+        
+        } else {
+            $("tr").toggle(true);
+            $(".showTerm").html("Hide terminated");
+            $(".showTerm").addClass("show");
+        }
+
 }
 $(document).ready(function(){
+    HideInactive();
       width = (screen.width/2) - 200;
       height = (screen.height/3) - 250;
     //HideInactive();
-  $(".createNew").on("click",function(){
+  $(".createNew").on("click",function(event){
       event.preventDefault();
       createNewPopUp =  window.open("createnewEmp.php", "newwindow", "width=400,height=750,left="+width+",top="+height);         
       });
@@ -40,7 +47,7 @@ $(document).ready(function(){
         });
     });
 });
-    $(".TableLink").on("click",function(){
+    $(".TableLink").on("click",function(event){
         event.preventDefault();
         if (typeof editPopUp != 'undefined')
             {
@@ -51,12 +58,37 @@ $(document).ready(function(){
             }
         if (typeof editPopUp == 'undefined' || (editPopUp.closed))
             {
-        editPopUp =  window.open("editEmp.php","newwindow", "width=400,height=825,left="+width+",top="+height);
-        editPopUp.TransfempID = $(this).html().replace(/\s+/g, '');
+                form = $(this).find("form");
+                form.attr('target', 'newwindow');
+                editPopUp = window.open("","newwindow", "width=400,height=825,left="+width+",top="+height);
+                form.submit();
             }
         
         
     });
+    $(".TableLinkStores").on("click",function(event){
+        if (typeof storePopUp != 'undefined')
+            {
+                if(!storePopUp.closed)
+                {
+                    storePopUp.close();
+                }
+            }
+        if (typeof storePopUp == 'undefined' || (storePopUp.closed))
+            {
+                form = $(this).find("form");
+                form.attr('target', 'da');
+                storePopUp = window.open("","da","width=400,height=825,left="+width+",top="+height);
+                form.submit();
+            }
+        return false;
+    });
+    $(".showTerm").on("click", function(event){
+        event.preventDefault();
+        type = (!$(this).hasClass("show"));
+        HideInactive(type);
+        $(this).blur();
+    })
 //    $(".btn-group input").on("click",function(){
 //        window.setTimeout(widthCompare,50);
 //    })

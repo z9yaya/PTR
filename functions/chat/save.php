@@ -12,16 +12,23 @@ if (!empty($_POST)) {
     {
         $user = $_SESSION['EMAIL']; 
     }
-    $post_data = $_POST['data'];
+    $post_data = htmlspecialchars($_POST['data']);
+    $data = '';
     $post_document = $_POST['document'];
-    $filename = $post_document;
-    $data = "\n" . $post_data;
+        $filename = $post_document;
+    if (isset($_POST['email'])) {
+        $Email = $_POST['email'];
+        $time = $_POST['time'];
+        $post_data = '<message><div class="container"><div class="'.$Email.'" title="'.$time.'">'.$post_data.'</div></div></message>';
+        $data = "\n" . $post_data;
+    }
     $handle = fopen($filename, "a");
     fwrite($handle, $data);
     fclose($handle);
     if (isset($_POST['user']))
     {
-        $lastmod = filemtime($filename);
+//        $lastmod = filemtime($filename);
+        $lastmod = 1;
         $timenow = time();
         $receiver = $_POST['user'];
         

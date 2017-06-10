@@ -7,6 +7,7 @@ if (session_id() == '')
     }
  if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
      header("Location: webpages/start.php");
+checkShift();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,6 +20,18 @@ if (session_id() == '')
         <link rel="SHORTCUT ICON" href="images/favico.ico">
         <link rel="icon" href="images/favicon.png" type="image/ico">
         <link rel="stylesheet" href="stylesheets/normalize.css" media="none" onload="if(media!='all')media='all'">
+<!--
+        <script> 
+var $buoop = {vs:{i:11,f:-4,o:-4,s:9,c:-4},api:4}; 
+function $buo_f(){ 
+ var e = document.createElement("script"); 
+ e.src = "//browser-update.org/update.min.js"; 
+ document.body.appendChild(e);
+};
+try {document.addEventListener("DOMContentLoaded", $buo_f,false)}
+catch(e){window.attachEvent("onload", $buo_f)}
+</script>
+-->
         <link rel="stylesheet" href="stylesheets/style.css" async>
         <?php if (session_id() == '')
                     {
@@ -29,15 +42,24 @@ if (session_id() == '')
         echo '<link rel="stylesheet" href="stylesheets/messages.css" async>';
                         //echo $_SERVER['REMOTE_ADDR'];
                     }?>
+        <script type="application/javascript">
+            if (window.location.hash === '') {
+                window.location.hash = '/dashboard';
+            }</script>
         <script type="application/javascript" src="javascript/header.js"></script>
+        <script type="text/javascript" src="javascript/modernizr-inputs.js"></script>
+        <script>if (Modernizr.arrow !== undefined && !Modernizr.arrow) {
+                    window.location.assign("https://browser-update.org/update-browser.html");
+                }</script>
         <script type="application/javascript">head.load("javascript/jquery-3.2.0.min.js",function(){
-                /*head.load("javascript/hammer.min.js"); */head.load("javascript/main.js"),head.load("javascript/eventsource.js",function(){head.load("functions/chat/script.js")})});
+                head.load("javascript/hammer.min.js"); 
+                head.load("javascript/hammer-time.min.js"); head.load("javascript/main.js"),head.load("javascript/eventsource.js",function(){head.load("functions/chat/script.js")})});
         </script>
         <noscript>JavaScript is off. Please enable to view full site.</noscript>
         <link rel="manifest" href="manifest.json">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-status-bar-style" content="black">
-        <meta name="apple-mobile-web-app-title" content="Weather PWA">
+        <meta name="apple-mobile-web-app-title" content="PTR">
         <link rel="apple-touch-icon" href="images/favicon.png">
         <meta name="msapplication-TileImage" content="images/favicon.png">
         <meta name="msapplication-TileColor" content="#0063b1">
@@ -48,12 +70,18 @@ if (session_id() == '')
             <div class="side_menu_container">
                 <div class="menu_itemLink_container"><a href="#/dashboard" location="webpages/dashboard.php" id="dashboardLink" metatitle="Dashboard" rel="address:/dashboard" class="menu_item ContentWithin"><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs39"></defs><g id="g4" transform="matrix(0.044594 0 0 0.044594 13.9995 13.9995)"><path id="path2" style="fill: #ffffff;" d="M 444.277 215.253 L 242.72 52.441 L 231.534 43.152 c -4.22 -3.506 -10.34 -3.506 -14.559 0 L 158.813 91.453 V 71.031 c 0 -6.294 -5.104 -11.397 -11.396 -11.397 h -43.449 c -6.293 0 -11.396 5.104 -11.396 11.397 v 75.233 L 4.191 218.371 c -4.875 3.979 -5.605 11.157 -1.625 16.035 c 2.254 2.764 5.531 4.193 8.836 4.193 c 2.533 0 5.082 -0.841 7.203 -2.565 l 34.477 -28.126 v 188.684 c 0 6.294 5.102 11.397 11.396 11.397 h 121.789 c 6.295 0 11.398 -5.104 11.398 -11.397 v -88.426 h 53.18 v 88.426 c 0 6.294 5.104 11.397 11.398 11.397 h 121.789 c 6.295 0 11.397 -5.104 11.397 -11.397 V 205.101 l 34.521 27.884 c 2.108 1.702 4.643 2.532 7.158 2.532 c 3.321 0 6.622 -1.447 8.87 -4.235 c 3.959 -4.898 3.195 -12.074 -1.701 -16.029 Z M 115.366 82.428 h 20.652 v 27.164 l -20.652 16.716 Z m 257.27 107.53 v 195.235 h -98.994 v -88.427 c 0 -6.294 -5.104 -11.396 -11.397 -11.396 h -75.977 c -6.295 0 -11.396 5.104 -11.396 11.396 v 88.427 H 75.877 V 189.958 l 44.309 -36.798 c 0 0 103.748 -85.009 104.41 -86.141 Z"></path></g><g id="g6" transform="translate(0 -406.464)"></g><g id="g8" transform="translate(0 -406.464)"></g><g id="g10" transform="translate(0 -406.464)"></g><g id="g12" transform="translate(0 -406.464)"></g><g id="g14" transform="translate(0 -406.464)"></g><g id="g16" transform="translate(0 -406.464)"></g><g id="g18" transform="translate(0 -406.464)"></g><g id="g20" transform="translate(0 -406.464)"></g><g id="g22" transform="translate(0 -406.464)"></g><g id="g24" transform="translate(0 -406.464)"></g><g id="g26" transform="translate(0 -406.464)"></g><g id="g28" transform="translate(0 -406.464)"></g><g id="g30" transform="translate(0 -406.464)"></g><g id="g32" transform="translate(0 -406.464)"></g><g id="g34" transform="translate(0 -406.464)"></g></svg>Dashboard</a></div>
                 
-                
-                <div class="menu_itemLink_container"><a href="#/roster" location="webpages/dashboard.html" metatitle="Roster" id="rosterLink" rel="address:/roster" loadType="append" class="menu_item ContentWithin" ><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs41"></defs><g id="g8" transform="translate(0 -54.375)" /><g id="g10" transform="translate(0 -54.375)" /><g id="g12" transform="translate(0 -54.375)" /><g id="g14" transform="translate(0 -54.375)"></g><g id="g16" transform="translate(0 -54.375)" /><g id="g18" transform="translate(0 -54.375)" /><g id="g20" transform="translate(0 -54.375)" /><g id="g22" transform="translate(0 -54.375)" /><g id="g24" transform="translate(0 -54.375)" /><g id="g26" transform="translate(0 -54.375)" /><g id="g28" transform="translate(0 -54.375)" /><g id="g30" transform="translate(0 -54.375)" /><g id="g32" transform="translate(0 -54.375)" /><g id="g34" transform="translate(0 -54.375)" /><g id="g36" transform="translate(0 -54.375)" /><circle id="path850" style="fill: none; fill-opacity: 1; stroke: #ffffff; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 1;" cx="24" cy="24" r="9.46835" /><rect id="rect868" style="fill: #ffffff; fill-opacity: 1; stroke: none; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 0; stroke-width: 0.940401;" x="23.5423" y="18.7806" width="1" height="7.67802" /><rect id="rect868-3" style="fill: #ffffff; fill-opacity: 1; stroke: none; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 0; stroke-width: 0.67504;" transform="rotate(-90)" x="-26.4577" y="19.6085" width="1" height="3.95624" /></svg>Roster</a></div>
-                
+               
+              <div class="menu_itemLink_container"><a href="#/roster" location="webpages/<?php
+                if(!empty($_SESSION['EMPID'])) {
+                    if($_SESSION['TYPE']=='CEO' || $_SESSION['TYPE'] == 'MANAGER')
+                    {echo 'rostering.php';} else {
+                        echo 'roster.php';
+                    }
+                    echo'" metatitle="Roster" id="rosterLink" rel="address:/roster" loadType="append" class="menu_item ContentWithin" ><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs41"></defs><g id="g8" transform="translate(0 -54.375)" /><g id="g10" transform="translate(0 -54.375)" /><g id="g12" transform="translate(0 -54.375)" /><g id="g14" transform="translate(0 -54.375)"></g><g id="g16" transform="translate(0 -54.375)" /><g id="g18" transform="translate(0 -54.375)" /><g id="g20" transform="translate(0 -54.375)" /><g id="g22" transform="translate(0 -54.375)" /><g id="g24" transform="translate(0 -54.375)" /><g id="g26" transform="translate(0 -54.375)" /><g id="g28" transform="translate(0 -54.375)" /><g id="g30" transform="translate(0 -54.375)" /><g id="g32" transform="translate(0 -54.375)" /><g id="g34" transform="translate(0 -54.375)" /><g id="g36" transform="translate(0 -54.375)" /><circle id="path850" style="fill: none; fill-opacity: 1; stroke: #ffffff; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 1; stroke-width: 1;" cx="24" cy="24" r="9.46835" /><rect id="rect868" style="fill: #ffffff; fill-opacity: 1; stroke: none; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 0; stroke-width: 0.940401;" x="23.5423" y="18.7806" width="1" height="7.67802" /><rect id="rect868-3" style="fill: #ffffff; fill-opacity: 1; stroke: none; stroke-dasharray: none; stroke-miterlimit: 4; stroke-opacity: 0; stroke-width: 0.67504;" transform="rotate(-90)" x="-26.4577" y="19.6085" width="1" height="3.95624" /></svg>Roster</a></div>';
+                }?>                
                 <div class="menu_itemLink_container"><a href="#/leave" location="webpages/leave/annualbenefits.php" metatitle="Leave" loadType="append" rel="address:/leave" class="menu_item ContentWithin"><svg class="menu_svg" xmlns="http://www.w3.org/2000/svg" id="Capa_1" viewBox="0 0 48 48" x="0px" y="0px" width="48" height="48" version="1.1" xmlns:xml="http://www.w3.org/XML/1998/namespace" xml:space="preserve"><defs id="defs45"></defs><g id="g10" transform="matrix(0.0415327 0 0 0.0415327 13.7365 13.7365)"><g id="g8"><polygon id="polygon2" style="fill: #ffffff;" points="85.211,36.024 85.211,457.685 180.89,457.851 180.89,36.024" /><path id="path4" style="fill: #ffffff;" d="M 199.726 0 V 494.237 L 408.81 456.683 L 409.026 37.816 Z M 385.829 437.447 L 222.725 466.735 V 27.528 L 386.007 57.03 Z" /><ellipse id="ellipse6" style="fill: #ffffff;" cx="247.119" cy="247.119" rx="12.715" ry="16.545" /></g></g><g id="g12" transform="translate(0 -447.902)" /><g id="g14" transform="translate(0 -447.902)" /><g id="g16" transform="translate(0 -447.902)" /><g id="g18" transform="translate(0 -447.902)" /><g id="g20" transform="translate(0 -447.902)" /><g id="g22" transform="translate(0 -447.902)" /><g id="g24" transform="translate(0 -447.902)" /><g id="g26" transform="translate(0 -447.902)" /><g id="g28" transform="translate(0 -447.902)" /><g id="g30" transform="translate(0 -447.902)" /><g id="g32" transform="translate(0 -447.902)" /><g id="g34" transform="translate(0 -447.902)" /><g id="g36" transform="translate(0 -447.902)" /><g id="g38" transform="translate(0 -447.902)" /><g id="g40" transform="translate(0 -447.902)" /></svg>Leave</a></div>
                 
-                <div class="menu_itemLink_container"><a location="../tib/" rel="address:/pay" metatitle="Pay" loadType="append" href="#/pay"  class="menu_item ContentWithin"><div class="icons">$</div>Pay</a></div>
+                <div class="menu_itemLink_container"><a location="webpages/payment.php" rel="address:/pay" metatitle="Pay" loadType="append" href="#/pay"  class="menu_item ContentWithin"><div class="icons">$</div>Pay</a></div>
                 <?php
                 if(!empty($_SESSION['EMPID'])) {
                     if($_SESSION['TYPE']=='CEO' || $_SESSION['TYPE'] == 'MANAGER')
@@ -123,8 +151,12 @@ if (session_id() == '')
      transform="translate(0,-380.97501)"
      id="g5123" /><g
      transform="translate(0,-380.97501)"
-     id="g5125" /></svg>Employees</a></div>';
+     id="g5125" /></svg>Employees</a></div><div class="menu_itemLink_container"><a href="#/stores" location="webpages/stores.php" metatitle="Stores" loadType="append" rel="address:/stores" class="menu_item ContentWithin"><img src="images/stores.svg">Stores</a></div><div class="menu_itemLink_container"><a href="#/reporting" location="webpages/reporting.php" metatitle="Reporting" loadType="append" rel="address:/reporting" class="menu_item ContentWithin"><img src="images/reports.svg">Reporting</a></div>';
                     }
+            if($_SESSION['TYPE']=='CEO' || $_SESSION['TYPE'] == 'PAYROLL')
+            {
+                echo '<div class="menu_itemLink_container"><a location="webpages/payroll.php" rel="address:/payroll" metatitle="Payroll" loadType="append" href="#/payroll"  class="menu_item ContentWithin"><div class="icons"><img height="20.3px" width="20.3px" src="images/payroll.png"></div>Payroll</a></div>';
+            }
                 }
                 ?>
                  
@@ -139,8 +171,9 @@ if (session_id() == '')
                 </div>
             </div>
 		</div>
-        <div id=click_overlay onclick="ExpandMenu()"></div>
+        <div id=click_overlay onclick="showMenu(0)"></div>
             <div id="loadingPageOverlay" class="PageLoadingNormal PageLoadingAdd"><div class="loading"><div class="animationCircle"></div></div></div>
+<!--
             <div id="timerStopPageOverlay" class="timerStopNormal">
                 <div class="popUpContainer">
                     <div class="questionLabel"></div>
@@ -151,8 +184,21 @@ if (session_id() == '')
                     <div id="loadingStopTimer" class="loadingStopTimer animationCircle"></div>
                 </div>
             </div>
+-->
+            <div id="timerStopPageOverlay" class="timerStopNormal">
+                <div class="popUpContainer">
+                    <div class="questionLabel"></div>
+                    <div class="answerContainer">
+                        <div id="timerStopConfirm" class="bigRoundButtons yesConfirm" tabindex="0" title="Yes"></div>
+                        <div id="timerStopCancel" class="bigRoundButtons noDeny" tabindex="0" title="No"></div>
+                    </div>
+                    <div id="loadingStopTimer" class="loadingStopTimer"></div>
+                    <a href="#" class="otherLinks displayNone">Close</a>
+                </div>
+            </div>
+            <div id="touchGrab" class="smallOverlay"></div>
 		<div class="header_container">
-			<div class="inlineDiv"><a class="menu_item menu_extend" onclick="ExpandMenu()"><svg xmlns="http://www.w3.org/2000/svg" id="svg8" viewBox="0 0 12.7 12.7" width="48" height="48" version="1.1"><defs id="defs2"></defs><g id="layer1" style="display: inline;" transform="translate(-74.0273 -102.378)"><rect id="rect3693" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9823" y="107.415" width="5.28901" height="0.263111" /><rect id="rect3693-7" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9822" y="108.737" width="5.28901" height="0.263111" /><rect id="rect3693-7-9" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9847" y="110.06" width="5.28901" height="0.263111" /></g></svg></a></div>
+			<div class="inlineDiv"><a class="menu_item menu_extend" onclick="showMenu(1)"><svg xmlns="http://www.w3.org/2000/svg" id="svg8" viewBox="0 0 12.7 12.7" width="48" height="48" version="1.1"><defs id="defs2"></defs><g id="layer1" style="display: inline;" transform="translate(-74.0273 -102.378)"><rect id="rect3693" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9823" y="107.415" width="5.28901" height="0.263111" /><rect id="rect3693-7" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9822" y="108.737" width="5.28901" height="0.263111" /><rect id="rect3693-7-9" style="fill: #ffffff; stroke-width: 2.83299;" transform="matrix(1 0 -0.0114884 0.999934 0 0)" x="78.9847" y="110.06" width="5.28901" height="0.263111" /></g></svg></a></div>
 			<div class="header_title inlineDiv" id="mainPageTitle"></div>
             <div class="smallTimer" id="<?php AddTimerCheck()?>"></div>
 		</div>

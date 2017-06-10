@@ -156,16 +156,10 @@ function InsertData($query, $bind = null)
         echo $e['message'];
     }
 }
-
-function FillPDF($report = 'pay_advice', $payID = 0, $paygName = 'MANYAN_16', $employeeID = 0)
-{
-    if ($report === 'pay_advice') {
-        $TemplateLocation = "C:\\Users\\Administrator\\Documents\\forms\\pay_advice.pdf";
-        $resLocation = "C:\\Users\\Administrator\\Documents\\pay_advice\\$payID.pdf";
-        $PDFname = 'PAY_'.$payID;
-        $dataArray = array (
+//pay advice
+$dataArray = array (
 'employee_details' => 
-'',
+'dd',
 'week_ending' => 
 '',
 'transfer_date' => 
@@ -202,141 +196,117 @@ function FillPDF($report = 'pay_advice', $payID = 0, $paygName = 'MANYAN_16', $e
 '',
 'OTHER_rdo' => 
 '');
-    } elseif ($report === 'payg') {
-        $TemplateLocation = "C:\\Users\\Administrator\\Documents\\forms\\payg.pdf";
-        $resLocation = "C:\\Users\\Administrator\\Documents\\payg\\$paygName.pdf";
-        $PDFname = $paygName;
-        $dataArray = array (
-'employee_details' => 
-'',
-'from' => 
-'',
-'to' => 
-'',
-'tfn' => 
-'',
-'tax' => 
-'',
-'gross' => 
-'',
-'cdep' => 
-'',
-'other' => 
-'',
-'fringe' => 
-'',
-'lumpA' => 
-'',
-'lumpB' => 
-'',
-'lumpC' => 
-'',
-'lumpD' => 
-'',
-'year' => 
-'',
-'comment' => 
-'',
-'signature' => 
-'',
-'signDate' => 
-'',
-'payerName' =>
-'Clothing.Co Stores Pty Ltd',
-'branchN' =>
-'001',
-'payer_ABN' =>
-'95 152 075 203'); 
-    } else if ($report === 'employee') {
-        $TemplateLocation = "C:\\Users\\Administrator\\Documents\\forms\\employee.pdf";
-        $resLocation = "C:\\Users\\Administrator\\Documents\\payg\\$employeeID.pdf";
-        $PDFname = $employeeID;
-        $dataArray = array (
-'Report' =>
-'Employee Information',
-'empID' =>
-$employeeID,
-'dateRange' =>
-'03/09/2016 - 06/06/2017',
-'f_name' => 
-'Yannick',
-'m_name' => 
-'Malcolm Denis Louis',
-'l_name' => 
-'Mansuy',
-'dob' => 
-'03/09/1994',
-'email' => 
-'y.mansuy@outlook.com',
-'phone' => 
-'0415142510',
-'address' => 
-'16-18 Mingah Crescent',
-'suburb' => 
-'Shailer Park',
-'postcode' => 
-'4128',
-'state' => 
-'QLD',
-'tfn' => 
-'',
-'bank' => 
-'',
-'bsb' => 
-'',
-'acc' => 
-'',
-'position' => 
-'',
-'type' => 
-'',
-'rate' => 
-'',
-'empstart' => 
-'',
-'empend' => 
-'',
-'store' => 
-'',
-'weeks_worked' => 
-'',
-'gross' => 
-'',
-'net' => 
-'',
-'tax' => 
-'',
-'overtime' => 
-'',
-'total_shifts' => 
-'',
-'avg_shift' => 
-'',
-'shift_skipped' => 
-'',
-'total_hours' => 
-'',
-'shift_start_late' => 
-'',
-'shift_start_early' => 
-'',
-'shift_finish_late' => 
-'',
-'shift_finish_late' => 
-'',
-'rosterd' => 
-'',
-'leave_total' => 
-'',
-'leave_taken' => 
-'',
-'shift_skipped' => 
-'',
-'sick_taken' => 
-'',
-'sick_left' => 
-''); 
-    }    
+//employee report
+//$dataArray = array (
+//'Report' =>
+//'Employee Information',
+//'empID' =>
+//$employeeID,
+//'dateRange' =>
+//'03/09/2016 - 06/06/2017',
+//'f_name' => 
+//'Yannick',
+//'m_name' => 
+//'Malcolm Denis Louis',
+//'l_name' => 
+//'Mansuy',
+//'dob' => 
+//'03/09/1994',
+//'email' => 
+//'y.mansuy@outlook.com',
+//'phone' => 
+//'0415142510',
+//'address' => 
+//'16-18 Mingah Crescent',
+//'suburb' => 
+//'Shailer Park',
+//'postcode' => 
+//'4128',
+//'state' => 
+//'QLD',
+//'tfn' => 
+//'',
+//'bank' => 
+//'',
+//'bsb' => 
+//'',
+//'acc' => 
+//'',
+//'position' => 
+//'',
+//'type' => 
+//'',
+//'rate' => 
+//'',
+//'empstart' => 
+//'',
+//'empend' => 
+//'',
+//'store' => 
+//'',
+//'weeks_worked' => 
+//'',
+//'gross' => 
+//'',
+//'net' => 
+//'',
+//'tax' => 
+//'',
+//'overtime' => 
+//'',
+//'total_shifts' => 
+//'',
+//'avg_shift' => 
+//'',
+//'shift_skipped' => 
+//'',
+//'total_hours' => 
+//'',
+//'shift_start_late' => 
+//'',
+//'shift_start_early' => 
+//'',
+//'shift_finish_late' => 
+//'',
+//'shift_finish_late' => 
+//'',
+//'rosterd' => 
+//'',
+//'leave_total' => 
+//'',
+//'leave_taken' => 
+//'',
+//'shift_skipped' => 
+//'',
+//'sick_taken' => 
+//'ergrgr',
+//'sick_left' => 
+//''); 
+function FillPDF($dataArray = array() ,$report = 'pay_advice', $payID = 0, $employeeID = 0, $show = true)
+{
+    if ($report === 'pay_advice') {
+        $TemplateLocation = "C:\\Users\\Administrator\\Documents\\forms\\pay_advice.pdf";
+        $resLocation = "C:\\Users\\Administrator\\Documents\\pay_advice\\$employeeID\\$payID.pdf";
+        $resPath = "C:\\Users\\Administrator\\Documents\\pay_advice\\$employeeID";
+        $PDFname = 'PAY_'.$payID;
+    } else if ($report === 'empPro') {
+        $TemplateLocation = "C:\\Users\\Administrator\\Documents\\forms\\employee-profile-report.pdf";
+        $resLocation = "C:\\Users\\Administrator\\Documents\\employee_rep\\$employeeID\\{$employeeID}_profile.pdf";
+        $resPath = "C:\\Users\\Administrator\\Documents\\employee_rep\\$employeeID";
+        $PDFname = "{$employeeID}_profile";
+    } else if ($report === 'store') {
+        $TemplateLocation = "C:\\Users\\Administrator\\Documents\\forms\\store_report.pdf";
+        $resLocation = "C:\\Users\\Administrator\\Documents\\store_rep\\$employeeID\\{$employeeID}_stats.pdf";
+        $resPath = "C:\\Users\\Administrator\\Documents\\store_rep\\$employeeID";
+        $PDFname = "{$employeeID}_stats";
+    } else if ($report === 'empStats') {
+        $TemplateLocation = "C:\\Users\\Administrator\\Documents\\forms\\employee-pay-report.pdf";
+        $resLocation = "C:\\Users\\Administrator\\Documents\\employee_rep\\$employeeID\\{$employeeID}_stats.pdf";
+        $resPath = "C:\\Users\\Administrator\\Documents\\employee_rep\\$employeeID";
+        $PDFname = "{$employeeID}_pay";
+    } else {
+        return false;
+    }
     $temp = tempnam(sys_get_temp_dir(), gethostname());
     $fdf = '%FDF-1.2
     1 0 obj<</FDF<< /Fields[';
@@ -349,16 +319,21 @@ $employeeID,
     <</Root 1 0 R>>
     %%EOF";
     $fdf_file = $temp;
+    if( is_dir($resPath) === false )
+        {
+            mkdir($resPath);
+        }  
     file_put_contents($fdf_file, $fdf);
     $programLocation = '"C:\\Program Files (x86)\\PDFtk Server\\bin\\pdftk.exe"';
     $command = "$programLocation $TemplateLocation fill_form $fdf_file output $resLocation flatten 2>&1";
-    echo $command;
     system($command, $execoutput);
-    //unlink($temp);
+    unlink($temp);
     if ($execoutput !== 0) {
         return $execoutput[0];
     }
-    ShowPDF($PDFname,$resLocation);
+    if ($show) {
+    ShowPDF($PDFname,$resLocation);}
+    return array($PDFname, $resLocation);
 }
 
 function ShowPDF($filename, $location)
@@ -369,4 +344,100 @@ function ShowPDF($filename, $location)
     header('Accept-Ranges: bytes');
     @readfile($location);
 }
-//FillPDF('employee');
+//FillPDF($dataArray ,'store', 34, 23, false);
+
+
+
+function writePdf($name, $store, $contents) {
+    $tempD = tempnam(sys_get_temp_dir(), gethostname());
+    $temp = $tempD.".html";
+    unlink($tempD);
+    file_put_contents($temp, $contents);
+    $resPath = "C:\\Users\\Administrator\\Documents\\rosters\\$store";
+        if( is_dir($resPath) === false )
+        {
+            mkdir($resPath);
+        }    
+    $resLocation = "$resPath\\$name.pdf";
+    $srcLocation = $temp;
+    $programLocation = '"C:\\Program Files\\wkhtmltopdf\\bin\\wkhtmltopdf.exe"';
+    $command = "$programLocation -O Landscape -q $srcLocation \"$resLocation\"";
+    system($command, $execoutput);
+    unlink($temp);
+    if ($execoutput !== 0) {
+        return $execoutput[0];
+    }
+    return $resLocation;
+}
+
+//writePdf('testyytyt', '5', 'test </br> content');
+
+/**
+ * Creates a unix epoch date out of the given english date
+ * @author Yannick Mansuy
+ * @param  string $Oridate Date string created by JqueryUI(YYYY-MM-DD) or HTML5 date input(DD/MM/YYYY)
+ * @return boolean  Returns the unix epoch of given date or false when the date is invalid
+ */
+function DatetoUnix($Oridate)
+{
+    if (!empty($Oridate)) {
+        if (strpos($Oridate, '/') !== false) {
+                $explodedDate = explode("/", $Oridate);
+                $date["day"] = $explodedDate[0];
+                $date["month"] =  $explodedDate[1];
+                $date["year"] =  $explodedDate[2];
+        } else {
+                $explodedDate = explode("-", $Oridate);
+                $date["day"] = $explodedDate[2];
+                $date["month"] =  $explodedDate[1];
+                $date["year"] =  $explodedDate[0];
+        }
+    }
+if (count($date) == 3) {
+     if (checkdate($date['month'], $date['day'], $date['year'])) {
+            $unix = mktime(0, 0, 0, $date['month'], $date['day'], $date['year']);
+            return $unix;
+     } else return false;
+    }
+}
+
+function addToDay($day, $shift, $time) {
+    $day[$shift[2]][$shift[0]] = $time;
+    return $day;
+}
+
+function getTimeZone($stores, $s = false)
+{
+    if ($s === true) {
+        $a = $stores;
+    } else {
+        $a = $stores['STATE'];
+    }
+    switch ($a) {
+        case 'ACT':
+            $TZ = 'Australia/Sydney';
+            break;
+        case 'QLD':
+            $TZ = 'Australia/Brisbane';
+            break;
+        case 'NSW':
+            $TZ = 'Australia/Sydney';
+            break;
+        case 'NT':
+            $TZ = 'Australia/Darwin';
+            break;
+        case 'SA':
+            $TZ = 'Australia/Adelaide';
+            break;
+        case 'TAS':
+            $TZ = 'Australia/Hobart';
+            break;
+        case "VIC":
+            $TZ = 'Australia/Melbourne';
+            break;
+        case "WA":
+            $TZ = 'Australia/Perth';
+            break;
+    }
+    return $TZ;
+}

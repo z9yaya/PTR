@@ -1,19 +1,7 @@
-if (typeof (Storage) !== "undefined") {
-    if (typeof (TransfempID) === 'undefined') {
-        TransfempID = localStorage.getItem("LocalEmpID");
-    } else {
-        console.log(TransfempID);
-        localStorage.removeItem("LocalEmpID");
-        localStorage.setItem("LocalEmpID", TransfempID);
-    }
-} else {
-    if (typeof (TransfempID) === 'undefined') {
-        // WriteOops, something is missing, please close this window and reopen it from the Employees page
-    }
-}
 //Changing the document title//
 document.title += ': ' + TransfempID;
 formattedID = parseInt(TransfempID.slice(1));
+console.log(formattedID);
 //Function to add the JqueryUI datepicker to the DOM//
 function LoadJqueryUI() {
         $(".input[type=date]").attr("type", "text");
@@ -42,6 +30,7 @@ function LoadDetails(ID) {
     $.post("LoadEmpDetails.php", {
         EMPID: ID
     }, function (postData) {
+        console.log(postData);
         userInfo = jQuery.parseJSON(postData);
         var keys = Object.keys(userInfo);
         $("#emailCard").val(userInfo['EMAIL']);
@@ -113,33 +102,45 @@ function ChangeMenu(Type = 'cancel')
 {
     if (Type == 'normal')
         {
-            $(".menu3dots").removeClass("Cancel");
+            $(".Cancel").off();
+            $(".Cancel").addClass("Menu3dots");
+            $(".Cancel").removeClass("Cancel");
             $(".menu3dots").attr("title", '');
-            $(".Menu3dots").off('click').on("click", function(){
-                setMenu3dotsEvent()});
+            $(".smallOptionsCont").removeClass("expand");
+            $(".Menu3dots").off();
+            $(".Menu3dots").on("click", setMenu3dotsEvent);
         }
     else if(Type == 'cancel')
         {
-            $(".menu3dots").addClass("Cancel");
-            $(".menu3dots").attr("title", 'Cancel');
-            $(".Menu3dots").on("click", function () {
-                event.preventDefault();
-                location.reload();
-            });
+            $(".Menu3dots").off();
+            $(".Menu3dots").removeClass("displayNone");
+            $(".Menu3dots").addClass("Cancel");
+            $(".Menu3dots").attr("title", 'Cancel');
+            $(".Menu3dots").removeClass("Menu3dots");
+            $(".smallOptionsCont").removeClass("expand");
+            $(".Cancel").on("click", refreshPage);
         }
 }
+function refreshPage(event) {
+    $(".smallOptionsCont").addClass("displayNone");
+    $(".smallOptionsCont").removeClass("expand");
+    location.reload();
+    $(".smallOptionsCont").removeClass("expand");
+    return false;
+}
 
-function setMenu3dotsEvent()
+function setMenu3dotsEvent(event)
 {
-    event.preventDefault();
+    //event.preventDefault()
             $(".smallOptionsCont").removeClass("displayNone");
             setTimeout(function () {
-                $(".smallOptionsCont").toggleClass("expand");
+                $(".smallOptionsCont").addClass("expand");
                 setTimeout(function () {
                     $(".Menu3dots").addClass("displayNone");
-                    $(".smallOptions").toggleClass("expand");
+                    $(".smallOptions").addClass("expand");
                 }, 100);
             }, 1);
+    return false;
 }
 function ResetPassword(ID)
 {
@@ -147,7 +148,6 @@ function ResetPassword(ID)
         return true;
     };
     $.post("resetPassword.php", {EMPID: ID}, function (data) {
-        console.log(data);
         Password = jQuery.parseJSON(data);
         setTimeout(function(){
             AddMessagePopUp(Password[1], "New password:");
@@ -231,8 +231,8 @@ function AddMessagePopUp(message, messageTitle, Class = 'showMessage')
         $(".questionLabel").html(messageTitle);
         $(".popUpContainer .otherLinks").removeClass("displayNone");
         },200);
-        $(".popUpContainer .otherLinks").on("click",function(){
-            event.preventDefault();
+        $(".popUpContainer .otherLinks").on("click",function(event){
+            event.preventDefault(event);
             window.onbeforeunload = null;
             hidePopUp(doneText = '', type='hide');
         })
@@ -305,7 +305,6 @@ function storeSelect(trigger = 'load')
             storeManager.checked = false;
         }
 }
-
 //Task to execute when the document is ready//
 $(document).ready(function () {
     //Removing CSS animation trigger hack//
@@ -323,20 +322,10 @@ $(document).ready(function () {
 
     });
     //Configuring event handlers for the "Menu"//
-    $(".Menu3dots").on("click", function () {
-        event.preventDefault();
-        $(".smallOptionsCont").removeClass("displayNone");
-        setTimeout(function () {
-            $(".smallOptionsCont").toggleClass("expand");
-            setTimeout(function () {
-                $(".Menu3dots").addClass("displayNone");
-                $(".smallOptions").toggleClass("expand");
-            }, 100);
-        }, 1);
-    });
+     $(".Menu3dots").on("click", setMenu3dotsEvent);
     //Configuring actions for "Menu" option click//
-    $(".smallOptionsLinks").on("click", function () {
-        event.preventDefault();
+    $(".smallOptionsLinks").on("click", function (event) {
+        event.preventDefault(event);
         if ($(this).attr('clickValue') == 'edit') {
             today = new Date();
             $(".newEmpForm input[id != 'empendInput'], select").attr("disabled", false);
@@ -512,8 +501,11 @@ $(document).ready(function () {
                         },1050);
                     },3000
                     );
-                    window.opener.location.reload(true);
                     window.onbeforeunload = null;
+                    if (window.opener) {
+                    window.opener.location.reload(true);
+                    }
+                    
                 }
 
                 $(".input").focus(function () {

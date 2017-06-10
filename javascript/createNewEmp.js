@@ -50,6 +50,26 @@ function storeSelect()
         }
 }
 
+function post(path, parameters) {
+    var form = $('<form></form>');
+
+    form.attr("method", "post");
+    form.attr("action", path);
+
+    $.each(parameters, function(key, value) {
+        var field = $('<input></input>');
+        field.attr("type", "hidden");
+        field.attr("name", key);
+        field.attr("value", value);
+        form.append(field);
+    });
+
+    // The form needs to be a part of the document in
+    // order for us to be able to submit it.
+    $(document.body).append(form);
+    form.submit();
+}
+
 $(document).ready(function(){
         $("input").on("click",function()
                       {
@@ -121,6 +141,7 @@ $(document).ready(function(){
 $(document).ready(function(){
 $(".newEmpForm").submit(function(event){
         event.preventDefault();
+        $(".newEmpForm input").css("pointer-events", "none");
         $(".submit.button").addClass("displayNone");
         $(".submit.wait").removeClass("displayNone");
         $form = $(this);
@@ -219,21 +240,29 @@ $(".newEmpForm").submit(function(event){
                                 $(".error."+errors).addClass("show");      
                             }
                         }
+                        
+                        $(".submit.button").removeClass("displayNone");
+                        $(".submit.wait").addClass("displayNone");
+                        $(".newEmpForm input").css("pointer-events", "all");
                     }
                    else{
-                       $(".newEmpForm").unbind();
-                       $(".newEmpForm input").attr("disabled", true);
-                       $(".newEmpForm .Radiocontainers, .combinedRadiocontainers").addClass("noClick");
-                       window.opener.location.reload(true);
-                       $(".submit.button").val("");
-                       $(".submit.button").addClass("tick");
+                        $(".newEmpForm").unbind();
+                        $(".submit.button").removeClass("displayNone");
+                        $(".submit.button").addClass("blue");
+                        $(".submit.wait").addClass("displayNone");
+                        $(".newEmpForm").unbind();
+                        $(".newEmpForm input").attr("disabled", true);
+                        $(".newEmpForm .Radiocontainers, .combinedRadiocontainers").addClass("noClick");
+                       if (window.opener) {
+                        window.opener.location.reload(true); }
+                        $(".submit.button").val("");
+                        setTimeout(function(){
+                            $(".submit.button").addClass("tick");
+                        },100)
                         setTimeout(function(){
                             $(".submit.button").addClass("Animate");
                             setTimeout(function(){
-                                //editPopUps = window.open("editEmp.php","newDwindow", "width=400,height=825");
-                                localStorage.removeItem("LocalEmpID");
-                                localStorage.setItem("LocalEmpID", data[1]);
-                                window.location.href ="editEmp.php";
+                                post("editEmp.php", {feeid: data[1]})
                             },1050);
                         },3000
                         );
@@ -253,8 +282,6 @@ $(".newEmpForm").submit(function(event){
                 $(".saved").removeClass("show");
                      });
         });
-                $(".submit.button").removeClass("displayNone");
-                $(".submit.wait").addClass("displayNone");
             }
     });
 });

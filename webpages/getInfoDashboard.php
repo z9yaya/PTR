@@ -5,7 +5,7 @@ if (session_id() == '')
         session_start();
     }
 $data   = checkShift();
-$holidaysleft = GrabMoreData("SELECT LEAVE FROM ACCUMULATION WHERE EMPID = :EMPID", array(array(":EMPID", $_SESSION['EMPID'])));
+$holidaysleft = GrabMoreData("SELECT LEAVE, LEAVETAKEN FROM ACCUMULATION WHERE EMPID = :EMPID", array(array(":EMPID", $_SESSION['EMPID'])));
 $submit = array();
 if (!empty($data["SHIFTSTART"])) {
     $submit['startTime'] = $data["SHIFTSTART"];
@@ -29,7 +29,7 @@ if (!empty($data["END"])) {
 }
 if(!empty($holidaysleft['LEAVE']))
 {
-    $submit['holidaysLeft'] = $holidaysleft['LEAVE'];
+    $submit['holidaysLeft'] = $holidaysleft['LEAVE'] - $holidaysleft['LEAVETAKEN'];
 } else {
     $submit['holidaysLeft'] = 0;
 }

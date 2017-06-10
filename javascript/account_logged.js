@@ -1,5 +1,4 @@
 $(document).ready(function(){
-    $("form").removeClass("preload");
     $(".text").on("keyup change",function()
                 {
                 if (this.value == '')
@@ -55,7 +54,6 @@ $("#email").ready(function(){
     $.post("webpages/loadDetails_logged.php",function(data)
            {
         userInfo = jQuery.parseJSON(data);
-        console.log(userInfo);
         $("#empID").val(userInfo["EMPID"]);
         var keys = Object.keys(userInfo);
         for (var key in userInfo) {
@@ -66,6 +64,11 @@ $("#email").ready(function(){
                 }
             
         }
+        
+        PageLoader(false);
+        setTimeout(function(){
+        $("form").removeClass("preload");
+        },200);
     });
 });
 $(document).ready(function(){

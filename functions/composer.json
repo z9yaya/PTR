@@ -1,5 +1,7 @@
 {
     "require": {
-        "mikehaertl/php-pdftk": "^0.4.0"
+        "mikehaertl/php-pdftk": "^0.4.0",
+        "sendgrid/sendgrid": "~5.5"
     }
 }
+

@@ -1,40 +1,49 @@
 <?php include '../functions/tools.php';
+include "../functions/emailer.php";
 include '../functions/ManageuserFunctions.php';
 $date = array();
-if (!empty($_POST["date:employment:start"])) {
-    $Oridate = $_POST["date:employment:start"];
-}
-if (!empty($Oridate)) {
-    if (strpos($Oridate, '/') !== false) {
-                    $explodedDate = explode("/", $Oridate);
-                    $date["day"] = $explodedDate[0];
-                    $date["month"] =  $explodedDate[1];
-                    $date["year"] =  $explodedDate[2];
-    } else {
-                    $explodedDate = explode("-", $Oridate);
-                    $date["day"] = $explodedDate[2];
-                    $date["month"] =  $explodedDate[1];
-                    $date["year"] =  $explodedDate[0];
-    }
-                
-                $varKey = "date:employment:start";
-                unset($_POST[$varKey]);
-}
-if (count($date) == 3) {
-        $_POST[$varKey] = $date;
-}
+//if (!empty($_POST["date:employment:start"])) {
+//    $Oridate = $_POST["date:employment:start"];
+//}
+//if (!empty($Oridate)) {
+//    if (strpos($Oridate, '/') !== false) {
+//                    $explodedDate = explode("/", $Oridate);
+//                    $date["day"] = $explodedDate[0];
+//                    $date["month"] =  $explodedDate[1];
+//                    $date["year"] =  $explodedDate[2];
+//    } else {
+//                    $explodedDate = explode("-", $Oridate);
+//                    $date["day"] = $explodedDate[2];
+//                    $date["month"] =  $explodedDate[1];
+//                    $date["year"] =  $explodedDate[0];
+//    }
+//                
+//                $varKey = "date:employment:start";
+//                unset($_POST[$varKey]);
+//}
+//if (count($date) == 3) {
+//        $_POST[$varKey] = $date;
+//}
 $errors = array();
 foreach ($_POST as $key => $value) {
     if ($value) {
         if ((explode(":", $key)[0]) == "date") {
-            if (checkdate($value['month'], $value['day'], $value['year'])) {
-                $value = mktime(0, 0, 0, $value['month'], $value['day'], $value['year']);
+            if (DatetoUnix($value) != false) {
+                $value = DatetoUnix($value);
                 $_POST[$key] = $value;
             } else {
                 array_push($errors, explode(":", $key)[2]);
                 $value = "";
                 $_POST[$key] = $value;
-            }
+//            }if (checkdate($value['month'], $value['day'], $value['year'])) {
+//                $value = mktime(0, 0, 0, $value['month'], $value['day'], $value['year']);
+//                $_POST[$key] = $value;
+//            } else {
+//                array_push($errors, explode(":", $key)[2]);
+//                $value = "";
+//                $_POST[$key] = $value;
+//            }
+        }
         }
         if ((explode(":", $key)[0]) == "number") {
             if (!preg_match('/^[0-9]+$/', $value)) {

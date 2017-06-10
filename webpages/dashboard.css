@@ -1,3 +1,8 @@
+.dashboardContent * {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    -webkit-tap-highlight-color: transparent;
+}
+
 .dashboard_containers{
 	display: inline-block;
 	background-color: white;
@@ -54,7 +59,16 @@
     display: block;
     margin: auto;
     margin-top: 7.3%;
+}.DashboardContentContainer.rectangle
+{
+    height: 60%;
+    width: 75%;
+    display: block;
+    margin: auto;
+    margin-top: 7.3%;
 }
+
+
 
 .dashboardCanvas
 {
@@ -80,6 +94,147 @@
     font-family: Helvetica;
     -webkit-user-select: none;
 }
+
+\\\\\roster\\\\\
+.tablesaw * {
+    box-sizing: border-box;
+}
+
+.tablesaw {
+    width: 100%;
+    max-width: 100%;
+    empty-cells: show;
+    border-collapse: collapse;
+    border: 0;
+    padding: 0;
+    margin: 0 !important;
+}
+
+.roster, .logged {
+    max-width: 800px;
+    margin: 0 auto;
+    overflow: hidden;
+    margin-bottom: 5px;
+}
+
+.logged {
+    min-height: 100px;
+    //background-color: #a4c7e1;
+    background-color: #9ad3fd;
+    color: white;
+}
+
+.rosterTitle,
+.rosterStore {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 20px;
+    color: #c2c2c2;
+    font-family: 'Lato', sans-serif;
+    margin-top: 25px;
+    
+}
+
+.logged .rosterTitle {
+    color: white;
+}
+
+.rosterStore {
+    margin-top: 10px;
+    margin-bottom: 0px;
+    font-size: 17px;
+    float: right;
+    color: cornflowerblue;
+}
+
+.empName {
+    color: black;
+    display: block;
+    font-weight: normal;
+}
+
+.doneShift {
+    border-top: 2px solid #7dc1f1;
+    padding-top: 10px;
+    min-height: 50px;
+    box-sizing: border-box;
+}
+
+.doneDay {
+    display: inline;
+    font-weight: bold;
+    float: left;
+}
+
+.shiftTime {
+    display: inline;
+    float: right;
+}
+.tablesaw-advance .tablesaw-btn.btn-micro {
+    padding: 15px;
+    margin-top: 0;
+    //margin-bottom: 0;
+    overflow: visible;
+}
+
+.tablesaw-advance a.tablesaw-nav-btn.down:before {
+    top: calc(50% - 2px);
+    position: absolute;
+    left: calc(50% - 5px);
+}
+
+.tablesaw-advance a.tablesaw-nav-btn.up:before {
+    top: calc(50% - 2px);
+    position: absolute;
+    left: calc(50% - 5px);
+}
+
+.mainTable {
+    font-family: 'Lato', sans-serif;
+    font-size: 14.4px;
+    margin-bottom: 25px;
+    margin-top: 10px;
+    border: 1px solid #e8e8e8;
+    table-layout: fixed;
+    height: 100%;
+}
+
+.tableHeaders {
+    padding: 0.75rem;
+    overflow-x: hidden;
+}
+.tableHeaderRow {
+    border-bottom:  1px solid #e8e8e8;
+    border-top:  1px solid #e8e8e8;
+}
+.tableRow {
+    //border-bottom: 1px solid #b7b7b7;
+    display: table-row;
+    clear: both;
+}
+.tableRow:last-of-type {
+        //border-bottom: 1px solid #e8e8e8;
+}
+.tableRow:nth-child(even) {
+    background: #f5f8ff;
+}
+
+.tableCell,
+.tableHeaders{
+    border-left: 1px solid #ececec;
+    border-right: 1px solid #ececec;
+    border-right: 1px solid #ececec;
+    margin: 0;
+    padding: .5em .7em;
+    text-align: left;
+    vertical-align: middle;
+}
+.shiftEnd {
+    display: block;
+}
+
+
+\\\\\\end roster\\\\\\
 
 .dashboard_containers:hover > .SquareTitleContainer
 {

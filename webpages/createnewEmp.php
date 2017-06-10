@@ -21,23 +21,20 @@ for ($i = 0; $i < count($stores['ID']); $i++)
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>PTR - Create new employee</title>
+        <link rel="SHORTCUT ICON" href="../images/favico.ico">
+        <link rel="icon" href="../images/favicon.png" type="image/ico">
         <link rel="stylesheet" href="../stylesheets/normalize.css" media="none" onload="if(media!='all')media='all'">
         <link rel="stylesheet" href="createNewEmp.css" media="none" onload="if(media!='all')media='all'">
         <script type="application/javascript" src="../javascript/header.js"></script>
         <script type="application/javascript" src="../javascript/jquery-3.2.0.min.js"></script>
         <script>$.getScript("../javascript/createNewEmp.js");
-        head.load("../javascript/modernizr-inputs.js",function(){
-        if (!Modernizr.touchevents || !Modernizr.inputtypes.date) {
-        console.log(Modernizr.touch);
-        console.log(Modernizr.inputtypes.date);
-        head.load("../javascript/jquery-ui-1.12.1/jquery-ui.min.css");
-        head.load("../javascript/jquery-ui-1.12.1/jquery-ui.min.js",function(){
-        LoadJqueryUI();
-        });
-        }
-        });
-        
-        </script>
+            head.load("../javascript/modernizr-inputs.js",function(){
+                if (!Modernizr.inputtypes.date) {
+                    head.load("../javascript/jquery-3.2.0.min.js");
+                    head.load("../javascript/jquery-ui-1.12.1/jquery-ui.min.css");
+                    head.load("../javascript/jquery-ui-1.12.1/jquery-ui.min.js",function(){
+                        LoadJqueryUI();});
+                };});</script>
     </head>
     <body class="newEmpContent preload">
         <form class="newEmpForm BoxContainer" method="post" action="#">
@@ -60,7 +57,7 @@ for ($i = 0; $i < count($stores['ID']); $i++)
             <div class="errorContainer"><span class="error start"></span></div>
         </div>
         <div class="containers">
-            <input type="text" id="position" name="string:employment:position" class="text input" autocorrect="off" autocapitalize="off" required autocomplete="off">
+            <input type="text" id="position" name="string:employment:position" class="text input" required>
             <label for="position" class="label position">Job title</label>
             <div class="errorContainer"><span class="error position"></span></div>
         </div>

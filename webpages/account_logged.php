@@ -6,6 +6,10 @@ if (session_id() == '')
     }
 if(!isset($_SESSION['EMPID']) || empty($_SESSION['EMPID']))
     header("Location: start.php");
+header("Content-Security-Policy: frame-ancestors 'self'");
+if (empty(getallheaders()['Referer'])) {
+    header("Location: ../index.php");
+} 
 ?>
 <head>
     <script>

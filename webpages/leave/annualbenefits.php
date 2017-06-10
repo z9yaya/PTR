@@ -1,26 +1,146 @@
 <?php 
 include '../../functions/functions.php';
+
 if (session_id() == '')
     {
         session_start();
     }
+
 if(empty($_SESSION['EMPID']))
     header("Location: start.php");
 
+
 $mpID = $_SESSION['EMPID'];
-$holidaysleft = GrabMoreData("SELECT * FROM ACCUMULATION WHERE EMPID = :EMPID", array(array(":EMPID", $mpID)));
-$sickdaysleft = GrabMoreData("SELECT * FROM ACCUMULATION WHERE EMPID = :EMPID", array(array(":EMPID", $mpID)));
-if (empty($holidaysleft['LEAVE']))
-$holidaysleft['LEAVE'] = 0;
-if (empty($sickdaysleft['SICKLEAVE']))
-$sickdaysleft['SICKLEAVE'] = 0;
+
+$holreq = GrabAllData("SELECT * FROM HOLIDAYREQUEST WHERE EMPID = :EMPID AND STATUS = 'Pending' ORDER BY HOLREQID DESC", array(array(":EMPID", $mpID)));
+
+$holreqid = $holreq['HOLREQID'];
+$holreqempid = $holreq['EMPID'];
+$holreqstartdate = $holreq['STARTDATE'];
+$holreqenddate = $holreq['ENDDATE'];
+$holreqstatus = $holreq['STATUS'];
+
+$holreqapproved = GrabAllData("SELECT * FROM HOLIDAYREQUEST WHERE EMPID = :EMPID AND STATUS = 'Approved' ORDER BY HOLREQID DESC", array(array(":EMPID", $mpID)));
+
+$holreqidapproved = $holreqapproved['HOLREQID'];
+$holreqempidapproved = $holreqapproved['EMPID'];
+$holreqstartdateapproved = $holreqapproved['STARTDATE'];
+$holreqenddateapproved = $holreqapproved['ENDDATE'];
+$holreqstatusapproved = $holreqapproved['STATUS'];
+
+$holreqdenied = GrabAllData("SELECT * FROM HOLIDAYREQUEST WHERE EMPID = :EMPID AND STATUS = 'Denied' ORDER BY HOLREQID DESC", array(array(":EMPID", $mpID)));
+
+$holreqiddenied = $holreqdenied['HOLREQID'];
+$holreqempiddenied = $holreqdenied['EMPID'];
+$holreqstartdatedenied = $holreqdenied['STARTDATE'];
+$holreqenddatedenied = $holreqdenied['ENDDATE'];
+$holreqstatusdenied = $holreqdenied['STATUS'];
+
+
+
+$datetotalpending = 0;
+FOR($i = 0; $i < count ($holreqid); $i++){   
+    $datediff = ((($holreqenddate[$i] - $holreqstartdate[$i]) / 86400) + 1) * 8;
+    $datetotalpending += $datediff; 
+}
+//echo $datetotalpending;
+
+$datetotalapproved = 0;
+FOR($i = 0; $i < count ($holreqidapproved); $i++){   
+    $datediffapproved = ((($holreqenddateapproved[$i] - $holreqstartdateapproved[$i]) / 86400) + 1) * 8;
+    $datetotalapproved += $datediffapproved; 
+}
+//echo $datetotalapproved;
+
+$datetotal = $datetotalpending + $datetotalapproved;
+
+//FOR($i = 0; $i < count ($holreqid); $i++){   
+//    $holreqnumber = $holreqid[$i];
+//}
+
+
+$accumulation = GrabMoreData("SELECT * FROM ACCUMULATION WHERE EMPID = :EMPID", array(array(":EMPID", $mpID)));
+
+$holileft = $accumulation['LEAVE'] - ($datetotal);
+
+
+if(!empty($_POST['reqid']))
+{
+    $reqid = $_POST['reqid'];
+    
+    $rowdelete = InsertData("DELETE FROM HOLIDAYREQUEST WHERE HOLREQID= :REQID", array(array(":REQID", $reqid)));
+    
+    $leavetakenup = InsertData("UPDATE ACCUMULATION SET LEAVETAKEN = LEAVETAKEN - :DATEDIFF WHERE EMPID = :EMPID", array(array(":EMPID", $mpID),array(":DATEDIFF", $datediff)));
+    
+    $holileftup = InsertData("UPDATE ACCUMULATION SET HOLILEFT = :HOLUP WHERE EMPID = :EMPID", array(array(":HOLUP", $holileft), array(":EMPID", $mpID)));
+}
+
+///////////////////////////////////////////////////////////////////
+    
+$holreq = GrabAllData("SELECT * FROM HOLIDAYREQUEST WHERE EMPID = :EMPID AND STATUS = 'Pending' ORDER BY HOLREQID DESC", array(array(":EMPID", $mpID)));
+
+$holreqid = $holreq['HOLREQID'];
+$holreqempid = $holreq['EMPID'];
+$holreqstartdate = $holreq['STARTDATE'];
+$holreqenddate = $holreq['ENDDATE'];
+$holreqstatus = $holreq['STATUS'];
+
+$holreqapproved = GrabAllData("SELECT * FROM HOLIDAYREQUEST WHERE EMPID = :EMPID AND STATUS = 'Approved' ORDER BY HOLREQID DESC", array(array(":EMPID", $mpID)));
+
+$holreqidapproved = $holreqapproved['HOLREQID'];
+$holreqempidapproved = $holreqapproved['EMPID'];
+$holreqstartdateapproved = $holreqapproved['STARTDATE'];
+$holreqenddateapproved = $holreqapproved['ENDDATE'];
+$holreqstatusapproved = $holreqapproved['STATUS'];
+
+$holreqdenied = GrabAllData("SELECT * FROM HOLIDAYREQUEST WHERE EMPID = :EMPID AND STATUS = 'Denied' ORDER BY HOLREQID DESC", array(array(":EMPID", $mpID)));
+
+$holreqiddenied = $holreqdenied['HOLREQID'];
+$holreqempiddenied = $holreqdenied['EMPID'];
+$holreqstartdatedenied = $holreqdenied['STARTDATE'];
+$holreqenddatedenied = $holreqdenied['ENDDATE'];
+$holreqstatusdenied = $holreqdenied['STATUS'];
+
+$datetotalpending = 0;
+FOR($i = 0; $i < count ($holreqid); $i++){   
+    $datediff = ((($holreqenddate[$i] - $holreqstartdate[$i]) / 86400) + 1) * 8;
+    $datetotalpending += $datediff; 
+}
+//echo $datetotalpending;
+
+$datetotalapproved = 0;
+FOR($i = 0; $i < count ($holreqidapproved); $i++){   
+    $datediffapproved = ((($holreqenddateapproved[$i] - $holreqstartdateapproved[$i]) / 86400) + 1) * 8;
+    $datetotalapproved += $datediffapproved; 
+}
+//echo $datetotalapproved;
+
+$datetotal = $datetotalpending + $datetotalapproved;
+
+//FOR($i = 0; $i < count ($holreqid); $i++){   
+//    $holreqnumber = $holreqid[$i];
+//}
+
+
+$accumulation = GrabMoreData("SELECT * FROM ACCUMULATION WHERE EMPID = :EMPID", array(array(":EMPID", $mpID)));
+
+$holileft = $accumulation['LEAVE'] - ($datetotal);
+
+
+$holileftup = InsertData("UPDATE ACCUMULATION SET HOLILEFT = :HOLUP WHERE EMPID = :EMPID", array(array(":HOLUP", $holileft), array(":EMPID", $mpID)));
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1" name="viewport">
-	<link href="annualbenefits.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../javascript/tablesaw/tablesaw.css" media="none" onload="if(media!='all')media='all'">
+	<link rel="stylesheet" href="annualbenefits.css">
+    <script src="../../javascript/jquery-3.2.0.min.js"></script>
+    <script type="application/javascript" src="../../javascript/tablesaw/tablesaw.jquery.js"></script>
+    <script type="application/javascript" src="../../javascript/tablesaw/tablesaw-init.js"></script>
+    
 </head>
 <body class="annualBody">
      <div class="accountInfo boxContainer preload">
@@ -36,32 +156,156 @@ $sickdaysleft['SICKLEAVE'] = 0;
     </div>
 	<div class="annualbenefitsDivContainer">
 	<div class="benefitsContainersOutsideDiv">
-		<div class="holidays benefitsContainers left">
-			<div class="holidaystitle annualTitles">
-				Days of Holiday left
-			</div>
-			<div>
-				<div class="holidaynumber annualNumber"><?php echo $holidaysleft['LEAVE'];?></div>
-			</div>
+	
+		<div class="infoCont">
+			<div class="holidaystitle annualTitles">Leave taken (hrs)</div><div class="holidaynumber annualNumber"><?php echo  $accumulation['LEAVETAKEN'];?></div>
 		</div>
-		<div class="sickdays benefitsContainers right">
-			<div class="sickdaystitle annualTitles">
-				Days of Sick leave left
-			</div>
-			<div>
-				<div class="sickdaynumber annualNumber"><?php echo $sickdaysleft['SICKLEAVE'];?></div>
-			</div>
-			</div>
+	<!-- $accumulation['LEAVETAKEN'] + -->
+		<div class="infoCont">
+			<div class="holidaystitle annualTitles">Leave left (hrs)</div>
+				<div class="holidaynumber annualNumber"><?php echo $accumulation['LEAVE'] - ($datetotal);?></div>
 		</div>
-		<div class="requestleavebuttonContainer"><a href="webpages/holidayrequest.php" onclick="myFunction(event)" style="text-decoration: none;"><button class="requestleavebutton">Request Leave</button></a>
-	</div>
-    </div>
+		<div class="infoCont ">
+			<div class="sickdaystitle annualTitles">Sick days left</div>
+				<div class="sickdaynumber annualNumber"><?php echo $accumulation['SICKLEAVE'];?></div>
+			</div>
+			
+		<div class="infoCont ">
+			<div class="sickdaystitle annualTitles">Sick Days taken</div>
+				<div class="sickdaynumber annualNumber"><?php echo $accumulation['SICKLEAVETAKEN'];?></div>
+		</div>	
+		</div>
+		<div class="requestleavebuttonContainer">
+            <?php
+            if ($holileft == '0'){
+                echo '<br> You can not request anymore leave. <br> Please cancel an existing request or wait until you accumulate more leave hours.';}
+            else {
+                echo '<a href="webpages/holidayrequest.php" onclick="myFunction(event)" style="text-decoration: none;" class="requestleavebutton">
+                Request Leave
+            </a>';}
+            ?>
+	    </div>
+        
+    <p style= "color:white; display:block; margin-top:40px; font-size:20pt; font-weight:bold;">Pending Requests</p>    
+	
+	<div id="holidayhistorytable">
+      <table class="tablesaw" data-tablesaw-mode="columntoggle" data-tablesaw-sortable>
+      <thead>
+        <tr>
+          <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="persist">Holiday Request ID</th> 
+     	  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="4">Employee ID</th>
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="2">Start Date</th>
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="3">End Date</th>    
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="persist">Status</th>
+          <th class='btnth'></th>    
+        </tr>
+	   </thead>
+	   <tbody>
+				<?php				
+				FOR($i = 0; $i < count ($holreqid); $i++){
+                    echo 
+                    "<tr class='base'> 
+					   <td class='holereqtd'>" . $holreqid[$i] . "</td>
+                       <td class='holreqempidid'>" . $holreqempid[$i] . "</td>
+                       <td>" . date('d/m/Y', $holreqstartdate[$i]) . "</td>
+                       <td>" . date('d/m/Y', $holreqenddate[$i]) . "</td>
+                       <td class='datediff'>" . ($holreqenddate[$i] - $holreqstartdate[$i]) / 86400 . "</td>
+                       <td>" . $holreqstatus[$i] . "</td>
+                       <td class='deletebtn'><form class='Deleteform' id='deleteform$i' name='$i' action='#' method='post'><input type='hidden' value='$holreqid[$i]' name='reqid'><input type='submit' class='buttondelete' value='Cancel Request'></form></td>";
+				};
+            echo  "</tr>"; 
+				 ?>       
+	   </tbody>
+        </table>
+	</div>   
+        
+    <p style= "color: white; display:block; margin-top:40px; font-size:20pt; font-weight:bold;">Approved Requests</p>     
+        
+	<div id="holidayhistorytable">
+      <table class="tablesaw" data-tablesaw-mode="columntoggle" data-tablesaw-sortable>
+      <thead>
+        <tr>
+          <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="persist">Holiday Request ID</th> 
+     	  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="4">Employee ID</th>
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="2">Start Date</th>
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="3">End Date</th>    
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="persist">Status</th>
+          <th class='btnth'></th>    
+        </tr>
+	   </thead>
+	   <tbody>
+				<?php				
+				FOR($i = 0; $i < count ($holreqidapproved); $i++){
+                    echo 
+                    "<tr class='base'> 
+					   <td class='holereqtd'>" . $holreqidapproved[$i] . "</td>
+                       <td class='holreqempidid'>" . $holreqempidapproved[$i] . "</td>
+                       <td>" . date('d/m/Y', $holreqstartdateapproved[$i]) . "</td>
+                       <td>" . date('d/m/Y', $holreqenddateapproved[$i]) . "</td>
+                       <td class='datediff'>" . ($holreqenddateapproved[$i] - $holreqstartdateapproved[$i]) / 86400 . "</td>
+                       <td>" . $holreqstatusapproved[$i] . "</td>";
+				};
+            echo  "</tr>"; 
+				 ?>       
+	   </tbody>
+        </table>
+	</div>        
+        
+    <p style= "color: white; display:block; font-size:20pt; font-weight:bold;">Denied Requests</p>  
+        
+	<div id="holidayhistorytable">
+      <table class="tablesaw" data-tablesaw-mode="columntoggle" data-tablesaw-sortable>
+      <thead>
+        <tr>
+          <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="persist">Holiday Request ID</th> 
+     	  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="4">Employee ID</th>
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="2">Start Date</th>
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="3">End Date</th>    
+		  <th scope="col" class="tableHeaders" data-tablesaw-sortable-col data-tablesaw-priority="persist">Status</th>
+          <th class='btnth'></th>    
+        </tr>
+	   </thead>
+	   <tbody>
+				<?php				
+				FOR($i = 0; $i < count ($holreqiddenied); $i++){
+                    echo 
+                    "<tr class='base'> 
+					   <td class='holereqtd'>" . $holreqiddenied[$i] . "</td>
+                       <td class='holreqempidid'>" . $holreqempiddenied[$i] . "</td>
+                       <td>" . date('d/m/Y', $holreqstartdatedenied[$i]) . "</td>
+                       <td>" . date('d/m/Y', $holreqenddatedenied[$i]) . "</td>
+                       <td>" . $holreqstatusdenied[$i] . "</td>";
+				};
+            echo  "</tr>"; 
+				 ?>       
+	   </tbody>
+        </table>
+	</div>          
 
-	<script>
-function myFunction(event) {
-	event.preventDefault();
-    var myWindow = window.open("holidayrequest.php", "newwindow", "width=400,height=530");
-}
+
+
+    </div>		
+
+
+<script>
+    function myFunction(event) {
+        event.preventDefault();
+        var myWindow = window.open("holidayrequest.php", "newwindow", "width=380,height=525");
+    }
+    $(document).ready(function(){
+        $(".buttondelete").on("click", function(event){
+            event.preventDefault();
+            form = $(this).parent();
+            submitForm(form);
+        });
+    })
+    
+    function submitForm(id) {
+        parent.showPopUp("Are you sure you want to delete this request?","Deleting request, please wait...", function(){
+            id.submit(parent.hidePopUp(doneText = "Done!", type = ''));
+            console.log(id.submit());
+        });
+    }
 </script>	
 </body>
 </html>

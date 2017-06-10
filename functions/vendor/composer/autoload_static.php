@@ -6,12 +6,21 @@ namespace Composer\Autoload;
 
 class ComposerStaticInitf8fec92abf653005d14f857cab8c7677
 {
+    public static $files = array (
+        '3f8bdd3b35094c73a26f0106e3c0f8b2' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/SendGrid.php',
+        '9dda55337a76a24e949fbcc5d905a2c7' => __DIR__ . '/..' . '/sendgrid/sendgrid/lib/helpers/mail/Mail.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
         'm' => 
         array (
             'mikehaertl\\tmp\\' => 15,
             'mikehaertl\\shellcommand\\' => 24,
             'mikehaertl\\pdftk\\' => 17,
+        ),
+        'S' => 
+        array (
+            'SendGrid\\' => 9,
         ),
     );
 
@@ -27,6 +36,10 @@ class ComposerStaticInitf8fec92abf653005d14f857cab8c7677
         'mikehaertl\\pdftk\\' => 
         array (
             0 => __DIR__ . '/..' . '/mikehaertl/php-pdftk/src',
+        ),
+        'SendGrid\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/sendgrid/php-http-client/lib',
         ),
     );
 

@@ -45,7 +45,12 @@ function calcHours() {
 }
 
 function ResizeSquares() {
-    var Width = (($(window).width() - 62) / 2);
+     if ($(window).width() < 361) {
+         console.log($(window).width());
+        var Width = (($(window).width() - 10) / 2);
+     } else {
+         var Width = (($(window).width() - 62) / 2);
+     }
     var WidthBig = (($(window).width() - 75) / 3);
     if ($(window).width() <= 415) {
         $(".square_container").css('height', Width);

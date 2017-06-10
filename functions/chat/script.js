@@ -3,14 +3,16 @@
 //used to check if a file exists at the specified location
 //INPUT url: path of file eg: "root/folder/file.extension"
 //OUTPUT: true when the file is found and accessible or false when the file cannot be accessed
-function UrlExists(url)
-{
-    var http = new XMLHttpRequest();
-    http.open('HEAD', url, false);
-    http.send();
-    return http.status!=404;
-}
-
+//function UrlExists(url)
+//{
+//  
+//    
+////    var http = new XMLHttpRequest();
+////    http.open('HEAD', url, false);
+////    http.send();
+////    return http.status!=404;
+//}
+saveLocation = "/functions/chat/";
 //used to create a event listening for server sent events, when data is received, the function LoadDoc is executed with default parameters except the serverSent parameter which is set to true
 //INPUT file: the name of the file being watched by the server.
 function AutoCheck(file)
@@ -35,7 +37,9 @@ function AutoCheck(file)
             }
             sourceNew = new EventSource("functions/chat/fileCheck.php?file="+file);
             sourceNew.onmessage = function(event) {
-                 loadDoc(undefined, undefined, true);}
+                 loadDocTrue(file, true);
+//                 loadDoc(undefined, undefined, true);
+            }
         }
     else 
         {
@@ -52,60 +56,78 @@ function loadDoc(creator = email, receiver = user, serverSent = false)
     {
         if (creator!='' && receiver !='')
             {
-            saveLocation = "functions/chat/";
-            var file = creator+"-"+receiver+".xml";
-            if (!UrlExists(saveLocation + file))
-                {
-                    var possibleFile = receiver+"-"+creator+".xml";
-                    if (!UrlExists(saveLocation + possibleFile))
-                        {
+            saveLocation = "/functions/chat/";
+                $.post("/functions/chat/checkExist.php", "receiver="+receiver+"&creator="+creator, function(d){
+                    if (typeof d !== undefined) {
+                        res = JSON.parse(d);
+                        var file = res[0];
+                        var ex = res[1];
+                        if (ex == 'false') {
                             pushChanges(false, file, receiver);
-                            
+                        } else {
+                            loadDocTrue(file, false);
                         }
-                    else
-                        {
-                            file = possibleFile;
-                        }
-                }
-            var enter = document.getElementById("submitText");  
+                    }
+                })
+//                  $.ajax({url: url,type:'HEAD',
+//                    error: function()
+//                    { console.log("push");
+//                        var possibleFile = receiver+"-"+creator+".xml";
+//                        $.ajax({url: saveLocation+possibleFile,type:'HEAD',
+//                            error: function()
+//                            {
+//                                console.log("push");
+//                                pushChanges(false, file, receiver);
+//                            },
+//                            success: function()
+//                            {
+//                                console.log("exis");
+//                                file = possibleFile;
+//                                loadDocTrue(saveLocation, file, serverSent);
+//                            }
+//                        });
+//                    },
+//                    success: function()
+//                    { console.log("ex");
+//                        loadDocTrue(saveLocation, file, serverSent);
+//                    }
+//                });
+           
+            
+            }
+    }
+function loadDocTrue(file, serverSent) {
+     var enter = document.getElementById("submitText");  
             enter.setAttribute("onClick","pushChanges(true, '" + file + "')");
             var chat =  document.getElementById("id");
-            var xhttp;
-            if (window.XMLHttpRequest)
-                {
-                    xhttp = new XMLHttpRequest();
-                }
-            xhttp.onreadystatechange = function(){
-                 if (this.readyState == 4 && this.status == 200 && this.status != 404)
+            $.post("functions/chat/read.php", "document="+file, function(r) {
+                if (!r) {
+                    alert("Your message was not sent, try again.");
+                } else {
+                    if (chat.innerHTML != r)
                         {
-                            if (chat.innerHTML != xhttp.responseText)
+                            chat.innerHTML = r;
+                            if (chat.scrollTop != chat.scrollHeight)
                                 {
-                                    chat.innerHTML = xhttp.responseText;
-                                    if (chat.scrollTop != chat.scrollHeight)
-                                        {
-                                    chat.scrollTop = chat.scrollHeight;
-                                        }
+                            chat.scrollTop = chat.scrollHeight;
                                 }
-
+                            $("#chat_input").focus();
                         }
-            };
-            xhttp.open("POST", saveLocation+file, true);
-            xhttp.send();
+                }
+            });
             if (serverSent == false)
                 {
                     AutoCheck(file);
                 }
             return file;
-            
-            }
-    }
-
+}
 //used to create a new conversation or write to a conversation
 //INPUT exist: default is true, used to specify if the file needs to be created or not
 //INPUT Document: variable containing the name of the file being modified
 //INPUT user: default is null, only specified when a file does not exist, used to push current user details to database
 function pushChanges(exist = true, Document, user = '')
 {
+    
     if (email)
         {
             if (exist)
@@ -119,14 +141,15 @@ function pushChanges(exist = true, Document, user = '')
                         var timestamp = new Date(currentTime);
                         var time = timestamp.toLocaleTimeString() + " " + timestamp.getDate()+"/"+(timestamp.getMonth() + 1)+"/"+timestamp.getFullYear();
                         var formated_input = '<message><div class="container"><div class="' + email + '" title="'+time+'">' + input + '</div></div></message>';
-                        var data = 'data='+ formated_input + "&document=" + Document;
+                        var data = 'data='+ input + "&document=" + Document+"&email="+email+"&time="+time;
                         document.getElementById("chat_input").value='';
-                        chat.innerHTML += formated_input;
+                        chat.innerHTML += '<div class="spinner"><div class="bounce1"></div><div class="bounce2"></div><div class="bounce3"></div></div>';
                         chat.scrollTop = chat.scrollHeight;
                         var xmlhttp = new XMLHttpRequest();
                         xmlhttp.open('POST','functions/chat/save.php', true);
                         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                         xmlhttp.send(data);
+//                        /loadDocTrue(Document, true);
                         } 
                 }
             else if (!exist)
@@ -137,6 +160,7 @@ function pushChanges(exist = true, Document, user = '')
                         xmlhttp.open('POST','functions/chat/save.php', true);
                         xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
                         xmlhttp.send(data);
+                        loadDocTrue(Document, false);
                 }
 
         }
@@ -176,7 +200,7 @@ function loadContacts()
                     contacts =  JSON.parse(xmlhttp.responseText);
                     for (var i=0; i <Object.keys(contacts["EMAIL"]).length; i++)
                         {
-                          document.getElementById("contacts_bar").innerHTML += '<div class="contact" onclick=\'openChat("'+i+'",this)\' data-myValue="'+contacts["EMAIL"][i]+'">'+contacts["F_NAME"][i]+" "+contacts["L_NAME"][i]+'</div>';
+                          $("#contactSection")[0].innerHTML += '<div class="contact" onclick=\'openChat("'+i+'",this)\' data-myValue="'+contacts["EMAIL"][i]+'">'+contacts["F_NAME"][i]+" "+contacts["L_NAME"][i]+'</div>';
                         }                    
                 }
             };
@@ -209,6 +233,7 @@ function openChat(User, Contact)
             loadDoc();
             MakeCss(user, 'receiver');
             ChangeMainTitle(contacts['F_NAME'][User]+" "+contacts["L_NAME"][User]);
+            activeChat = contacts['F_NAME'][User]+" "+contacts["L_NAME"][User];
             Contact.className = "contact active";
             contactsButton.classList.remove("unreadHid");
             Contact.classList.remove('unread');
@@ -267,23 +292,29 @@ function CheckMissed()
                         }
                     for (var i=0; i< Object.keys(missed["CHATFILE"]).length; i++)
                         {
-                            if(hideContacts.checked && !contactsButton.classList.contains("unreadHid"))
+                            if(hideContacts.checked && !contactsButton.classList.contains("unreadHid") && missed["CHATFILE"][0].indexOf($(".contact.active").attr("data-myvalue")) != -1 && Object.keys(missed["CHATFILE"]).length != 1)
                                 {
+//                                    console.log( Object.keys(missed["CHATFILE"]).length);
+//                                    console.log(missed["CHATFILE"][0].indexOf($(".contact.active").attr("data-myvalue")) != -1);
+//                                    console.log($(".contact.active").attr("data-myvalue"));
                                     contactsButton.classList.add("unreadHid");
+                                } else if (Object.keys(missed["CHATFILE"]).length == 1 && missed["CHATFILE"][0].indexOf($(".contact.active").attr("data-myvalue")) != -1) {
+                                    
+                                    loadDocTrue(missed['CHATFILE'][0], false);
                                 }
                                 if ($("#MessageContent").hasClass("HiddenContent"))
                                     {
                                         messagesLink.classList.add("unreadHid");
+                                        $(".menu_extend").addClass("unreadHid");
                                     }
                             for (var j = 0; j < UserContacts.length;j++)
                                 {
                                     if (missed["CHATFILE"][i].includes(UserContacts[j].getAttribute('data-myValue')))
                                         {
+                                           
                                             UserContacts[j].classList.add('unread');
+                                            console.log(UserContacts[j]);
                                         }
-                                    else{
-                                            UserContacts[j].classList.remove("unread");
-                                    }
                                 }
                         }                    
                 }
@@ -329,7 +360,7 @@ function MakeCss(className, actor)
             var style = document.createElement('style');
             style.type = 'text/css';
             style.id = 'me';
-            style.innerHTML = 'div[class="'+className+'"] { padding-right: 10px; padding-left: 10px; padding-top: 4px; padding-bottom: 6px; background: #016e96; max-width: 70%; color:white; float: right; border-radius: 15px 0px 15px 15px; word-break: break-all; margin-top: 3px;margin-right: 3px; }';
+            style.innerHTML = 'div[class="'+className+'"] { padding-right: 10px; padding-left: 10px; padding-top: 6px; padding-bottom: 6px; background: #016e96; max-width: 70%; color:white; float: right; border-radius: 15px 15px 15px 15px; word-break: break-word; margin-top: 3px;margin-right: 15px; font-family: Lato, sans-serif; font-size: 14px; text-align: justify; }';
             document.getElementsByTagName('head')[0].appendChild(style);
             }
         }
@@ -345,7 +376,7 @@ function MakeCss(className, actor)
             style.id = 'you';
             document.getElementsByTagName('head')[0].appendChild(style);
             }
-        document.getElementById("you").innerHTML = 'div[class="'+className+'"] {padding-right: 10px; padding-left: 10px; padding-top: 6px; padding-bottom: 6px; background: #f1f0f0; max-width: 70%; color: black; float: left; border-radius: 0px 15px 15px 15px; word-break: break-all; margin-top: 3px;margin-left: 3px}';       
+        document.getElementById("you").innerHTML = 'div[class="'+className+'"] {padding-right: 10px; padding-left: 10px; padding-top: 6px; padding-bottom: 6px; background: #f1f0f0; max-width: 70%; color: black; float: left; border-radius: 15px 15px 15px 15px; word-break: break-word; margin-top: 3px;margin-left: 15px; font-family: Lato, sans-serif; font-size: 14px; text-align: justify; }';       
         }
 }
 
@@ -354,17 +385,17 @@ function HideContactsBar(show = false)
 {
     if (show)
         {
-             document.getElementById("hideContacts").checked = false;
+             $("#hideContacts").prop("checked", false);
         }
     else
     {
-        if(!document.getElementById("hideContacts").checked)
+        if(!$("#hideContacts").prop("checked"))
         {
-            document.getElementById("hideContacts").checked = true;
+            $("#hideContacts").prop("checked", true);
         }
         else
         {
-            document.getElementById("hideContacts").checked = false;
+            $("#hideContacts").prop("checked", false);
         }
     }
     
@@ -376,12 +407,35 @@ function SubmitFormEnter(pressedKey)
     if ((window.event ? event.keyCode : e.which) == 13)
         {
             event.preventDefault();
-            var SubmitFunction = document.getElementById("submitText").onclick;
-            SubmitFunction();
+            document.getElementById("submitText").click();
         }
 }
 
 
+function searchContacts(a) {
+    var value = this.value.toLowerCase().trim();
+    $("#contactSection .contact").each(function () {    
+            var id = $(this).html().toLowerCase().trim();
+            var not_found = (id.indexOf(value) == -1);
+            $(this).toggle(!not_found);
+    });
+}
+
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 grabSession();
+$(document).ready(function() {
+    $("#messageBoxForm").on("submit",function(e){
+        e.preventDefault();
+    });
+    $(".searchContacts").on("keyup", searchContacts);
+    $('#chat_input').on("focus", function() {
+        $(".chat")[0].scrollTop = $(".chat")[0].scrollHeight;
+    });
+    $(window).on('resize', function() {
+        if ($('#chat_input').is(':focus')) {
+            $(".chat")[0].scrollTop = $(".chat")[0].scrollHeight;
+        }
+    });
+    HideContactsBar(true);
+})
