@@ -1,5 +1,0 @@
-//        $DB = 'localhost:1521/ptr';
-//        $DB_USER = 'ptr';
-//        $DB_PASS = 'ptr';
-//        $DB_CHAR = 'AL32UTF8';
-//        $conn = oci_connect($DB_USER, $DB_PASS, $DB, $DB_CHAR);
