@@ -34,8 +34,3 @@ A fluid web based business management system built using PHP, jQuery and Oracle 
 * **Micheal Phong** - *Basic front-end and back-end*
 * **Elias Mehari** - *Basic front-end and back-end*
 
-## Acknowledgments
-
-* Hat tip to anyone who's code was used
-* Inspiration
-* etc
