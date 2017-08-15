@@ -1,6 +1,6 @@
 # PTR - A payroll, time and resource management system
 
-A fluid web based business management system built using PHP, jQuery and Oracle RDBMS created for the final year unit of the bachelor of Information Technology
+A responsive web based business management system built using PHP, jQuery and Oracle RDBMS created for the final year unit of the bachelor of Information Technology
 
 ## Screenshots
 
